@@ -15,6 +15,11 @@
 #'       \item \code{fa_scores_rotated}: numerical matrix with the row scores for each varimax rotated factor
 #'     }
 #'
+#' @references
+#'
+#' H. F. Kaiser, "The Application of Electronic Computers to Factor Analysis,"
+#' Educational and Psychological Measurement, 1960.
+#'
 #' @seealso
 #'
 #' \code{\link{horns_curve}} for computing the average eigenvalues used for \code{hc_points} argument
@@ -86,10 +91,17 @@ factor_analysis <- function(data, hc_points) {
 
 #' Easy Access to Factor Analysis Results
 #'
-#' \code{factor_analysis_result} Provies easy access to factor analysis results
+#' \code{factor_analysis_result} Provides easy access to factor analysis results
 #'
 #' @param data list output from \code{factor_analysis}
-#' @param results factor analysis results to extract (i.e. fa_loadings, fa_scores).
+#' @param results factor analysis results to extract:
+#'     \enumerate{
+#'       \item \code{fa_loadings}
+#'       \item \code{fa_scores}
+#'       \item \code{fa_loadings_rotated}
+#'       \item \code{fa_scores_rotated}
+#'     }
+#'
 #'
 #' @return Returns the one of the selected results:
 #'     \enumerate{
@@ -98,10 +110,6 @@ factor_analysis <- function(data, hc_points) {
 #'       \item \code{fa_loadings_rotated}: numerical matrix with the varimax rotated factor loadings
 #'       \item \code{fa_scores_rotated}: numerical matrix with the row scores for each varimax rotated factor
 #'     }
-#'
-#' @references
-#'
-#' H. F. Kaiser, "The Application of Electronic Computers to Factor Analysis," Educational and Psychological Measurement, 1960.
 #'
 #' @seealso
 #'
@@ -117,7 +125,7 @@ factor_analysis <- function(data, hc_points) {
 #' library(magrittr)
 #' horns_curve(N, p) %>%
 #'   factor_analysis(x, hc_points = .) %>%
-#'   factor_Analysis_results(fa_scores_rotated)
+#'   factor_analysis_results(fa_scores_rotated)
 #'
 #' @export
 
