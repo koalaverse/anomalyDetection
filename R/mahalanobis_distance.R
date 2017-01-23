@@ -5,13 +5,19 @@
 #' the scale between variables.
 #'
 #' @param data numeric data
+#' @param output character vector stating the results to be returned. Can be "md"
+#' to return the Mahalanobis distances, "bd" to return the absolute breakdown
+#' distances (used to see which columns drive the Mahalanobis distance), or "both"
+#' to return both md and bd values.
+#' @param normalize logical value of either \code{TRUE} or \code{FALSE}. If \code{TRUE}
+#' will normalize the breakdown distances within each variable so that breakdown distances
+#' across variables can be compared.
 #'
-#' @return A list containing:
+#' @return Depending on the \code{output} parameter, the output will return either:
 #'     \enumerate{
 #'       \item \code{md}: vector of Mahalanobis distances, one for each matrix row
-#'       \item \code{md_sort}: sorted vector of Mahalanobis distances
-#'       \item \code{md_index}: ordering index vector
 #'       \item \code{bd}: matrix of the absolute values of the breakdown distances; used to see which columns drive the Mahalanobis distance
+#'       \item \code{both}: matrix containing both Mahalanobis and breakdown distances
 #'     }
 #'
 #' @references
@@ -21,20 +27,44 @@
 #' Reliability and Security, 2006.
 #'
 #' @examples
-#'
+#' \dontrun{
+#' library(dplyr)
 #' x <- data.frame(C1 = rnorm(100), C2 = rnorm(100), C3 = rnorm(100))
-#' mahalanobis_distance(x)
+#'
+#' # add Mahalanobis distance results to data frame
+#' x %>%
+#'   mutate(MD = mahalanobis_distance(x))
+#'
+#' # add Mahalanobis distance and breakdown distance results to data frame
+#' x %>%
+#'   cbind(mahalanobis_distance(x, "both"))
+#'
+#' # add Mahalanobis distance and normalized breakdown distance results to data frame
+#' x %>%
+#'   cbind(mahalanobis_distance(x, "both", normalize = TRUE))
+#' }
 #'
 #' @export
 
-mahalanobis_distance <- function(data) {
+mahalanobis_distance <- function(data, output = "md", normalize = FALSE) {
+
+  # return error if parameters are missing
+  if(missing(data)) {
+    stop("Missing data argument", call. = FALSE)
+  }
+  if(output != "md" & output != "bd" & output != "both") {
+    stop("Invalid output argument; must be 'md', 'bd', or 'both'", call. = FALSE)
+  }
+  if(normalize != TRUE & normalize != FALSE) {
+    stop("Invalid normalize argument; must be TRUE or FALSE", call. = FALSE)
+  }
 
   data <- as.matrix(data)
   N <- nrow(data)
   M <- ncol(data)
   md <- as.vector(rep(0,N),mode = "numeric")
   bd <- matrix(rep(0,N), nrow = N, ncol = M)
-  C <- cov(data)
+  C <- stats::cov(data)
   IC <- MASS::ginv(C)
   CM <- as.matrix(colMeans(data))
 
@@ -45,98 +75,24 @@ mahalanobis_distance <- function(data) {
     bd[i,] <- abs(D / sqrt(diag(C)))
   }
 
-  colnames(bd) <- colnames(data)
+  if(isTRUE(normalize)) {
+    bd <- bd %*% diag(1 / colSums(data))
+  }
 
-  tmp <- sort(md, decreasing = TRUE, index.return = TRUE)
-  md_sort <- tmp$x
-  md_index <- tmp$ix
-
-  output <- list(md = md,
-                 md_sort = md_sort,
-                 md_index = md_index,
+  colnames(bd) <- paste(colnames(data), "BD", sep = "_")
+  output_list <- list(md = md,
                  bd = bd)
+
+  if(output == "md") {
+    output <- output_list$md
+  } else if(output == "bd") {
+    output <- output_list$bd
+  } else {
+    output <- cbind(output_list$md, output_list$bd)
+    colnames(output) <- c("MD", paste(colnames(data), "BD", sep = "_"))
+  }
 
   return(output)
 
-}
-
-
-#' Easy Access to Mahalanobis Distance Results
-#'
-#' \code{mahalanobis_distance_result} Provides easy access to Mahalanobis Distance results
-#'
-#' @param data list output from \code{mahalanobis_distance}
-#' @param results Mahalanobis Distance results to extract:
-#'     \enumerate{
-#'       \item \code{md}
-#'       \item \code{md_sort}
-#'       \item \code{md_index}
-#'       \item \code{bd}
-#'     }
-#'
-#'
-#' @return Returns the one of the selected results:
-#'     \enumerate{
-#'       \item \code{md}: vector of Mahalanobis distances, one for each matrix row
-#'       \item \code{md_sort}: sorted vector of Mahalanobis distances
-#'       \item \code{md_index}: ordering index vector
-#'       \item \code{bd}: matrix of the absolute values of the breakdown distances; used to see which columns drive the Mahalanobis distance
-#'     }
-#'
-#' @seealso
-#'
-#' \code{\link{mahalanobis_distance}} for computing the Mahalanobis Distance results
-#'
-#' @examples
-#'
-#' # An efficient means for getting Mahalanobis Distance results
-#' library(magrittr)
-#' x <- data.frame(C1 = rnorm(100), C2 = rnorm(100), C3 = rnorm(100))
-#' mahalanobis_distance(x) %>%
-#'   mahalonbis_distance_results(bd)
-#'
-#' @export
-
-mahalanobis_distance_results <- function(data, results) {
-
-  # return error if parameters are missing
-  if(missing(data)) {
-    stop("Missing argument N argument", call. = FALSE)
-  }
-  if(missing(results)) {
-    stop("Missing argument p argument", call. = FALSE)
-  }
-
-  data[[deparse(substitute(results))]]
-}
-
-
-#' Normalizing Mahalanobis Breakdown Distances
-#'
-#' \code{bd_normalizer} Provides efficient normalization of Mahalanobis Breakdown
-#' Distances
-#'
-#' @param data breakdown distances from \code{mahalanobis_distance}
-#'
-#' @return Returns matrix of same size as \code{data} input
-#'
-#' @seealso
-#'
-#' \code{\link{mahalanobis_distance}} for computing the Mahalanobis Breakdown Distance results
-#' \code{\link{mahalanobis_distance_results}} for retrieving the Mahalanobis Breakdown Distance results
-#'
-#' @examples
-#'
-#' # An efficient means for getting Mahalanobis Distance results
-#' library(magrittr)
-#' x <- data.frame(C1 = rnorm(100), C2 = rnorm(100), C3 = rnorm(100))
-#' mahalanobis_distance(x) %>%
-#'   mahalonbis_distance_results(bd) %>%
-#'   bd_normalizer()
-#'
-#' @export
-
-bd_normalizer <- function(data) {
-  data %*% diag(1 / colSums(data))
 }
 

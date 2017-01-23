@@ -17,6 +17,7 @@
 #'
 #' @examples
 #'
+#' \dontrun{
 #' # Perform Horn's Parallel analysis with matrix \code{x} dimensions
 #' x <- matrix(rnorm(200*3), ncol = 10)
 #' N <- nrow(x)
@@ -25,7 +26,8 @@
 #'
 #' # Graph the scree line for a dimensionality assessment
 #' curvepoints <- horns_curve(N, p)
-#'plot(curvepoints)
+#' plot(curvepoints)
+#' }
 #'
 #'@export
 
@@ -43,8 +45,8 @@ horns_curve <- function(N, p) {
   Eigvals_master <- matrix(0, K, p)
 
   for (i in 1:K){
-    M <- matrix(rnorm(N*p),N,p)
-    C <- cov(M)
+    M <- matrix(stats::rnorm(N*p),N,p)
+    C <- stats::cov(M)
     Eigvals_C <- eigen(C)$values
     tmp <- sort(Eigvals_C, decreasing = TRUE)
     Eigvals_master[i,] <- tmp

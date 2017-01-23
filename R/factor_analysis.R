@@ -26,12 +26,14 @@
 #'
 #' @examples
 #'
+#' \dontrun{
 #'# Perform Factor Analysis with matrix \code{x}
 #' x <- matrix(rnorm(200*3), ncol = 10)
 #' N <- nrow(x)
 #' p <- ncol(x)
 #' curvepoints <- horns_curve(N, p)
 #' factor_analysis(x, curvepoints)
+#' }
 #'
 #'@export
 
@@ -48,11 +50,11 @@ factor_analysis <- function(data, hc_points) {
   data <- as.matrix(data)
   N <- nrow(data)
   M <- ncol(data)
-  R <- cor(data)
+  R <- stats::cor(data)
   tmp <- eigen(R)
   tmp2 <- sort(tmp$values, decreasing = TRUE, index.return = TRUE)
   eigval <- tmp2$x
-  eigvec <- tmp$vectors[,order(tmp2$ix)]
+  eigvec <- tmp$vectors[, order(tmp2$ix)]
 
   # dimensionality assessment - finds the number of factors needed to account for
   # the variance in the data
@@ -60,7 +62,7 @@ factor_analysis <- function(data, hc_points) {
 
   xbar <- colMeans(data)
   Xd <- data - matrix(1, N, 1) %*% t(xbar)
-  v <- diag(M) * diag(1 / sqrt(var(data)))
+  v <- diag(M) * diag(1 / sqrt(stats::var(data)))
   Xs <- Xd %*% v
 
   eigval2 <- eigval[1:num_factors]
@@ -74,7 +76,7 @@ factor_analysis <- function(data, hc_points) {
   # generalized inverse is necessary to avoid matrix close to singularity
   fa_scores <- Xs %*% MASS::ginv(R) %*% lambda_mat
 
-  rotation <- varimax(lambda_mat)
+  rotation <- stats::varimax(lambda_mat)
   B <- lambda_mat %*% rotation$rotmat
   fa_scores_rotated <- Xs %*% MASS::ginv(R) %*% B
 

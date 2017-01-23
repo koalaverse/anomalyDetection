@@ -2,13 +2,12 @@ Package: anomalyDetection
 Type: Package
 Title: Implementation of Augmented Network Log Anomoly Detection Procedures
 Version: 0.1.0
-Author: Authors@R: c(
-    person("Bradley", "Boehmke", email = "bradleyboehmke@gmail.com", role = c("aut", "cre")),
-    person("Robert", "Gutierrez", email = "rjgutierrez2015@gmail.com", role = c("aut", "cre"),
+Author: Authors@R: c( person("Bradley", "Boehmke", email =
+    "bradleyboehmke@gmail.com", role = c("aut", "cre")), person("Robert",
+    "Gutierrez", email = "rjgutierrez2015@gmail.com", role = c("aut", "cre"),
     person("Kenneth", "Bauer", email = "kenneth.bauer@afit.edu", role = c("ctb"),
     person("Trevor", "Bihl", email = "trevor.bihl.2@us.af.mil", role = c("ctb"),
-    person("Cade", "Saie", email = "cade.m.saie.mil@mail.mil", role = c("ctb"))
-    )
+    person("Cade", "Saie", email = "cade.m.saie.mil@mail.mil", role = c("ctb")) )
 Maintainer: Bradley Boehmke <bradleyboehmke@gmail.com>
 Date: 2017-02-01
 Description: Implements procedures to aid in detecting network log anomolies.
@@ -17,10 +16,14 @@ Description: Implements procedures to aid in detecting network log anomolies.
     suspected anomalies requiring further evaluation.
 URL: https://github.com/bradleyboehmke/anomalyDetection
 BugReports: https://github.com/bradleyboehmke/anomalyDetection/issues
-License: MIT + file LICENSE
+License: CC0
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 2.10)
+Depends:
+    R (>= 2.10)
 Imports:
+    stats,
     MASS,
-    magrittr
+    magrittr,
+    dplyr
+RoxygenNote: 5.0.1
