@@ -47,7 +47,7 @@ bd_row <- function(data, row, n = NULL) {
   if(row %in% 1:nrow(data) == FALSE) {
     stop("Invalid row argument", call. = FALSE)
   }
-  if(n %in% 1:ncol(data) == FALSE) {
+  if(!isTRUE(n %in% 1:ncol(data)) & !is.null(n)) {
     stop("Invalid n argument", call. = FALSE)
   }
 

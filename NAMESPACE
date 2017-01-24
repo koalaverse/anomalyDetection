@@ -2,6 +2,7 @@
 
 export(factor_analysis)
 export(factor_analysis_results)
+export(get_all_factors)
 export(horns_curve)
 export(kaisers_index)
 export(mahalanobis_distance)

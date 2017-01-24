@@ -25,5 +25,7 @@ Imports:
     stats,
     MASS,
     magrittr,
-    dplyr
+    plyr,
+    dplyr,
+    gmp
 RoxygenNote: 5.0.1
