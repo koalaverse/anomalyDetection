@@ -1,5 +1,6 @@
-#' Tabulate State Vector
+#' @title Tabulate State Vector
 #'
+#' @description
 #' \code{tabulate_state_vector} divides data into blocks, where each block is
 #' defined by descriptive statistics. Taking a contingency table approach, this
 #' function separates variables of type factor into their unique factor levels

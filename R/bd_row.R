@@ -1,5 +1,6 @@
-#' Breakdown for Mahalanobis Distance
+#' @title Breakdown for Mahalanobis Distance
 #'
+#' @description
 #' \code{bd_row} indicates which variables in data are driving the Mahalanobis
 #' distance for a specific row \code{r}, relative to the mean vector of the data.
 #'

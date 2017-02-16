@@ -1,5 +1,6 @@
-#' Multi-Collinearity Adjustment
+#' @title Multi-Collinearity Adjustment
 #'
+#' @description
 #' \code{mc_adjust} handles issues with multi-collinearity.
 #'
 #' @param data data

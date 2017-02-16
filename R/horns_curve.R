@@ -1,5 +1,6 @@
-#' Horn's Parallel Analysis
+#' @title Horn's Parallel Analysis
 #'
+#' @description
 #' \code{horns_curve} computes the average eigenvalues produced by a Monte Carlo
 #' simulation that randomly generates a large number of matrices of size \code{N} x \code{p},
 #' where each element is drawn from a standard normal probability distribution.

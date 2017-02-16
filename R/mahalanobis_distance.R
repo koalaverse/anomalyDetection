@@ -1,5 +1,6 @@
-#' Mahalanobis Distance
+#' @title Mahalanobis Distance
 #'
+#' @description
 #' \code{mahalanobis_distance} calculates the distance between the elements in data and
 #' the mean vector of the data for outlier detection. Values are independent of
 #' the scale between variables.
@@ -25,6 +26,8 @@
 #' W. Wang and R. Battiti, "Identifying Intrusions in Computer Networks with
 #' Principal Component Analysis," in First International Conference on Availability,
 #' Reliability and Security, 2006.
+#'
+#' @importFrom magrittr %>%
 #'
 #' @examples
 #' \dontrun{

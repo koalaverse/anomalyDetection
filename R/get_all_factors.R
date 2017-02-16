@@ -1,5 +1,6 @@
-#' Find All Factors
+#' @title Find All Factors
 #'
+#' @description
 #' \code{get_all_factors} finds all factor pairs for a given integer (i.e. a number
 #' that divides evenly into another number).
 #'

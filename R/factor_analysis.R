@@ -1,5 +1,6 @@
-#' Factor Analysis with Varimax Rotation
+#' @title Factor Analysis with Varimax Rotation
 #'
+#' @description
 #' \code{factor_analysis} Reduces the structure of the data by relating the
 #' correlation between variables to a set of factors, using the eigen-decomposition
 #' of the correlation matrix.
@@ -62,7 +63,7 @@ factor_analysis <- function(data, hc_points) {
 
   xbar <- colMeans(data)
   Xd <- data - matrix(1, N, 1) %*% t(xbar)
-  v <- diag(M) * diag(1 / sqrt(stats::var(data)))
+  v <- suppressWarnings(diag(M) * diag(1 / sqrt(stats::var(data))))
   Xs <- Xd %*% v
 
   eigval2 <- eigval[1:num_factors]

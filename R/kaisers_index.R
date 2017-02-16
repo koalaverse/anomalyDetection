@@ -1,10 +1,10 @@
-#' Kaiser's Index of Factorial Simplicity
+#' @title Kaiser's Index of Factorial Simplicity
 #'
+#' @description
 #' \code{kaisers_index} computes scores designed to assess the quality of a factor
 #' analysis solution. It measures the tendency towards unifactoriality for both
 #' a given row and the entire matrix as a whole. Kaiser proposed the evaluations
-#' of the score shown below. Use as basis for selecting original or
-#' rotated loadings/scores in Factor_Analysis().
+#' of the score shown below:
 #'
 #'     \enumerate{
 #'       \item In the .90s: Marvelous
@@ -14,6 +14,9 @@
 #'       \item In the .50s: Miserable
 #'       \item < .50: Unacceptable
 #'     }
+#'
+#' Use as basis for selecting original or rotated loadings/scores in
+#' \code{factor_analysis}.
 #'
 #' @param loadings numerical matrix of the factor loadings
 #'
@@ -27,6 +30,8 @@
 #'
 #' \code{\link{factor_analysis}} for computing the factor analysis loadings
 #'
+#' @importFrom magrittr %>%
+#'
 #' @examples
 #' \dontrun{
 #' # Perform Factor Analysis with matrix \code{x}
@@ -37,7 +42,7 @@
 #' #' library(magrittr)
 #' horns_curve(N, p) %>%
 #'   factor_analysis(x, hc_points = .) %>%
-#'   factor_Analysis_results(fa_loadings_rotated) %>%
+#'   factor_analysis_results(fa_loadings_rotated) %>%
 #'   kaisers_index()
 #' }
 #'
