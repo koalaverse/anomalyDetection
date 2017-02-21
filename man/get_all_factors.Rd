@@ -26,4 +26,3 @@ that divides evenly into another number).
 get_all_factors(39304)
 
 }
-

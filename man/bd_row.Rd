@@ -47,4 +47,3 @@ x \%>\%
 \seealso{
 \code{\link{mahalanobis_distance}} for computing the Mahalanobis Distance values
 }
-

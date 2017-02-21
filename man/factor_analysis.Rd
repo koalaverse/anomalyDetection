@@ -21,20 +21,19 @@ A list containing:
     }
 }
 \description{
-\code{factor_analysis} Reduces the structure of the data by relating the
+\code{factor_analysis} reduces the structure of the data by relating the
 correlation between variables to a set of factors, using the eigen-decomposition
 of the correlation matrix.
 }
 \examples{
 
-\dontrun{
 # Perform Factor Analysis with matrix \\code{x}
 x <- matrix(rnorm(200*3), ncol = 10)
 N <- nrow(x)
 p <- ncol(x)
-curvepoints <- horns_curve(N, p)
-factor_analysis(x, curvepoints)
-}
+
+horns_curve(N, p) \%>\%
+  factor_analysis(x, hc_points = .)
 
 }
 \references{
@@ -44,4 +43,3 @@ Educational and Psychological Measurement, 1960.
 \seealso{
 \code{\link{horns_curve}} for computing the average eigenvalues used for \code{hc_points} argument
 }
-

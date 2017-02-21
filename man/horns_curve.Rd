@@ -39,4 +39,3 @@ plot(curvepoints)
 \references{
 J. L. Horn, "A rationale and test for the number of factors in factor analysis," Psychometrika, vol. 30, no. 2, pp. 179-185, 1965.
 }
-

@@ -4,18 +4,19 @@
 \alias{factor_analysis_results}
 \title{Easy Access to Factor Analysis Results}
 \usage{
-factor_analysis_results(data, results)
+factor_analysis_results(data, results = fa_loadings)
 }
 \arguments{
 \item{data}{list output from \code{factor_analysis}}
 
-\item{results}{factor analysis results to extract:
-\enumerate{
-  \item \code{fa_loadings}
-  \item \code{fa_scores}
-  \item \code{fa_loadings_rotated}
-  \item \code{fa_scores_rotated}
-}}
+\item{results}{factor analysis results to extract. Can use either results
+name or number (i.e. fa_scores or 2)::
+  \enumerate{
+    \item \code{fa_loadings} (default)
+    \item \code{fa_scores}
+    \item \code{fa_loadings_rotated}
+    \item \code{fa_scores_rotated}
+  }}
 }
 \value{
 Returns the one of the selected results:
@@ -36,7 +37,6 @@ x <- matrix(rnorm(200*3), ncol = 10)
 N <- nrow(x)
 p <- ncol(x)
 
-library(magrittr)
 horns_curve(N, p) \%>\%
   factor_analysis(x, hc_points = .) \%>\%
   factor_analysis_results(fa_scores_rotated)
@@ -45,4 +45,3 @@ horns_curve(N, p) \%>\%
 \seealso{
 \code{\link{factor_analysis}} for computing the factor analysis results
 }
-

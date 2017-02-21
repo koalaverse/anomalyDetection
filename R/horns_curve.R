@@ -2,15 +2,18 @@
 #'
 #' @description
 #' \code{horns_curve} computes the average eigenvalues produced by a Monte Carlo
-#' simulation that randomly generates a large number of matrices of size \code{N} x \code{p},
-#' where each element is drawn from a standard normal probability distribution.
-#' The values can then be plotted or compared to the true eigenvalues of a dataset
-#' for a dimensionality assessment.
+#'   simulation that randomly generates a large number of matrices of size \code{n} x \code{p},
+#'   where each element is drawn from a standard normal probability distribution. If a
+#'   data matrix or data frame is supplied \code{n} and \code{p} will be extracted from
+#'   the data dimensions.  Otherwise, \code{n} and \code{p} must be supplied.
 #'
-#' @param N integer value
-#' @param p integer value
+#' @param data numeric data
+#' @param n integer value (default = NULL)
+#' @param p integer value (default = NULL)
 #'
-#' @return A vector of length \code{p} with the computed average eigenvalues
+#' @return A vector of length \code{p} with the computed average eigenvalues. The
+#'   values can then be plotted or compared to the true eigenvalues of a dataset
+#'   for a dimensionality assessment.
 #'
 #' @references
 #'

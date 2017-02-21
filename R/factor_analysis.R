@@ -1,7 +1,7 @@
 #' @title Factor Analysis with Varimax Rotation
 #'
 #' @description
-#' \code{factor_analysis} Reduces the structure of the data by relating the
+#' \code{factor_analysis} reduces the structure of the data by relating the
 #' correlation between variables to a set of factors, using the eigen-decomposition
 #' of the correlation matrix.
 #'
@@ -27,16 +27,15 @@
 #'
 #' @examples
 #'
-#' \dontrun{
-#'# Perform Factor Analysis with matrix \code{x}
+#' # Perform Factor Analysis with matrix \code{x}
 #' x <- matrix(rnorm(200*3), ncol = 10)
 #' N <- nrow(x)
 #' p <- ncol(x)
-#' curvepoints <- horns_curve(N, p)
-#' factor_analysis(x, curvepoints)
-#' }
 #'
-#'@export
+#' horns_curve(N, p) %>%
+#'   factor_analysis(x, hc_points = .)
+#'
+#' @export
 
 factor_analysis <- function(data, hc_points) {
 
@@ -97,9 +96,10 @@ factor_analysis <- function(data, hc_points) {
 #' \code{factor_analysis_result} Provides easy access to factor analysis results
 #'
 #' @param data list output from \code{factor_analysis}
-#' @param results factor analysis results to extract:
+#' @param results factor analysis results to extract. Can use either results
+#'   name or number (i.e. fa_scores or 2)::
 #'     \enumerate{
-#'       \item \code{fa_loadings}
+#'       \item \code{fa_loadings} (default)
 #'       \item \code{fa_scores}
 #'       \item \code{fa_loadings_rotated}
 #'       \item \code{fa_scores_rotated}
@@ -125,24 +125,32 @@ factor_analysis <- function(data, hc_points) {
 #' N <- nrow(x)
 #' p <- ncol(x)
 #'
-#' library(magrittr)
 #' horns_curve(N, p) %>%
 #'   factor_analysis(x, hc_points = .) %>%
 #'   factor_analysis_results(fa_scores_rotated)
 #'
 #' @export
 
-factor_analysis_results <- function(data, results) {
+factor_analysis_results <- function(data, results = fa_loadings) {
+
+  result_input <- deparse(substitute(results))
+  result_options <- names(data)
 
   # return error if parameters are missing
   if(missing(data)) {
-    stop("Missing argument N argument", call. = FALSE)
+    stop("Missing argument: data argument", call. = FALSE)
   }
-  if(missing(results)) {
-    stop("Missing argument p argument", call. = FALSE)
+  if(missing(result_input)) {
+    stop("Missing argument: results argument", call. = FALSE)
   }
 
-  data[[deparse(substitute(results))]]
+  if(result_input %in% paste(1:4)) {
+    data[[results]]
+  } else if(result_input %in% result_options) {
+    data[[result_input]]
+  } else {
+    stop("Invalid results argument: see ?factor_analysis_results for options", call. = FALSE)
+  }
 }
 
 

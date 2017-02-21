@@ -55,4 +55,3 @@ W. Wang and R. Battiti, "Identifying Intrusions in Computer Networks with
 Principal Component Analysis," in First International Conference on Availability,
 Reliability and Security, 2006.
 }
-
