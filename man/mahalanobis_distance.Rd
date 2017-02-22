@@ -27,9 +27,9 @@ Depending on the \code{output} parameter, the output will return either:
     }
 }
 \description{
-\code{mahalanobis_distance} calculates the distance between the elements in data and
-the mean vector of the data for outlier detection. Values are independent of
-the scale between variables.
+\code{mahalanobis_distance} calculates the distance between the elements in data
+  and the mean vector of the data for outlier detection. Values are independent
+  of the scale between variables.
 }
 \examples{
 \dontrun{

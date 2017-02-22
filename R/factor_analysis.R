@@ -29,10 +29,9 @@
 #'
 #' # Perform Factor Analysis with matrix \code{x}
 #' x <- matrix(rnorm(200*3), ncol = 10)
-#' N <- nrow(x)
-#' p <- ncol(x)
 #'
-#' horns_curve(N, p) %>%
+#' x %>%
+#'   horns_curve() %>%
 #'   factor_analysis(x, hc_points = .)
 #'
 #' @export
@@ -41,10 +40,10 @@ factor_analysis <- function(data, hc_points) {
 
   # return error if parameters are missing
   if(missing(data)) {
-    stop("Missing argument N argument", call. = FALSE)
+    stop("Missing argument: data argument", call. = FALSE)
   }
   if(missing(hc_points)) {
-    stop("Missing argument p argument", call. = FALSE)
+    stop("Missing argument: hc_points argument", call. = FALSE)
   }
 
   data <- as.matrix(data)
@@ -125,7 +124,8 @@ factor_analysis <- function(data, hc_points) {
 #' N <- nrow(x)
 #' p <- ncol(x)
 #'
-#' horns_curve(N, p) %>%
+#' x %>%
+#'   horns_curve() %>%
 #'   factor_analysis(x, hc_points = .) %>%
 #'   factor_analysis_results(fa_scores_rotated)
 #'

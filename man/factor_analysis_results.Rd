@@ -37,7 +37,8 @@ x <- matrix(rnorm(200*3), ncol = 10)
 N <- nrow(x)
 p <- ncol(x)
 
-horns_curve(N, p) \%>\%
+x \%>\%
+  horns_curve() \%>\%
   factor_analysis(x, hc_points = .) \%>\%
   factor_analysis_results(fa_scores_rotated)
 

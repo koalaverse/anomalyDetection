@@ -8,8 +8,8 @@
 #'   the data dimensions.  Otherwise, \code{n} and \code{p} must be supplied.
 #'
 #' @param data numeric data
-#' @param n integer value (default = NULL)
-#' @param p integer value (default = NULL)
+#' @param n integer value representing number of rows (default = NULL)
+#' @param p integer value representing number of columns (default = NULL)
 #'
 #' @return A vector of length \code{p} with the computed average eigenvalues. The
 #'   values can then be plotted or compared to the true eigenvalues of a dataset
@@ -21,35 +21,41 @@
 #'
 #' @examples
 #'
-#' \dontrun{
-#' # Perform Horn's Parallel analysis with matrix \code{x} dimensions
+#' # Perform Horn's Parallel analysis with matrix n x p dimensions
 #' x <- matrix(rnorm(200*3), ncol = 10)
-#' N <- nrow(x)
-#' p <- ncol(x)
-#' horns_curve(N, p)
+#'
+#' # using data
+#' horns_curve(x)
+#'
+#' # using n & p inputs
+#' horns_curve(x = NULL, n = 25, p = 10)
 #'
 #' # Graph the scree line for a dimensionality assessment
-#' curvepoints <- horns_curve(N, p)
-#' plot(curvepoints)
-#' }
+#' horns_curve(x) %>%
+#'   plot()
 #'
 #'@export
 
-horns_curve <- function(N, p) {
+horns_curve <- function(data, n = NULL, p = NULL) {
 
-  # return error if parameters are missing
-  if(missing(N)) {
-    stop("Missing argument N argument", call. = FALSE)
-  }
-  if(missing(p)) {
-    stop("Missing argument p argument", call. = FALSE)
+  # assign n and p values based on argument inputs
+  if(is.null(data)) {
+    # return error if parameters are missing
+    if(!is.numeric(n) | !is.numeric(p)) {
+      stop("Invalid n or p input type", call. = FALSE)
+    }
+    n <- n
+    p <- p
+  } else {
+    n <- nrow(data)
+    p <- ncol(data)
   }
 
   K <- 1000
   Eigvals_master <- matrix(0, K, p)
 
   for (i in 1:K){
-    M <- matrix(stats::rnorm(N*p),N,p)
+    M <- matrix(stats::rnorm(n * p), n, p)
     C <- stats::cov(M)
     Eigvals_C <- eigen(C)$values
     tmp <- sort(Eigvals_C, decreasing = TRUE)

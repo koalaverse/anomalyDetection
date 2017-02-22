@@ -29,10 +29,9 @@ of the correlation matrix.
 
 # Perform Factor Analysis with matrix \\code{x}
 x <- matrix(rnorm(200*3), ncol = 10)
-N <- nrow(x)
-p <- ncol(x)
 
-horns_curve(N, p) \%>\%
+x \%>\%
+  horns_curve() \%>\%
   factor_analysis(x, hc_points = .)
 
 }

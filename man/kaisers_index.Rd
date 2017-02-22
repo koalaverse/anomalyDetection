@@ -31,18 +31,14 @@ Use as basis for selecting original or rotated loadings/scores in
 \code{factor_analysis}.
 }
 \examples{
-\dontrun{
 # Perform Factor Analysis with matrix \\code{x}
 x <- matrix(rnorm(200*3), ncol = 10)
-N <- nrow(x)
-p <- ncol(x)
 
-#' library(magrittr)
-horns_curve(N, p) \%>\%
+x \%>\%
+  horns_curve() \%>\%
   factor_analysis(x, hc_points = .) \%>\%
   factor_analysis_results(fa_loadings_rotated) \%>\%
   kaisers_index()
-}
 
 }
 \references{

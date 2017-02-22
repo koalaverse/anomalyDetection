@@ -23,6 +23,12 @@
 #' @export
 
 get_all_factors <- function(n) {
+
+  # check input type
+  if(!is.numeric(n)) {
+    stop("Invalid n argument: see ?get_all_factors for details", call. = FALSE)
+  }
+
   prime_factor_tables <- lapply(
     stats::setNames(n, n),
     function(i)

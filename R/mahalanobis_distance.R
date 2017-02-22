@@ -1,18 +1,18 @@
 #' @title Mahalanobis Distance
 #'
 #' @description
-#' \code{mahalanobis_distance} calculates the distance between the elements in data and
-#' the mean vector of the data for outlier detection. Values are independent of
-#' the scale between variables.
+#' \code{mahalanobis_distance} calculates the distance between the elements in data
+#'   and the mean vector of the data for outlier detection. Values are independent
+#'   of the scale between variables.
 #'
 #' @param data numeric data
 #' @param output character vector stating the results to be returned. Can be "md"
-#' to return the Mahalanobis distances, "bd" to return the absolute breakdown
-#' distances (used to see which columns drive the Mahalanobis distance), or "both"
-#' to return both md and bd values.
+#'   to return the Mahalanobis distances, "bd" to return the absolute breakdown
+#'   distances (used to see which columns drive the Mahalanobis distance), or "both"
+#'   to return both md and bd values.
 #' @param normalize logical value of either \code{TRUE} or \code{FALSE}. If \code{TRUE}
-#' will normalize the breakdown distances within each variable so that breakdown distances
-#' across variables can be compared.
+#'   will normalize the breakdown distances within each variable so that breakdown distances
+#'   across variables can be compared.
 #'
 #' @return Depending on the \code{output} parameter, the output will return either:
 #'     \enumerate{
