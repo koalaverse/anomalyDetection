@@ -27,5 +27,7 @@ Imports:
     magrittr,
     plyr,
     dplyr,
-    gmp
+    gmp,
+    caret,
+    matrixStats
 RoxygenNote: 6.0.1
