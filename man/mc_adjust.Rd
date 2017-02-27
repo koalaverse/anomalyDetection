@@ -4,7 +4,7 @@
 \alias{mc_adjust}
 \title{Multi-Collinearity Adjustment}
 \usage{
-mc_adjust(data, delta1 = 0.1, delta2 = 0.9)
+mc_adjust(data, delta1 = 0.1, delta2 = 0.9, action = exclude)
 }
 \arguments{
 \item{data}{numeric data}
@@ -12,6 +12,13 @@ mc_adjust(data, delta1 = 0.1, delta2 = 0.9)
 \item{delta1}{numeric value between 0-1 for the column variance (default = 0.1)}
 
 \item{delta2}{numeric value between 0-1 for the correlation values (default = 0.9)}
+
+\item{action}{select action for handling columns causing multi-collinearity issues
+\enumerate{
+   \item \code{exclude}: exclude all columns causing multi-collinearity issues (default)
+   \item \code{select}: identify the columns causing multi-collinearity issues
+     and allow the user to interactively select those columns to remove
+ }}
 }
 \value{
 
