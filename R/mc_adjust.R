@@ -3,9 +3,9 @@
 #' @description
 #' \code{mc_adjust} handles issues with multi-collinearity.
 #'
-#' @param data numeric data
-#' @param delta1 numeric value between 0-1 for the column variance (default = 0.1)
-#' @param delta2 numeric value between 0-1 for the correlation values (default = 0.9)
+#' @param data named numeric data object (either data frame or matrix)
+#' @param min_var numeric value between 0-1 for the minimum acceptable variance (default = 0.1)
+#' @param max_cor numeric value between 0-1 for the maximum acceptable correlation (default = 0.9)
 #' @param action select action for handling columns causing multi-collinearity issues
 #'    \enumerate{
 #'       \item \code{exclude}: exclude all columns causing multi-collinearity issues (default)
@@ -16,23 +16,35 @@
 #' @details
 #'
 #' \code{mc_adjust} handles issues with multi-collinearity by first removing
-#' any columns whose variance is close to \eqn{0 + Δ1}. Then, it removes linearly
-#' dependent columns. Finally, it removes any columns that have a high absolute
-#' correlation value between \eqn{1 - Δ2} and \eqn{1}.
+#'   any columns whose variance is close to or less than \code{min_var}. Then, it
+#'   removes linearly dependent columns. Finally, it removes any columns that have
+#'   a high absolute correlation value equal to or greater than \code{max_cor}.
 #'
 #' @return
-#'
+#' \code{mc_adjust} returns the numeric data object supplied minus variables
+#'   violating the minimum acceptable variance (\code{min_var}) and the
+#'   maximum acceptable correlation (\code{max_cor}) levels.
 #'
 #'
 #' @examples
+#' x <- matrix(runif(100), ncol = 10)
+#' x %>%
+#'   mc_adjust()
 #'
+#' x %>%
+#'   mc_adjust(min_var = .15, max_cor = .75, action = "select")
 #'
 #' @export
 
-mc_adjust <- function(data, delta1 = 0.1, delta2 = 0.9, action = exclude){
+mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
+
+  # add argument validation
+  if(is.null(colnames(data))) {
+    colnames(data) <- paste0("var", 1:ncol(data))
+  }
 
   # remove any columns with minimal variance
-  col2rmv <- which(matrixStats::colVars(data) < delta1)
+  col2rmv <- which(matrixStats::colVars(data) < min_var)
   if(length(col2rmv) > 0) {
     newdata <- subset(data, select = -col2rmv)
   } else {
@@ -47,7 +59,7 @@ mc_adjust <- function(data, delta1 = 0.1, delta2 = 0.9, action = exclude){
 
   # identify columns with strong correlation
   C <- cor(newdata)
-  samp <- data.frame(which(apply(abs(C), MARGIN = 2, function(x) dplyr::between(x, delta2, 1.0)), arr.ind = TRUE))
+  samp <- data.frame(which(apply(abs(C), MARGIN = 2, function(x) dplyr::between(x, max_cor, 1.0)), arr.ind = TRUE))
   mylist <- data.frame(matrix(nrow = nrow(C), ncol = 2))
   colnames(mylist) <- c("num", "name")
   mylist[,1] <- 1:ncol(C)
@@ -56,7 +68,54 @@ mc_adjust <- function(data, delta1 = 0.1, delta2 = 0.9, action = exclude){
   col2rmv <- which(colnames(newdata) %in% temp[duplicated(temp)])
 
   # remove strong correlation columns
-  if(length(col2rmv) > 0) newdata <- subset(newdata, select = -col2rmv)
+  if(action == "exclude" & length(col2rmv) > 0) {
+    if(length(col2rmv) == ncol(data)) {
+      stop("All variables have been removed based on the max_cor\n",
+           "level. Consider adjusting maximum acceptable correlation\n",
+           "levels to allow for some variables to be retained.")
+    }
+    if(length(col2rmv) > ncol(data)*.5) {
+      message("Over 50% of the variables have been removed based\n",
+              "on the max_cor level.")
+    }
+    newdata <- subset(newdata, select = -col2rmv)
+    newdata
+  } else if(action == "select" & length(col2rmv) > 0) {
+    # create data frame to report high correlated variables
+    options_to_rm <- data.frame(v1 = rownames(C)[row(C)[upper.tri(C)]],
+                                v2 = colnames(C)[col(C)[upper.tri(C)]],
+                                corr = round(C[upper.tri(C)], 3),
+                                stringsAsFactors = FALSE) %>%
+      dplyr::filter(corr >= abs(max_cor))
 
-  return(newdata)
+      message("The following variable pairs exceed the max_cor input:\n")
+
+      for(i in 1:nrow(options_to_rm)) {
+        cat(options_to_rm[i, 1], " & ", options_to_rm[i, 2], " (r = ", options_to_rm[i, 3],")", sep = "")
+        cat("\n")
+      }
+
+      cat("\n")
+
+      # interactive response
+      fun <- function() {
+        answer <- readline("Which variables do you want to remove? ")
+
+        answer <- strsplit(answer, " ")[[1]]
+        while(!all(answer %in% colnames(newdata))){
+          answer <- readline("The names you entered do not all match existing variable names. Please try again. ")
+          answer <- strsplit(answer, " ")[[1]]
+        }
+        answer
+      }
+
+      col2rmv <- if(interactive()) fun()
+
+      newdata <- newdata[, -which(colnames(newdata) %in% col2rmv)]
+      newdata
+
+  } else {
+    newdata
+  }
+
 }

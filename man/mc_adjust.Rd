@@ -4,14 +4,14 @@
 \alias{mc_adjust}
 \title{Multi-Collinearity Adjustment}
 \usage{
-mc_adjust(data, delta1 = 0.1, delta2 = 0.9, action = exclude)
+mc_adjust(data, min_var = 0.1, max_cor = 0.9, action = "exclude")
 }
 \arguments{
-\item{data}{numeric data}
+\item{data}{named numeric data object (either data frame or matrix)}
 
-\item{delta1}{numeric value between 0-1 for the column variance (default = 0.1)}
+\item{min_var}{numeric value between 0-1 for the minimum acceptable variance (default = 0.1)}
 
-\item{delta2}{numeric value between 0-1 for the correlation values (default = 0.9)}
+\item{max_cor}{numeric value between 0-1 for the maximum acceptable correlation (default = 0.9)}
 
 \item{action}{select action for handling columns causing multi-collinearity issues
 \enumerate{
@@ -28,9 +28,9 @@ mc_adjust(data, delta1 = 0.1, delta2 = 0.9, action = exclude)
 }
 \details{
 \code{mc_adjust} handles issues with multi-collinearity by first removing
-any columns whose variance is close to \eqn{0 + Δ1}. Then, it removes linearly
+any columns whose variance is close to or less than \code{min_var}. Then, it removes linearly
 dependent columns. Finally, it removes any columns that have a high absolute
-correlation value between \eqn{1 - Δ2} and \eqn{1}.
+correlation value equal to or greater than \code{max_cor}.
 }
 \examples{
 
