@@ -43,11 +43,36 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
     colnames(data) <- paste0("var", 1:ncol(data))
   }
 
+  if(!is.numeric(min_var) | !is.numeric(max_cor)) {
+    stop("min_var and max_cor must be numeric inputs")
+  }
+
+  if(action != "exclude" & action != "select") {
+    stop("The action argument must be either 'exclude' or 'select'")
+  }
+
   # remove any columns with minimal variance
   col2rmv <- which(matrixStats::colVars(data) < min_var)
   if(length(col2rmv) > 0) {
+
+    # throw error if all columns are removed
+    if(length(col2rmv) == ncol(data)) {
+       stop("All variables have been removed based on the min_var\n",
+            "level. Consider adjusting minimum acceptable variance\n",
+            "levels to allow for some variables to be retained.")
+      }
+
+    # deliver message if over 50% of the variables are being removed
+    if(length(col2rmv) > ncol(data)*.5) {
+      message("Over 50% of the variables have been removed based\n",
+              "on the min_var level.")
+     }
+
+    # subset data to remove minimal variance columns
     newdata <- subset(data, select = -col2rmv)
   } else {
+
+    # no subsetting required if no columns meet the minimal variance threshold
     newdata <- data
   }
 
@@ -69,15 +94,21 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
 
   # remove strong correlation columns
   if(action == "exclude" & length(col2rmv) > 0) {
-    if(length(col2rmv) == ncol(data)) {
+
+    # throw error if all columns are removed
+    if(length(col2rmv) == ncol(newdata)) {
       stop("All variables have been removed based on the max_cor\n",
            "level. Consider adjusting maximum acceptable correlation\n",
            "levels to allow for some variables to be retained.")
     }
-    if(length(col2rmv) > ncol(data)*.5) {
+
+    # deliver message if over 50% of the variables are being removed
+    if(length(col2rmv) > ncol(newdata)*.5) {
       message("Over 50% of the variables have been removed based\n",
               "on the max_cor level.")
     }
+
+    # subset data to remove minimal variance columns
     newdata <- subset(newdata, select = -col2rmv)
     newdata
   } else if(action == "select" & length(col2rmv) > 0) {

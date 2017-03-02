@@ -21,18 +21,25 @@ mc_adjust(data, min_var = 0.1, max_cor = 0.9, action = "exclude")
  }}
 }
 \value{
-
+\code{mc_adjust} returns the numeric data object supplied minus variables
+  violating the minimum acceptable variance (\code{min_var}) and the
+  maximum acceptable correlation (\code{max_cor}) levels.
 }
 \description{
 \code{mc_adjust} handles issues with multi-collinearity.
 }
 \details{
 \code{mc_adjust} handles issues with multi-collinearity by first removing
-any columns whose variance is close to or less than \code{min_var}. Then, it removes linearly
-dependent columns. Finally, it removes any columns that have a high absolute
-correlation value equal to or greater than \code{max_cor}.
+  any columns whose variance is close to or less than \code{min_var}. Then, it
+  removes linearly dependent columns. Finally, it removes any columns that have
+  a high absolute correlation value equal to or greater than \code{max_cor}.
 }
 \examples{
+x <- matrix(runif(100), ncol = 10)
+x \%>\%
+  mc_adjust()
 
+x \%>\%
+  mc_adjust(min_var = .15, max_cor = .75, action = "select")
 
 }
