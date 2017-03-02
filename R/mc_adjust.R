@@ -117,7 +117,7 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
                                 v2 = colnames(C)[col(C)[upper.tri(C)]],
                                 corr = round(C[upper.tri(C)], 3),
                                 stringsAsFactors = FALSE) %>%
-      dplyr::filter(corr >= abs(max_cor))
+      dplyr::filter(abs(corr) >= abs(max_cor))
 
       message("The following variable pairs exceed the max_cor input:\n")
 
