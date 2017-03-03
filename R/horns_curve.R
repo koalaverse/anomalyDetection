@@ -38,11 +38,32 @@
 
 horns_curve <- function(data, n = NULL, p = NULL) {
 
+  # throw error if data AND n or p is supplied
+  if(!is.null(data) & !is.null(n)) {
+    stop("If data is supplied then n and p arguments must be NULL")
+  }
+  if(!is.null(data) & !is.null(p)) {
+    stop("If data is supplied then n and p arguments must be NULL")
+  }
+
+  # throw error if n or p are greater than length 1
+  if(length(n) > 1 | length(p) > 1) {
+    stop("Length of n and p must not exceed 1")
+  }
+
+  # throw error if data is NULL AND n or p is missing
+  if(is.null(data) & missing(n)) {
+    stop("Missing n argument")
+  }
+  if(is.null(data) & missing(p)) {
+    stop("Missing p argument")
+  }
+
   # assign n and p values based on argument inputs
   if(is.null(data)) {
     # return error if parameters are missing
     if(!is.numeric(n) | !is.numeric(p)) {
-      stop("Invalid n or p input type", call. = FALSE)
+      stop("n and p must be numeric", call. = FALSE)
     }
     n <- n
     p <- p

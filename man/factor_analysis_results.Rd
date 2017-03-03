@@ -16,6 +16,7 @@ name or number (i.e. fa_scores or 2)::
     \item \code{fa_scores}
     \item \code{fa_loadings_rotated}
     \item \code{fa_scores_rotated}
+    \item \code{num_factors}
   }}
 }
 \value{
@@ -25,6 +26,7 @@ Returns the one of the selected results:
       \item \code{fa_scores}: numerical matrix with the row scores for each factor
       \item \code{fa_loadings_rotated}: numerical matrix with the varimax rotated factor loadings
       \item \code{fa_scores_rotated}: numerical matrix with the row scores for each varimax rotated factor
+      \item \code{num_factors}: numeric vector identifying the number of factors
     }
 }
 \description{

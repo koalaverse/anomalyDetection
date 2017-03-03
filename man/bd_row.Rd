@@ -27,11 +27,10 @@ distance for a specific row \code{r}, relative to the mean vector of the data.
 }
 \examples{
 \dontrun{
-library(dplyr)
 x = matrix(rnorm(200*3), ncol = 10)
 colnames(x) = paste0("C", 1:ncol(x))
 
-# compute the relative differences for row 5 and all variable
+# compute the relative differences for row 5 and return all variables
 x \%>\%
   mahalanobis_distance("bd", normalize = TRUE) \%>\%
   bd_row(5)

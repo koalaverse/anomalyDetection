@@ -21,11 +21,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' library(dplyr)
 #' x = matrix(rnorm(200*3), ncol = 10)
 #' colnames(x) = paste0("C", 1:ncol(x))
 #'
-#' # compute the relative differences for row 5 and all variable
+#' # compute the relative differences for row 5 and return all variables
 #' x %>%
 #'   mahalanobis_distance("bd", normalize = TRUE) %>%
 #'   bd_row(5)
@@ -46,10 +45,13 @@ bd_row <- function(data, row, n = NULL) {
     stop("Missing data argument", call. = FALSE)
   }
   if(row %in% 1:nrow(data) == FALSE) {
-    stop("Invalid row argument", call. = FALSE)
+    stop("Invalid row value", call. = FALSE)
+  }
+  if(length(row) != 1) {
+    stop("row value must be a single integer", call. = FALSE)
   }
   if(!isTRUE(n %in% 1:ncol(data)) & !is.null(n)) {
-    stop("Invalid n argument", call. = FALSE)
+    stop("Invalid n value", call. = FALSE)
   }
 
 

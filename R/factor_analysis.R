@@ -102,6 +102,7 @@ factor_analysis <- function(data, hc_points) {
 #'       \item \code{fa_scores}
 #'       \item \code{fa_loadings_rotated}
 #'       \item \code{fa_scores_rotated}
+#'       \item \code{num_factors}
 #'     }
 #'
 #'
@@ -111,6 +112,7 @@ factor_analysis <- function(data, hc_points) {
 #'       \item \code{fa_scores}: numerical matrix with the row scores for each factor
 #'       \item \code{fa_loadings_rotated}: numerical matrix with the varimax rotated factor loadings
 #'       \item \code{fa_scores_rotated}: numerical matrix with the row scores for each varimax rotated factor
+#'       \item \code{num_factors}: numeric vector identifying the number of factors
 #'     }
 #'
 #' @seealso
@@ -144,7 +146,7 @@ factor_analysis_results <- function(data, results = fa_loadings) {
     stop("Missing argument: results argument", call. = FALSE)
   }
 
-  if(result_input %in% paste(1:4)) {
+  if(result_input %in% paste(1:5)) {
     data[[results]]
   } else if(result_input %in% result_options) {
     data[[result_input]]

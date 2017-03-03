@@ -45,6 +45,10 @@
 
 kaisers_index <- function(loadings) {
 
+  if(!is.numeric(loadings)) {
+    stop("loadings must be numeric")
+  }
+
   N <- nrow(loadings)
   M <- ncol(loadings)
   t1 <- matrix(0, N, 1)
