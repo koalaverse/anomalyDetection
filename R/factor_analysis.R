@@ -14,6 +14,7 @@
 #'       \item \code{fa_scores}: numerical matrix with the row scores for each factor
 #'       \item \code{fa_loadings_rotated}: numerical matrix with the varimax rotated factor loadings
 #'       \item \code{fa_scores_rotated}: numerical matrix with the row scores for each varimax rotated factor
+#'       \item \code{num_factors}: numeric vector identifying the number of factors
 #'     }
 #'
 #' @references
@@ -133,7 +134,7 @@ factor_analysis <- function(data, hc_points) {
 #'
 #' @export
 
-factor_analysis_results <- function(data, results = fa_loadings) {
+factor_analysis_results <- function(data, results = 1) {
 
   result_input <- deparse(substitute(results))
   result_options <- names(data)

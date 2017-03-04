@@ -20,7 +20,6 @@
 #' J. L. Horn, "A rationale and test for the number of factors in factor analysis," Psychometrika, vol. 30, no. 2, pp. 179-185, 1965.
 #'
 #' @examples
-#'
 #' # Perform Horn's Parallel analysis with matrix n x p dimensions
 #' x <- matrix(rnorm(200*3), ncol = 10)
 #'
@@ -28,7 +27,7 @@
 #' horns_curve(x)
 #'
 #' # using n & p inputs
-#' horns_curve(x = NULL, n = 25, p = 10)
+#' horns_curve(data = NULL, n = 25, p = 10)
 #'
 #' # Graph the scree line for a dimensionality assessment
 #' horns_curve(x) %>%

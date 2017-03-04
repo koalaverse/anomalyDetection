@@ -15,12 +15,12 @@
 #' p <- ncol(x)
 #'
 #' # Instead of
-#' hc <- horns_curve(N, p)
+#' hc <- horns_curve(x)
 #' fa <- factor_analysis(x, hc_points = hc)
 #' factor_analysis_results(fa, fa_scores_rotated)
 #'
 #' # You can write
-#' horns_curve(N, p) %>%
+#' horns_curve(x) %>%
 #'   factor_analysis(x, hc_points = .) %>%
 #'   factor_analysis_results(fa_scores_rotated)
 NULL

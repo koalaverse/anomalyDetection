@@ -4,7 +4,7 @@
 \alias{factor_analysis_results}
 \title{Easy Access to Factor Analysis Results}
 \usage{
-factor_analysis_results(data, results = fa_loadings)
+factor_analysis_results(data, results = 1)
 }
 \arguments{
 \item{data}{list output from \code{factor_analysis}}

@@ -18,6 +18,7 @@ A list containing:
       \item \code{fa_scores}: numerical matrix with the row scores for each factor
       \item \code{fa_loadings_rotated}: numerical matrix with the varimax rotated factor loadings
       \item \code{fa_scores_rotated}: numerical matrix with the row scores for each varimax rotated factor
+      \item \code{num_factors}: numeric vector identifying the number of factors
     }
 }
 \description{

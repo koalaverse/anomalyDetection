@@ -26,7 +26,6 @@ A vector of length \code{p} with the computed average eigenvalues. The
   the data dimensions.  Otherwise, \code{n} and \code{p} must be supplied.
 }
 \examples{
-
 # Perform Horn's Parallel analysis with matrix n x p dimensions
 x <- matrix(rnorm(200*3), ncol = 10)
 
@@ -34,7 +33,7 @@ x <- matrix(rnorm(200*3), ncol = 10)
 horns_curve(x)
 
 # using n & p inputs
-horns_curve(x = NULL, n = 25, p = 10)
+horns_curve(data = NULL, n = 25, p = 10)
 
 # Graph the scree line for a dimensionality assessment
 horns_curve(x) \%>\%

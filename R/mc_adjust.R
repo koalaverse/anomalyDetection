@@ -27,12 +27,14 @@
 #'
 #'
 #' @examples
+#' \dontrun{
 #' x <- matrix(runif(100), ncol = 10)
 #' x %>%
 #'   mc_adjust()
 #'
 #' x %>%
 #'   mc_adjust(min_var = .15, max_cor = .75, action = "select")
+#'}
 #'
 #' @export
 
