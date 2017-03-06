@@ -8,7 +8,13 @@
 #'
 #' @param data numeric data
 #'
-#' @return
+#' @return A list containing:
+#'     \enumerate{
+#'       \item \code{eigval}: numeric vector of computed eigenvalues
+#'       \item \code{eigvec}: numerical matrix of computed eigenvectors
+#'       \item \code{pca_loadings}: numerical matrix of computed loadings
+#'       \item \code{pca_scores}: numerical matrix of computed component (aka factor) scores
+#'     }
 #'
 #' @examples
 #' x <- matrix(rnorm(200 * 3), ncol = 10)
@@ -20,7 +26,7 @@ principal_components <- function(data) {
   data <- as.matrix(data)
   N <- nrow(data)
   M <- ncol(data)
-  R <- cor(data)
+  R <- stats::cor(data)
   tmp <- eigen(R)
   tmp2 <- sort(tmp$values, decreasing = TRUE, index.return = TRUE)
   eigval <- tmp2$x
@@ -36,7 +42,7 @@ principal_components <- function(data) {
   #component scores
   xbar <- colMeans(data)
   Xd <- data - matrix(1, N, 1) %*% t(xbar)
-  v <- suppressWarnings(diag(M) * diag(1 / sqrt(var(data))))
+  v <- suppressWarnings(diag(M) * diag(1 / sqrt(stats::var(data))))
   Xs <- Xd %*% v
   Y <- Xs %*% eigvec
   pca_scores <- Y
@@ -66,7 +72,7 @@ principal_components <- function(data) {
 #'     }
 #'
 #'
-#' @return Returns the one of the selected results:
+#' @return Returns one of the selected results:
 #'     \enumerate{
 #'       \item \code{eigval}: numeric vector of computed eigenvalues
 #'       \item \code{eigvec}: numerical matrix of computed eigenvectors
@@ -88,7 +94,7 @@ principal_components <- function(data) {
 #'
 #' @export
 
-principal_components_result <- function(data, results = eigval) {
+principal_components_result <- function(data, results = 1) {
 
   result_input <- deparse(substitute(results))
   result_options <- names(data)

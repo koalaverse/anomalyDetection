@@ -4,7 +4,7 @@
 \alias{principal_components_result}
 \title{Easy Access to Principal Component Analysis Results}
 \usage{
-principal_components_result(data, results = eigval)
+principal_components_result(data, results = 1)
 }
 \arguments{
 \item{data}{list output from \code{principal_components}}
@@ -19,7 +19,7 @@ results name or number (i.e. eigvec or 2):
   }}
 }
 \value{
-Returns the one of the selected results:
+Returns one of the selected results:
     \enumerate{
       \item \code{eigval}: numeric vector of computed eigenvalues
       \item \code{eigvec}: numerical matrix of computed eigenvectors

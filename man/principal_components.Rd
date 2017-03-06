@@ -10,7 +10,13 @@ principal_components(data)
 \item{data}{numeric data}
 }
 \value{
-
+A list containing:
+    \enumerate{
+      \item \code{eigval}: numeric vector of computed eigenvalues
+      \item \code{eigvec}: numerical matrix of computed eigenvectors
+      \item \code{pca_loadings}: numerical matrix of computed loadings
+      \item \code{pca_scores}: numerical matrix of computed component (aka factor) scores
+    }
 }
 \description{
 \code{principal_components} relates the data to a set of a components through

@@ -85,7 +85,7 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
   }
 
   # identify columns with strong correlation
-  C <- cor(newdata)
+  C <- stats::cor(newdata)
   samp <- data.frame(which(apply(abs(C), MARGIN = 2, function(x) dplyr::between(x, max_cor, 1.0)), arr.ind = TRUE))
   mylist <- data.frame(matrix(nrow = nrow(C), ncol = 2))
   colnames(mylist) <- c("num", "name")
@@ -117,9 +117,10 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
     # create data frame to report high correlated variables
     options_to_rm <- data.frame(v1 = rownames(C)[row(C)[upper.tri(C)]],
                                 v2 = colnames(C)[col(C)[upper.tri(C)]],
-                                corr = round(C[upper.tri(C)], 3),
-                                stringsAsFactors = FALSE) %>%
-      dplyr::filter(abs(corr) >= abs(max_cor))
+                                v3 = round(C[upper.tri(C)], 3),
+                                stringsAsFactors = FALSE)
+
+    options_to_rm <- options_to_rm[abs(options_to_rm$v3) >= abs(max_cor), ]
 
       message("The following variable pairs exceed the max_cor input:\n")
 
