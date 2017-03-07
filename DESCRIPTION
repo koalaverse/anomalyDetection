@@ -30,6 +30,8 @@ Imports:
     gmp,
     caret,
     matrixStats,
-    qdapTools
+    qdapTools,
+    purrr,
+    tibble
 RoxygenNote: 6.0.1
 Suggests: testthat

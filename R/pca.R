@@ -23,6 +23,17 @@
 #' @export
 
 principal_components <- function(data) {
+
+  # return error if parameters are missing
+  if(missing(data)) {
+    stop("Missing argument: data argument", call. = FALSE)
+  }
+
+  # return error if arguments are wrong type
+  if(!is.data.frame(data) & !is.matrix(data)) {
+    stop("data must be a data frame or matrix", call. = FALSE)
+  }
+
   data <- as.matrix(data)
   N <- nrow(data)
   M <- ncol(data)

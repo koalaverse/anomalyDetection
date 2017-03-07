@@ -6,7 +6,7 @@
 #'   specific blocks of interest.
 #'
 #' @param data data
-#' @param blocks_length integer value to divide data
+#' @param block_length integer value to divide data
 #'
 #' @return A list where each item is a data frame that contains the original data
 #'   for each block denoted in the state vector.

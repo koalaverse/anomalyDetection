@@ -9,7 +9,7 @@ inspect_block(data, block_length)
 \arguments{
 \item{data}{data}
 
-\item{blocks_length}{integer value to divide data}
+\item{block_length}{integer value to divide data}
 }
 \value{
 A list where each item is a data frame that contains the original data
