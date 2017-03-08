@@ -36,7 +36,7 @@
 #'   bd_row(5, 3)
 #'   }
 #'
-#' @return Returns a vector
+#' @export
 
 bd_row <- function(data, row, n = NULL) {
 
@@ -53,7 +53,6 @@ bd_row <- function(data, row, n = NULL) {
   if(!isTRUE(n %in% 1:ncol(data)) & !is.null(n)) {
     stop("Invalid n value", call. = FALSE)
   }
-
 
   C <- stats::cov(data)
   CM <- as.matrix(colMeans(data))

@@ -32,7 +32,8 @@ Imports:
     matrixStats,
     qdapTools,
     purrr,
-    tibble
+    tibble,
+    tidyverse
 RoxygenNote: 6.0.1
 Suggests: testthat,
     knitr,
