@@ -10,7 +10,7 @@ mahalanobis_distance(data, output = "md", normalize = FALSE)
 \item{data}{numeric data}
 
 \item{output}{character vector stating the results to be returned. Can be "md"
-to return the Mahalanobis distances, "bd" to return the absolute breakdown
+to return the Mahalanobis distances (default), "bd" to return the absolute breakdown
 distances (used to see which columns drive the Mahalanobis distance), or "both"
 to return both md and bd values.}
 
