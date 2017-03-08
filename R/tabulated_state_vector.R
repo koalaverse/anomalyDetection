@@ -1,16 +1,16 @@
 #' @title Tabulate State Vector
 #'
 #' @description
-#' \code{tabulate_state_vector} divides data into blocks, where each block is
-#' defined by descriptive statistics. Taking a contingency table approach, this
-#' function separates variables of type character or factor into their unique levels
-#' and counts the number of occurrences for those levels within each block. Due
-#' to the large number of unique IP address, this function allows for the user
-#' to determine how many IP addresses they would like to investigate (takes the
-#' top occurrences for IP variables).
+#' \code{tabulate_state_vector} employs a tabulated vector approach to transform
+#' security log data into unique counts of data attributes based on time blocks.
+#' Taking a contingency table approach, this function separates variables of type
+#' character or factor into their unique levels and counts the number of occurrences
+#' for those levels within each block. Due to the large number of unique IP address,
+#' this function allows for the user to determine how many IP addresses they would
+#' like to investigate (takes the top occurrences for IP variables).
 #'
 #' @param data data
-#' @param block_length integer value to divide data
+#' @param block_length integer value to divide data by
 #' @param level_limit integer value to determine the cutoff for the number of
 #'   factors in a column to display before being reduced to show the number of
 #'   levels to keep (default is 50)
@@ -74,7 +74,7 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50, level_ke
   ## if no columns above level limit, set level_keep to 0
   if (length(list2) == 0) level_keep <- 0
   ## count the number of levels in all the columns found in list 1
-  num_levels <- as.numeric(sum(sapply(data[list1], nlevels)))
+  num_levels <- data[, list1] %>% sapply(nlevels) %>% as.numeric() %>% sum()
   ## determines the width of the state vector
   block_width <- num_levels + numeric_vars + length(list2) * level_keep
   State_Vector <- matrix(nrow = num_blocks, ncol = block_width)

@@ -1,0 +1,56 @@
+---
+title: "Introduction"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+As the number of cyber-attacks continues to grow on a daily basis, so has the delay in threat detection. For instance, in 2015, the Office of Personnel Management (OPM) discovered that approximately [21.5 million individual records of Federal employees and contractors had been stolen](https://www.opm.gov/cybersecurity/cybersecurity-incidents). On average, the time between an attack and its discovery is [more than 200 days](https://www.wired.com/2016/10/inside-cyberattack-shocked-us-government/). In the case of the OPM breach, the attack had been going on for almost a year. Currently, cyber analysts inspect numerous potential incidents on a daily basis, but have neither the time nor the resources available to perform such a task.  `anomalyDetection` aims to curtail the timeframe in which cyber-attacks go unnoticed and to aid in the discovery of these attacks among the millions of daily logged events, while minimizing the number of false positives and negatives. By incorporating a tabular vector approach along with multivariate analysis functionality, `anomalyDetection` provides cyber analysts the ability to effectively and efficiently identify time periods associated with suspected anomalies for further evaluation.
+
+
+## Functions
+
+`anomalyDetection` provides 13 functions to aid in the detection of potential cyber anomalies:
+
+| Function | Purpose |
+|:-----------|:--------------------------------------------------------|
+| `tabulated_state_vector` | Employs a tabulated vector approach to transform security log data into unique counts of data attributes based on time blocks.    
+| `block_inspect`          | Creates a list where the original data has been divided into blocks denoted in the state vector.    
+| `mc_adjust`              | Handles issues with multi-collinearity.    
+| `mahalanobis_distance`   | Calculates the distance between the elements in data and the mean vector of the data for outlier detection.
+| `bd_row`                 | Indicates which variables in data are driving the Mahalanobis distance for a specific row, relative to the mean vector of the data.    
+| `horns_curve`            | Computes [Horn's Parallel Analysis](https://link.springer.com/article/10.1007/BF02289447) to determine the factors to retain within a factor analysis.
+| `factor_analysis`        | Reduces the structure of the data by relating the correlation between variables to a set of factors, using the eigen-decomposition of the correlation matrix.
+| `factor_analysis_results`| Provides easy access to factor analysis results.
+| `kaisers_index`          | Computes scores designed to assess the quality of a factor analysis solution. It measures the tendency towards unifactoriality for both a given row and the entire matrix as a whole.
+| `principal_components`   | Relates the data to a set of a components through the eigen-decomposition of the correlation matrix, where each component explains some variance of the data.
+| `principal_components_results`  | Provides easy access to principal component analysis results.
+| `get_all_factors`        | finds all factor pairs for a given integer.
+
+`anomalyDetection` also incorporates the pipe operator (`%>%`) from the [magrittr package]() for streamlining function composition.  To illustrate the functionality of `anomalyDetection` we will use the `security_logs` data that comes with the package.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+load("~/Desktop/Packages/anomalyDetection/data/security_logs.rda")
+security_logs <- tibble::as_tibble(security_logs)
+```
+
+
+```{r}
+security_logs
+```
+
+
+
+## State Vector Creation
+
+
+
+
+## Multicollinearity Adjustment
+
+
+
+## Statistical Analysis
