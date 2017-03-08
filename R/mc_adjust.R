@@ -53,6 +53,9 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
     stop("The action argument must be either 'exclude' or 'select'")
   }
 
+  # convert data to matrix
+  data <- as.matrix(data)
+
   # remove any columns with minimal variance
   col2rmv <- which(matrixStats::colVars(data) < min_var)
   if(length(col2rmv) > 0) {
@@ -112,7 +115,7 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
 
     # subset data to remove minimal variance columns
     newdata <- subset(newdata, select = -col2rmv)
-    newdata
+    tibble::as_tibble(newdata)
   } else if(action == "select" & length(col2rmv) > 0) {
     # create data frame to report high correlated variables
     options_to_rm <- data.frame(v1 = rownames(C)[row(C)[upper.tri(C)]],
@@ -146,10 +149,10 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
       col2rmv <- if(interactive()) fun()
 
       newdata <- newdata[, -which(colnames(newdata) %in% col2rmv)]
-      newdata
+      tibble::as_tibble(newdata)
 
   } else {
-    newdata
+    tibble::as_tibble(newdata)
   }
 
 }
