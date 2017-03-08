@@ -83,7 +83,7 @@ state_vec %>%
 
 We can use this information in a modified heatmap visualization to identify outlier values across our categorical variables and time blocks.  The larger and brighter the dot the larger the outlier is and deserves attention.
 
-```{r, fig.align='center', fig.width=10, fig.height=6}
+```{r, fig.align='center', fig.width=9, fig.height=6}
 state_vec %>%
   mahalanobis_distance("both", normalize = TRUE) %>%
   as_tibble %>%
@@ -94,7 +94,7 @@ state_vec %>%
 ```
 
 
-We can build onto this with the `bd_row` to identify which variables in the data are driving the Mahalanobis distance.  `bd_row` will look at a specified row and rank-order the columns by those that are driving the Mahalanobis distance.  For example, the plot above identified block 17 as having the largest Mahalanobis distance suggesting some abnormal activity may be occuring during that time block.  We can drill down into that block and look at the top 10 variables that are driving the Mahalanobis distance.
+We can build onto this with the `bd_row` to identify which variables in the data are driving the Mahalanobis distance.  `bd_row` will look at a specified row and rank-order the columns by those that are driving the Mahalanobis distance.  For example, the plot above identified block 17 as having the largest Mahalanobis distance suggesting some abnormal activity may be occuring during that time block.  We can drill down into that block and look at the top 10 variables that are driving the Mahalanobis distance as these may be areas that require further investigation.
 
 ```{r, collapse=TRUE}
 state_vec %>%
