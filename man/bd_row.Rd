@@ -18,8 +18,6 @@ only the top \code{n} variables by setting the \code{n} value.}
 \value{
 Returns a vector indicating the variables in \code{data} that are driving the
 Mahalanobis distance for the respective row.
-
-Returns a vector
 }
 \description{
 \code{bd_row} indicates which variables in data are driving the Mahalanobis
