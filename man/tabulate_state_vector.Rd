@@ -9,7 +9,7 @@ tabulate_state_vector(data, block_length, level_limit = 50, level_keep = 10)
 \arguments{
 \item{data}{data}
 
-\item{block_length}{integer value to divide data}
+\item{block_length}{integer value to divide data by}
 
 \item{level_limit}{integer value to determine the cutoff for the number of
 factors in a column to display before being reduced to show the number of
@@ -23,13 +23,13 @@ A data frame where each row represents one block and the columns count
   the number of occurrences that character/factor level occurred in that block
 }
 \description{
-\code{tabulate_state_vector} divides data into blocks, where each block is
-defined by descriptive statistics. Taking a contingency table approach, this
-function separates variables of type character or factor into their unique levels
-and counts the number of occurrences for those levels within each block. Due
-to the large number of unique IP address, this function allows for the user
-to determine how many IP addresses they would like to investigate (takes the
-top occurrences for IP variables).
+\code{tabulate_state_vector} employs a tabulated vector approach to transform
+security log data into unique counts of data attributes based on time blocks.
+Taking a contingency table approach, this function separates variables of type
+character or factor into their unique levels and counts the number of occurrences
+for those levels within each block. Due to the large number of unique IP address,
+this function allows for the user to determine how many IP addresses they would
+like to investigate (takes the top occurrences for IP variables).
 }
 \examples{
 tabulate_state_vector(security_logs, 30)

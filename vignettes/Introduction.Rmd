@@ -33,12 +33,12 @@ As the number of cyber-attacks continues to grow on a daily basis, so has the de
 `anomalyDetection` also incorporates the pipe operator (`%>%`) from the [magrittr package]() for streamlining function composition.  To illustrate the functionality of `anomalyDetection` we will use the `security_logs` data that comes with the package.
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-load("~/Desktop/Packages/anomalyDetection/data/security_logs.rda")
+library(anomalyDetection)
 security_logs <- tibble::as_tibble(security_logs)
 ```
 
 
-```{r}
+```{r, collapse=TRUE}
 security_logs
 ```
 
