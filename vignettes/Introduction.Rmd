@@ -8,7 +8,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-As the number of cyber-attacks continues to grow on a daily basis, so has the delay in threat detection. For instance, in 2015, the Office of Personnel Management (OPM) discovered that approximately [21.5 million individual records of Federal employees and contractors had been stolen](https://www.opm.gov/cybersecurity/cybersecurity-incidents). On average, the time between an attack and its discovery is [more than 200 days](https://www.wired.com/2016/10/inside-cyberattack-shocked-us-government/). In the case of the OPM breach, the attack had been going on for almost a year. Currently, cyber analysts inspect numerous potential incidents on a daily basis, but have neither the time nor the resources available to perform such a task.  `anomalyDetection` aims to curtail the time frame in which cyber-attacks go unnoticed and to aid in the discovery of these attacks among the millions of daily logged events, while minimizing the number of false positives and negatives. By incorporating a tabular vector approach along with multivariate analysis functionality, `anomalyDetection` provides cyber analysts the ability to effectively and efficiently identify time periods associated with suspected anomalies for further evaluation.
+As the number of cyber-attacks continues to grow on a daily basis, so does the delay in threat detection. For instance, in 2015, the Office of Personnel Management (OPM) discovered that approximately [21.5 million individual records of Federal employees and contractors had been stolen](https://www.opm.gov/cybersecurity/cybersecurity-incidents). On average, the time between an attack and its discovery is [more than 200 days](https://www.wired.com/2016/10/inside-cyberattack-shocked-us-government/). In the case of the OPM breach, the attack had been going on for almost a year. Currently, cyber analysts inspect numerous potential incidents on a daily basis, but have neither the time nor the resources available to perform such a task.  `anomalyDetection` aims to curtail the time frame in which cyber-attacks go unnoticed and to aid in the discovery of these attacks among the millions of daily logged events, while minimizing the number of false positives and negatives. By incorporating a tabular vector approach along with multivariate analysis functionality, `anomalyDetection` provides cyber analysts the ability to effectively and efficiently identify time periods associated with suspected anomalies for further evaluation.
 
 
 ## Functions
@@ -30,7 +30,7 @@ As the number of cyber-attacks continues to grow on a daily basis, so has the de
 | `principal_components_results`  | Provides easy access to principal component analysis results.
 | `get_all_factors`        | finds all factor pairs for a given integer.
 
-`anomalyDetection` also incorporates the pipe operator (`%>%`) from the [magrittr package]() for streamlining function composition.  To illustrate the functionality of `anomalyDetection` we will use the `security_logs` data that comes with the package and mimics common information that appears in security logs.
+`anomalyDetection` also incorporates the pipe operator (`%>%`) from the [magrittr package](https://cran.r-project.org/web/packages/magrittr/README.html) for streamlining function composition.  To illustrate the functionality of `anomalyDetection` we will use the `security_logs` data that mimics common information that appears in security logs and comes with `anomalyDetection`.
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 security_logs <- anomalyDetection::security_logs
@@ -68,12 +68,18 @@ Prior to proceeding with any multivariate statistical analyses we should inspect
   mc_adjust())
 ```
 
-By default, `mc_adjust` removes any columns that violate the variance, dependency, and correlation thresholds.  Alternatively, we can use `action = "select"` as an argument, which provides interactivity where the user can select the variables that violate the correlation threshold that they would like to remove.
+By default, `mc_adjust` removes *all* columns that violate the variance, dependency, and correlation thresholds.  Alternatively, we can use `action = "select"` as an argument, which provides interactivity where the user can select the variables that violate the correlation threshold that they would like to remove.
 
 
 ## Multivariate Statistical Analyses
 
-With our data adjusted for multicollinearity we can now proceed with multivariate analyses.  First we'll use the `mahalanobis_distance` function to compute the distance between the elements in the data and the mean vector of the data for outlier detection. Here, we include `output = "both"` to return both the Mahalanobis distance and the absolute breakdown distances.
+With our data adjusted for multicollinearity we can now proceed with multivariate analyses to identify anomalies.  First we'll use the `mahalanobis_distance` function to compare the distance between each observation by its distance from the data mean, independent of scale.  This is computed as
+
+$$MD = \sqrt{(x - \bar{x})C^{-1}(x-\bar{x})} \tag{1}$$
+
+where $x$ is a vector of $p$ observations, $x=(x_1, \dots, x_p)$, $\bar{x}$ is the mean vector of the data, $\bar{x}=(\bar{x}_1, \dots, \bar{x}_p)$, and $C^{-1}$ is the inverse data covariance matrix. 
+
+Here, we include `output = "both"` to return both the Mahalanobis distance and the absolute breakdown distances and `normalize = TRUE` so that we can compare relative magnitudes across our data.
 
 ```{r, collapse=TRUE}
 state_vec %>%
@@ -81,7 +87,7 @@ state_vec %>%
   as_tibble
 ```
 
-We can use this information in a modified heatmap visualization to identify outlier values across our categorical variables and time blocks.  The larger and brighter the dot the larger the outlier is and deserves attention.
+We can use this information in a modified heatmap visualization to identify outlier values across our security log attributes and time blocks.  The larger and brighter the dot the more significant the outlier is and deserves attention.
 
 ```{r, fig.align='center', fig.width=9, fig.height=6}
 state_vec %>%
@@ -94,7 +100,11 @@ state_vec %>%
 ```
 
 
-We can build onto this with the `bd_row` to identify which variables in the data are driving the Mahalanobis distance.  `bd_row` will look at a specified row and rank-order the columns by those that are driving the Mahalanobis distance.  For example, the plot above identified block 17 as having the largest Mahalanobis distance suggesting some abnormal activity may be occuring during that time block.  We can drill down into that block and look at the top 10 variables that are driving the Mahalanobis distance as these may be areas that require further investigation.
+We can build onto this with the `bd_row` to identify which security log attributes in the data are driving the Mahalanobis distance.  `bd_row` measures the relative contribution of each variable, $x_i$, to $MD$ by computing
+
+$$BD_i = \Bigg|\frac{x_i - \bar{x}_i}{\sqrt{C_{ii}}} \Bigg| \tag{2}$$
+
+where $C_{ii}$ is the variance of $x_i$.  Furthermore, `bd_row` will look at a specified row and rank-order the columns by those that are driving the Mahalanobis distance by .  For example, the plot above identified block 17 as having the largest Mahalanobis distance suggesting some abnormal activity may be occuring during that time block.  We can drill down into that block and look at the top 10 security log attributes that are driving the Mahalanobis distance as these may be areas that require further investigation.
 
 ```{r, collapse=TRUE}
 state_vec %>%
@@ -103,4 +113,105 @@ state_vec %>%
 ```
 
 
+Next, we can use factor analysis by first exploring the factor loadings (correlations between the columns of the state vector matrix and the suggested factors) and then comparing the factor scores against one another for anomaly detection.  Factor analysis is another dimensionality reduction technique designed to identify underlying structure of the data. Factor analysis relates the correlations between variables through a set of factors to link together seemingly unrelated variables. The basic factor analysis model is
+
+$$ X= Λf+e \tag{3}$$
+
+where $X$ is the vector of responses $X = (x_1, \dots, x_p)$, $f$ are the common factors $f = (f_1, \dots, f_q)$, $e$ is the unique factors $e = (e_1, \dots, e_p)$, and $Λ$ is the factor loadings.  For the desired results, `anomalyDetection` uses the correlation matrix. Factor loadings are correlations between the factors and the original data and can thus range from -1 to 1, which indicate how much that factor affects each variable. Values close to 0 imply a weak effect on the variable. 
+
+A factor loadings matrix can be computed to understand how each original data variable is related to the resultant factors.  This can be computed as
+
+$$ Λ = \bigg[\sqrt{λ_1}*e_1,\dots,\sqrt{λ_p}*e_p \bigg] \tag{4}$$
+where $λ_1$ is the eigenvalue for each factor, $e_i$ is the eigenvector for each factor, and $p$ is the number of columns.  Factor scores are used to examine the behavior of the observations relative to each factor and can be used to identify anomaly detection. Factor scores are calculated as
+
+$$ \hat{f} ̂= X_s R^{-1} Λ \tag{5}$$
+
+where $X_s$ is the standardized observations, $R^{-1}$ is the inverse of the correlation matrix, and $ $ is the factor loadings matrix.  To simplify the results for interpretation, the factor loadings can undergo an orthogonal or oblique rotation. Orthogonal rotations assume independence between the factors while oblique rotations allow the factors to correlate. `anomalyDetection` utilizes the most common rotation option known as varimax. Varimax rotates the factors orthogonally to maximize the variance of the squared factor loadings which forces large factors to increase and small ones to decrease, providing easier interpretation.
+
+To begin using factor analysis, the dimensions of the reduced state vector matrix are first passed to the `horns_curve` function to find the recommended set of eigenvalues. 
+
+```{r, collapse=TRUE}
+horns_curve(state_vec)
+```
+
+
+Next, the dimensionality is determined by finding the eigenvalues of the correlation matrix of the state vector matrix and retaining only those factors whose eigenvalues are greater than or equal to those produced by `horns_curve`. We use `factor_analysis` to reduce the state vector matrix into resultant factors. The `factor_analysis` function generates a list containing five outputs:
+
+1. `fa_loadings`: numerical matrix with the original factor loadings
+2. `fa_scores`: numerical matrix with the row scores for each factor
+3. `fa_loadings_rotated`: numerical matrix with the varimax rotated factor loadings
+4. `fa_scores_rotated`: numerical matrix with the row scores for each varimax rotated factor
+5. `num_factors`: numeric vector identifying the number of factors
+
+```{r, collapse=TRUE}
+state_vec %>%
+  horns_curve() %>%
+  factor_analysis(state_vec, hc_points = .) %>%
+  str
+```
+
+
+For easy access to these results we can use the `factor_analysis_results` parsing function.  The `factor_analysis_results` will parse the results either by their list name or by location.  For instance to extract the rotated factor scores you can use `factor_analysis_results(data, results = fa_scores_rotated)` or `factor_analysis_results(data, results = 4)` as demonstrated below.
+
+```{r, collapse=TRUE}
+state_vec %>%
+  horns_curve() %>%
+  factor_analysis(state_vec, hc_points = .) %>%
+  factor_analysis_results(4) %>%
+  as_tibble
+```
+
+
+To evaluate the quality for a factor analysis solution Kaiser [proposed](https://link.springer.com/article/10.1007/BF02291575)  the evaluations of the score shown below:
+
+1. In the .90s: Marvelous
+2. In the .80s: Meritorious
+3. In the .70s: Middling
+4. In the .60s: Mediocre
+5. In the .50s: Miserable
+6. < .50: Unacceptable
+
+Thus, to assess the quality of our factor analysis results we apply `kaisers_index` to the rotated factor loadings and as the results show below our output value of 0.702 suggests that our results are "middling".
+
+```{r, collapse=TRUE}
+state_vec %>%
+  horns_curve() %>%
+  factor_analysis(state_vec, hc_points = .) %>%
+  factor_analysis_results(fa_loadings_rotated) %>%
+  kaisers_index()
+```
+
+
+We can visualize the factor analysis results to show the correlation between the columns of the reduced state vector to the rotated factor loadings. Strong negative correlations are depicted as red while strong positive correlations are shown as blue.  This helps to identify which factors are correlated with each security log data attribute.  Furthermore, this helps to identify two or more security log data attributes that appear to have relationships with their occurrences.  For example, this shows that Russia is highly correlated with IP address 223.70.128.  If there is an abnormally large amount of instances with Russian occurrances this would be the logical IP address to start investigating.
+
+```{r, fig.align='center', fig.height=7, fig.width=7}
+fa_loadings <- state_vec %>%
+  horns_curve() %>%
+  factor_analysis(state_vec, hc_points = .) %>%
+  factor_analysis_results(fa_loadings_rotated)
+
+row.names(fa_loadings) <- colnames(state_vec)
+
+gplots::heatmap.2(fa_loadings, dendrogram = 'both', trace = 'none', 
+            density.info = 'none', breaks = seq(-1, 1, by = .25), 
+            col = RColorBrewer::brewer.pal(8, 'RdBu'))
+
+```
+
+We can also visualize the rotate factor score plots to see which time blocks appear to be outliers and deserve closer attention.
+
+```{r, fig.align='center', fig.height=7, fig.width=7}
+state_vec %>%
+  horns_curve() %>%
+  factor_analysis(state_vec, hc_points = .) %>%
+  factor_analysis_results(fa_scores_rotated) %>%
+  as_tibble() %>%
+  mutate(Block = 1:n()) %>%
+  gather(Factor, Score, -Block) %>%
+  mutate(Score = abs(Score)) %>%
+  ggplot(aes(Factor, Score, label = Block)) +
+  geom_text() +
+  geom_boxplot(outlier.size = NULL)
+
+```
 
