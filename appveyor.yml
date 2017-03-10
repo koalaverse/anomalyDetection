@@ -24,19 +24,19 @@ on_failure:
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
-  name: Logs
+    name: Logs
 
   - path: '*.Rcheck\**\*.out'
-  name: Logs
+    name: Logs
 
   - path: '*.Rcheck\**\*.fail'
-  name: Logs
+    name: Logs
 
   - path: '*.Rcheck\**\*.Rout'
-  name: Logs
+    name: Logs
 
   - path: '\*_*.tar.gz'
-  name: Bits
+    name: Bits
 
   - path: '\*_*.zip'
-  name: Bits
+    name: Bits
