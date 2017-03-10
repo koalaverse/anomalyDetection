@@ -104,7 +104,7 @@ We can build onto this with the `bd_row` to identify which security log attribut
 
 $$BD_i = \Bigg|\frac{x_i - \bar{x}_i}{\sqrt{C_{ii}}} \Bigg| \tag{2}$$
 
-where $C_{ii}$ is the variance of $x_i$.  Furthermore, `bd_row` will look at a specified row and rank-order the columns by those that are driving the Mahalanobis distance by .  For example, the plot above identified block 17 as having the largest Mahalanobis distance suggesting some abnormal activity may be occuring during that time block.  We can drill down into that block and look at the top 10 security log attributes that are driving the Mahalanobis distance as these may be areas that require further investigation.
+where $C_{ii}$ is the variance of $x_i$.  Furthermore, `bd_row` will look at a specified row and rank-order the columns by those that are driving the Mahalanobis distance.  For example, the plot above identified block 17 as having the largest Mahalanobis distance suggesting some abnormal activity may be occuring during that time block.  We can drill down into that block and look at the top 10 security log attributes that are driving the Mahalanobis distance as these may be areas that require further investigation.
 
 ```{r, collapse=TRUE}
 state_vec %>%
@@ -162,7 +162,11 @@ state_vec %>%
 ```
 
 
-To evaluate the quality for a factor analysis solution Kaiser [proposed](https://link.springer.com/article/10.1007/BF02291575)  the evaluations of the score shown below:
+To evaluate the quality for a factor analysis solution Kaiser proposed the  [Index of Factorial Simplicity](https://link.springer.com/article/10.1007/BF02291575) (IFS). The IFS is computed as
+
+$$ IFS = \frac{∑_i\big[q ∑_sv_js^4-(∑_sv_{js}^2)^2\big]}{∑_i\big[(q-1)(∑_sv_{js}^2)^2 \big]} \tag{6}$$
+
+where $q$ is the number of factors, $j$ the row index, $s$ the column index, and $v_{js}$ is the value in the loadings matrix.  Furthermore, Kaiser created the following evaluations of the score produced by the IFS as shown below:
 
 1. In the .90s: Marvelous
 2. In the .80s: Meritorious
@@ -176,7 +180,7 @@ Thus, to assess the quality of our factor analysis results we apply `kaisers_ind
 ```{r, collapse=TRUE}
 state_vec %>%
   horns_curve() %>%
-  factor_analysis(state_vec, hc_points = .) %>%
+  factor_analysis(data = state_vec, hc_points = .) %>%
   factor_analysis_results(fa_loadings_rotated) %>%
   kaisers_index()
 ```
@@ -198,7 +202,7 @@ gplots::heatmap.2(fa_loadings, dendrogram = 'both', trace = 'none',
 
 ```
 
-We can also visualize the rotate factor score plots to see which time blocks appear to be outliers and deserve closer attention.
+We can also visualize the rotated factor score plots to see which time blocks appear to be outliers and deserve closer attention.
 
 ```{r, fig.align='center', fig.height=7, fig.width=7}
 state_vec %>%
@@ -208,10 +212,45 @@ state_vec %>%
   as_tibble() %>%
   mutate(Block = 1:n()) %>%
   gather(Factor, Score, -Block) %>%
-  mutate(Score = abs(Score)) %>%
-  ggplot(aes(Factor, Score, label = Block)) +
+  mutate(Absolute_Score = abs(Score)) %>%
+  ggplot(aes(Factor, Absolute_Score, label = Block)) +
   geom_text() +
-  geom_boxplot(outlier.size = NULL)
+  geom_boxplot(outlier.shape = NA)
 
 ```
+
+This allows us to look across the factors and identify outlier blocks that may require further intra-block analysis.  If we assume that an absolute rotated factor score $\geq$ 2 represents our outlier cut-off then we see that time blocks 4, 13, 15, 17, 24, 26, and 27 require further investigation.  We saw block 17 being highlighted with the `mahalanobis_distance` earlier but these other time blocks were not as obvious so by performing and comparing these multiple anomaly detection approaches we can gain greater insights and confirmation.
+
+An alternative, yet similar approach to factor analysis is principal component analysis.  The goal in factor analysis is to explain the covariances or correlations between the variables.  By contrast, the goal of principal component analysis is to explain as much of the total variance in the variables as possible.  Thus, The first principal component of a set of features $X_1, X_2,\dots,X_p$ is the normalized linear combination of the features
+
+$$ Z_1 = \phi_{11}X_1 + \phi_{21}X_2 + \cdots + \phi_{p1}X_p \tag{7}$$
+
+that has the largest variance. By *normalized*, we mean that $\sum^p_{j=1} \phi^2_{j1} = 1$.  We refer to the elements $\phi_{11},\dots,\phi_{p1}$ as the loadings of the first principal component; together, the loadings make up the principal component loading vector, $\phi_1 = (\phi_{11}, \phi_{21}, \dots, \phi_{p1})^T$.  The loadings are constrained so that their sum of squares is equal to one, since otherwise setting these elements to be arbitrarily large in absolute value could result in an arbitrarily large variance.  After the first principal component $Z_1$ of the features has been determined, we can find the second principal component $Z_2$. The second principal component is the linear combination of $X_1,\dots,X_p$ that has maximal variance out of all linear combinations that are uncorrelated with $Z_1$. The second principal component scores $z_{12}, z_{22},\dots,z_{n2}$ take the form
+
+$$z_{12} = \phi_{12}x_{i1} + \phi_{22}x_{i2} + \cdots + \phi_{p2}x_{ip} \tag{8} $$
+
+where $\phi_2$ is the second principal loading vector, with elements $\phi_{12}, \phi_{22}, \dots, \phi_{p2}$.  This continues until all principal components have been computed.  To perform a principal components analysis we use `principal_components` which will create a list containing:
+
+1. `eigval`: numeric vector of computed eigenvalues
+2. `eigvec`: numerical matrix of computed eigenvectors
+3. `pca_loadings`: numerical matrix of computed loadings
+4. `pca_scores`: numerical matrix of computed component (aka factor) scores
+
+```{r, collapse=TRUE}
+principal_components(state_vec) %>% str
+```
+
+For easy access to these results we can use the `principal_components_result` parsing function.  The `principal_components_result` will parse the results either by their list name or by location.  For instance to extract the computed component scores as outlined in Eq. 8 you can use `principal_components_result(data, results = pca_scores)` or `principal_components_result(data, results = 4)` as demonstrated below.
+
+```{r, collapse=TRUE}
+state_vec %>%
+  principal_components() %>%
+  principal_components_result(pca_scores) %>%
+  as_tibble
+```
+
+We could then follow up the principal component analysis with similar visualization activities as performed post factor analysis to identify potential anomalies.
+
+
+
 
