@@ -26,14 +26,16 @@ Imports:
     MASS,
     magrittr,
     plyr,
-    dplyr,
     gmp,
     caret,
     matrixStats,
     qdapTools,
+    dplyr,
     purrr,
     tibble,
-    tidyverse
+    RColorBrewer,
+    tidyverse,
+    gplots
 RoxygenNote: 6.0.1
 Suggests: testthat,
     knitr,
