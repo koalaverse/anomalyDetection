@@ -5,3 +5,9 @@ sudo: required
 cache: packages
 before_install:
   - sudo apt-get install libgmp3-dev
+
+r_packages:
+  - covr
+
+after_success:
+  - Rscript -e 'library(covr); codecov()'
