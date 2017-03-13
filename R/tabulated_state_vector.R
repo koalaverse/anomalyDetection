@@ -121,7 +121,7 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50, level_ke
     k <- 1
     for (k in 1:length(list2)){
       # takes the original name of the column and adds a number to it
-      list2names <- c(list2names, paste(names(data[list2[k]]), 1:level_keep, sep="_"))
+      list2names <- c(list2names, paste(names(temp_fac[list2[k]]), 1:level_keep, sep="_"))
     }
   }
   namelist <- c(unlist(sapply(temp_fac[list1], levels)), names(temp_num), list2names)
