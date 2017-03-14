@@ -7,7 +7,7 @@ Author: Authors@R: c(
     person("Robert", "Gutierrez", email = "rjgutierrez2015@gmail.com", role = c("aut", "cre"),
     person("Kenneth", "Bauer", email = "kenneth.bauer@afit.edu", role = c("ctb"),
     person("Trevor", "Bihl", email = "trevor.bihl.2@us.af.mil", role = c("ctb"),
-    person("Cade", "Saie", email = "cade.m.saie.mil@mail.mil", role = c("ctb")) )
+    person("Cade", "Saie", email = "cade.saie@gmail.com", role = c("ctb")) )
 Maintainer: Bradley Boehmke <bradleyboehmke@gmail.com>
 Date: 2017-02-01
 Description: Implements procedures to aid in detecting network log anomolies.
