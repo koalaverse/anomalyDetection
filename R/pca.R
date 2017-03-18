@@ -98,7 +98,7 @@ principal_components <- function(data, retx = TRUE, center = TRUE, scale. = FALS
 #' x <- matrix(rnorm(200 * 3), ncol = 10)
 #'
 #' principal_components(x) %>%
-#'   principal_components_result(pca_scores)
+#'   principal_components_result(pca_loadings)
 #'
 #' @export
 
