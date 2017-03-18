@@ -4,27 +4,29 @@
 \alias{principal_components_result}
 \title{Easy Access to Principal Component Analysis Results}
 \usage{
-principal_components_result(data, results = 1)
+principal_components_result(data, results = 2)
 }
 \arguments{
 \item{data}{list output from \code{principal_components}}
 
 \item{results}{principal component analysis results to extract. Can use either
-results name or number (i.e. eigvec or 2):
+results name or number (i.e. pca_loadings or 2):
   \enumerate{
-    \item \code{eigval} (default)
-    \item \code{eigvec}
-    \item \code{pca_loadings}
-    \item \code{pca_scores}
+    \item \code{pca_sdev}
+    \item \code{pca_loadings} (default)
+    \item \code{pca_rotated}
+    \item \code{pca_center}
+    \item \code{pca_scale}
   }}
 }
 \value{
 Returns one of the selected results:
     \enumerate{
-      \item \code{eigval}: numeric vector of computed eigenvalues
-      \item \code{eigvec}: numerical matrix of computed eigenvectors
-      \item \code{pca_loadings}: numerical matrix of computed loadings
-      \item \code{pca_scores}: numerical matrix of computed component (aka factor) scores
+      \item \code{pca_sdev}: the standard deviations of the principal components (i.e., the square roots of the eigenvalues of the covariance/correlation matrix, though the calculation is actually done with the singular values of the data matrix).
+      \item \code{pca_loadings}: the matrix of variable loadings (i.e., a matrix whose columns contain the eigenvectors).
+      \item \code{pca_rotated}: if \code{retx} is \code{TRUE} the value of the rotated data (the centred (and scaled if requested) data multiplied by the rotation matrix) is returned. Hence, \code{cov(x)} is the diagonal matrix \code{diag(sdev^2)}.
+      \item \code{pca_center}: the centering used
+      \item \code{pca_scale}: whether scaling was used
     }
 }
 \description{

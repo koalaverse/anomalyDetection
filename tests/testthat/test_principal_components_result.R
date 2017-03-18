@@ -13,25 +13,28 @@ test_that("principal_components_result provides proper messages and warnings", {
 
 test_that("principal_components_result output has correct dimensions", {
 
-  expect_equal(principal_components_result(pca) %>% length, 10)
+  expect_equal(principal_components_result(pca) %>% length, 100)
   expect_equal(principal_components_result(pca, 1) %>% length(), 10)
   expect_equal(principal_components_result(pca, 2) %>% dim(), c(10, 10))
-  expect_equal(principal_components_result(pca, 3) %>% dim(), c(10, 10))
-  expect_equal(principal_components_result(pca, 4) %>% dim(), c(60, 10))
+  expect_equal(principal_components_result(pca, 3) %>% dim(), c(60, 10))
+  expect_equal(principal_components_result(pca, 4) %>% length(), 10)
+  expect_equal(principal_components_result(pca, 5) %>% length(), 1)
 
-  expect_equal(principal_components_result(pca, eigval) %>% length(), 10)
-  expect_equal(principal_components_result(pca, eigvec) %>% dim(), c(10, 10))
+  expect_equal(principal_components_result(pca, pca_sdev) %>% length(), 10)
   expect_equal(principal_components_result(pca, pca_loadings) %>% dim(), c(10, 10))
-  expect_equal(principal_components_result(pca, pca_scores) %>% dim(), c(60, 10))
+  expect_equal(principal_components_result(pca, pca_rotated) %>% dim(), c(60, 10))
+  expect_equal(principal_components_result(pca, pca_center) %>% length(), 10)
+  expect_equal(principal_components_result(pca, pca_scale) %>% length(), 1)
 
 })
 
 test_that("principal_components_result gets the right output", {
 
-  expect_equal(principal_components_result(pca) %>% .[1] %>% round(3), 1.703)
-  expect_equal(principal_components_result(pca, 1) %>% .[1] %>% round(3), 1.703)
-  expect_equal(principal_components_result(pca, 2) %>% .[1,1] %>% round(2), -0.38)
-  expect_equal(principal_components_result(pca, 3) %>% .[1,1] %>% round(2), -0.5)
-  expect_equal(principal_components_result(pca, 4) %>% .[1,1] %>% round(2), 1.27)
+  expect_equal(principal_components_result(pca) %>% .[1] %>% round(3), 0.315)
+  expect_equal(principal_components_result(pca, 1) %>% .[1] %>% round(3), 1.303)
+  expect_equal(principal_components_result(pca, 2) %>% .[[1,1]] %>% round(2), 0.31)
+  expect_equal(principal_components_result(pca, 3) %>% .[[1,1]] %>% round(2), -1.33)
+  expect_equal(principal_components_result(pca, 4) %>% .[[1]] %>% round(2), 0.07)
+  expect_true(principal_components_result(pca, 5) %>% !.)
 
 })

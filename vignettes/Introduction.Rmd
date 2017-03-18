@@ -231,21 +231,22 @@ $$z_{12} = \phi_{12}x_{i1} + \phi_{22}x_{i2} + \cdots + \phi_{p2}x_{ip} \tag{8} 
 
 where $\phi_2$ is the second principal loading vector, with elements $\phi_{12}, \phi_{22}, \dots, \phi_{p2}$.  This continues until all principal components have been computed.  To perform a principal components analysis we use `principal_components` which will create a list containing:
 
-1. `eigval`: numeric vector of computed eigenvalues
-2. `eigvec`: numerical matrix of computed eigenvectors
-3. `pca_loadings`: numerical matrix of computed loadings
-4. `pca_scores`: numerical matrix of computed component (aka factor) scores
+1. `pca_sdev`: the standard deviations of the principal components (i.e., the square roots of the eigenvalues of the covariance/correlation matrix, though the calculation is actually done with the singular values of the data matrix).
+2. `pca_loadings`: the matrix of variable loadings (i.e., a matrix whose columns contain the eigenvectors).
+3. `pca_rotated`: the value of the rotated data (the centered, and scaled if requested, data multiplied by the rotation matrix) is returned.
+4. `pca_center`: the centering used.
+5. `pca_scale`: a logical response indicating whether scaling was used.
 
 ```{r, collapse=TRUE}
 principal_components(state_vec) %>% str
 ```
 
-For easy access to these results we can use the `principal_components_result` parsing function.  The `principal_components_result` will parse the results either by their list name or by location.  For instance to extract the computed component scores as outlined in Eq. 8 you can use `principal_components_result(data, results = pca_scores)` or `principal_components_result(data, results = 4)` as demonstrated below.
+For easy access to these results we can use the `principal_components_result` parsing function.  The `principal_components_result` will parse the results either by their list name or by location.  For instance to extract the computed component scores as outlined in Eq. 8 you can use `principal_components_result(data, results = pca_rotated)` or `principal_components_result(data, results = 3)` as demonstrated below.
 
 ```{r, collapse=TRUE}
 state_vec %>%
   principal_components() %>%
-  principal_components_result(pca_scores) %>%
+  principal_components_result(pca_rotated) %>%
   as_tibble
 ```
 

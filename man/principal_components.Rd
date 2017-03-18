@@ -4,28 +4,58 @@
 \alias{principal_components}
 \title{Principal Component Analysis}
 \usage{
-principal_components(data)
+principal_components(data, retx = TRUE, center = TRUE, scale. = FALSE,
+  tol = NULL, ...)
 }
 \arguments{
-\item{data}{numeric data}
+\item{data}{numeric data.}
+
+\item{retx}{a logical value indicating whether the rotated variables should be returned.}
+
+\item{center}{a logical value indicating whether the variables should be shifted to be
+zero centered. Alternately, a vector of length equal the number of columns of x can
+be supplied. The value is passed to scale.}
+
+\item{scale.}{a logical value indicating whether the variables should be scaled to have
+unit variance before the analysis takes place. The default is FALSE for consistency
+with S, but in general scaling is advisable. Alternatively, a vector of length equal
+the number of columns of \code{data} can be supplied. The value is passed to scale.}
+
+\item{tol}{a value indicating the magnitude below which components should be omitted.
+(Components are omitted if their standard deviations are less than or equal to tol
+times the standard deviation of the first component.) With the default null setting,
+no components are omitted. Other settings for tol could be \code{tol = 0} or
+\code{tol = sqrt(.Machine$double.eps)}, which would omit essentially constant components.}
+
+\item{...}{arguments passed to or from other methods.}
 }
 \value{
-A list containing:
+\code{principal_components} returns a list containing the following components:
     \enumerate{
-      \item \code{eigval}: numeric vector of computed eigenvalues
-      \item \code{eigvec}: numerical matrix of computed eigenvectors
-      \item \code{pca_loadings}: numerical matrix of computed loadings
-      \item \code{pca_scores}: numerical matrix of computed component (aka factor) scores
+      \item \code{pca_sdev}: the standard deviations of the principal components (i.e., the square roots of the eigenvalues of the covariance/correlation matrix, though the calculation is actually done with the singular values of the data matrix).
+      \item \code{pca_loadings}: the matrix of variable loadings (i.e., a matrix whose columns contain the eigenvectors).
+      \item \code{pca_rotated}: if \code{retx} is \code{TRUE} the value of the rotated data (the centred (and scaled if requested) data multiplied by the rotation matrix) is returned. Hence, \code{cov(x)} is the diagonal matrix \code{diag(sdev^2)}.
+      \item \code{pca_center}: the centering used
+      \item \code{pca_scale}: whether scaling was used
     }
 }
 \description{
 \code{principal_components} relates the data to a set of a components through
 the eigen-decomposition of the correlation matrix, where each component explains
-some variance of the data. The eigenvalues can be normalized to determine how
-much of the variance each component represents.
+some variance of the data and returns the results as an object of class prcomp.
+}
+\details{
+The calculation is done by a singular value decomposition of the (centered and
+    possibly scaled) data matrix, not by using eigen on the covariance matrix.
+    This is generally the preferred method for numerical accuracy
 }
 \examples{
 x <- matrix(rnorm(200 * 3), ncol = 10)
 principal_components(x)
+principal_components(x, scale = TRUE)
 
+}
+\seealso{
+\code{\link{prcomp}}, \code{\link{biplot.prcomp}}, \code{\link{screeplot}}, \code{\link{cor}},
+\code{\link{cov}}, \code{\link{svd}}, \code{\link{eigen}}
 }
