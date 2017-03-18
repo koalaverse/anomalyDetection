@@ -23,4 +23,4 @@ You can install the current development version of `anomalyDetection` from GitHu
 Learning
 --------
 
-To get started with `anomalyDetection`, read the intro vignette: `vignette("anomalyDetection", package = "Introduction")`. This will provide a thorough introduction to the functions provided in the package.
+To get started with `anomalyDetection`, read the intro vignette: `vignette("Introduction", package = "anomalyDetection")`. This will provide a thorough introduction to the functions provided in the package.
