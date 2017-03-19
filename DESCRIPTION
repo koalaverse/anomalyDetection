@@ -16,7 +16,7 @@ Description: Implements procedures to aid in detecting network log anomolies.
     suspected anomalies requiring further evaluation.
 URL: https://github.com/bradleyboehmke/anomalyDetection
 BugReports: https://github.com/bradleyboehmke/anomalyDetection/issues
-License: CC0
+License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
 Depends:

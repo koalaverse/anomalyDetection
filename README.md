@@ -12,7 +12,17 @@ anomalyDetection
 Installation
 ------------
 
-You can install the current development version of `anomalyDetection` from GitHub with:
+You can install `anomalyDetection` two ways.
+
+-   Using the latest released version from CRAN:
+
+<!-- -->
+
+    install.packages("anomalyDetection")
+
+-   Using the latest development version from GitHub:
+
+<!-- -->
 
     if (packageVersion("devtools") < 1.6) {
       install.packages("devtools")
