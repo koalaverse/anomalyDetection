@@ -1,3 +1,10 @@
+## Changes
+
+This is a resubmission of the original package submission:
+
+- CRAN URL ( https://cran.r-project.org/web/packages/magrittr/README.html) not in canonical form.
+- Changed to https://CRAN.R-project.org/package=magrittr
+
 ## Test environments
 
 * local OS X install, R 3.3.3
@@ -9,7 +16,6 @@
 
 0 errors | 0 warnings | 0 note
 
-* This is a new release.
 
 ## Reverse dependencies
 
