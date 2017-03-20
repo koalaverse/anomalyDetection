@@ -2,8 +2,8 @@
 
 This is a resubmission of the original package submission:
 
-- CRAN URL ( https://cran.r-project.org/web/packages/magrittr/README.html) not in canonical form.
-- Changed to https://CRAN.R-project.org/package=magrittr
+- CRAN URL ( https://cran.r-project.org/web/packages/magrittr/README.html) not in canonical form; changed to https://CRAN.R-project.org/package=magrittr
+- Fixed mis-spellings in the DESCRIPTION file
 
 ## Test environments
 

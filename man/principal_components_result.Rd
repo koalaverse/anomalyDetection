@@ -22,7 +22,7 @@ results name or number (i.e. pca_loadings or 2):
 \value{
 Returns one of the selected results:
     \enumerate{
-      \item \code{pca_sdev}: the standard deviations of the principal components (i.e., the square roots of the eigenvalues of the covariance/correlation matrix, though the calculation is actually done with the singular values of the data matrix).
+      \item \code{pca_sdev}: the standard deviations of the principal components (i.e., the square roots of the eigenvalues of the correlation matrix, though the calculation is actually done with the singular values of the data matrix).
       \item \code{pca_loadings}: the matrix of variable loadings (i.e., a matrix whose columns contain the eigenvectors).
       \item \code{pca_rotated}: if \code{retx} is \code{TRUE} the value of the rotated data (the centred (and scaled if requested) data multiplied by the rotation matrix) is returned. Hence, \code{cov(x)} is the diagonal matrix \code{diag(sdev^2)}.
       \item \code{pca_center}: the centering used

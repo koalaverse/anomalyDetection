@@ -1,6 +1,6 @@
 Package: anomalyDetection
 Type: Package
-Title: Implementation of Augmented Network Log Anomoly Detection Procedures
+Title: Implementation of Augmented Network Log Anomaly Detection Procedures
 Version: 0.1.0
 Author: Authors@R: c( 
     person("Bradley", "Boehmke", email = "bradleyboehmke@gmail.com", role = c("aut", "cre")), 
@@ -10,9 +10,9 @@ Author: Authors@R: c(
     person("Cade", "Saie", email = "cade.saie@gmail.com", role = c("ctb")) )
 Maintainer: Bradley Boehmke <bradleyboehmke@gmail.com>
 Date: 2017-03-19
-Description: Implements procedures to aid in detecting network log anomolies.
+Description: Implements procedures to aid in detecting network log anomalies.
     By combining various multivariate analytic approaches relevant to network
-    anomoly detection, it provides cyber analysts efficient means to detect
+    anomaly detection, it provides cyber analysts efficient means to detect
     suspected anomalies requiring further evaluation.
 URL: https://github.com/bradleyboehmke/anomalyDetection
 BugReports: https://github.com/bradleyboehmke/anomalyDetection/issues
