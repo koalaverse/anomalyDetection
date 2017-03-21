@@ -2,11 +2,11 @@ Package: anomalyDetection
 Type: Package
 Title: Implementation of Augmented Network Log Anomaly Detection Procedures
 Version: 0.1.0
-Author: Authors@R: c( 
+Authors@R: c( 
     person("Bradley", "Boehmke", email = "bradleyboehmke@gmail.com", role = c("aut", "cre")), 
-    person("Robert", "Gutierrez", email = "rjgutierrez2015@gmail.com", role = c("aut", "cre"),
-    person("Kenneth", "Bauer", email = "kenneth.bauer@afit.edu", role = c("ctb"),
-    person("Trevor", "Bihl", email = "trevor.bihl.2@us.af.mil", role = c("ctb"),
+    person("Robert", "Gutierrez", email = "rjgutierrez2015@gmail.com", role = c("aut")),
+    person("Kenneth", "Bauer", email = "kenneth.bauer@afit.edu", role = c("ctb")),
+    person("Trevor", "Bihl", email = "trevor.bihl.2@us.af.mil", role = c("ctb")),
     person("Cade", "Saie", email = "cade.saie@gmail.com", role = c("ctb")) )
 Maintainer: Bradley Boehmke <bradleyboehmke@gmail.com>
 Date: 2017-03-19
