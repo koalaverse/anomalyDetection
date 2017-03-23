@@ -56,10 +56,19 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50, level_ke
   # change character variables to factors
   change_fct <- function(x) {
     if(is.character(x)) {
-      factor(x)
+      x <- factor(x, exclude = NULL)
+    } else {
+      x <- x
+    }
+
+    if(is.factor(x)) {
+      x <- addNA(x, ifany = FALSE)
+      x <- forcats::fct_explicit_na(x)
+      x
     } else {
       x
     }
+
   }
 
   data <- purrr::map_df(data, change_fct)

@@ -34,7 +34,7 @@ As the number of cyber-attacks continues to grow on a daily basis, so does the d
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 security_logs <- anomalyDetection::security_logs
-security_logs <- tibble::as_tibble(security_logs)
+#security_logs <- tibble::as_tibble(security_logs)
 ```
 
 ```{r, collapse=TRUE, message=FALSE, warning=FALSE}
