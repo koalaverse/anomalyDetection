@@ -56,15 +56,8 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50, level_ke
   # change character variables to factors
   change_fct <- function(x) {
     if(is.character(x)) {
-      x <- factor(x, exclude = NULL)
-    } else {
-      x <- x
-    }
+      factor(x)
 
-    if(is.factor(x)) {
-      x <- addNA(x, ifany = FALSE)
-      x <- forcats::fct_explicit_na(x)
-      x
     } else {
       x
     }

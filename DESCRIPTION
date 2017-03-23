@@ -31,7 +31,6 @@ Imports:
     matrixStats,
     qdapTools,
     dplyr,
-    forcats,
     purrr,
     tibble,
     RColorBrewer,
