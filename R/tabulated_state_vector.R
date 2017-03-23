@@ -130,7 +130,17 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50, level_ke
       list2names <- c(list2names, paste(names(temp_fac[list2[k]]), 1:level_keep, sep="_"))
     }
   }
+
+  # create names
   namelist <- c(unlist(sapply(temp_fac[list1], levels)), names(temp_num), list2names)
+
+  # turn NAs into NA1, NA2, etc.
+  missing_names <- which(is.na(namelist))
+  missing_n <- length(missing_names)
+  replace_missing <- paste0("NA", 1:missing_n)
+  namelist[is.na(namelist)] <- replace_missing
+
+  # add column names
   colnames(State_Vector) <- namelist
 
   return(tibble::as_tibble(State_Vector))
