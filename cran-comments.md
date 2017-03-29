@@ -1,9 +1,8 @@
 ## Changes
 
-This is a resubmission of the original package submission:
+This is a resubmission. In this version I have:
 
-- CRAN URL ( https://cran.r-project.org/web/packages/magrittr/README.html) not in canonical form; changed to https://CRAN.R-project.org/package=magrittr
-- Fixed mis-spellings in the DESCRIPTION file
+- Fixed a bug in `tabulate_state_vector` driven by NAs
 
 ## Test environments
 
@@ -19,5 +18,5 @@ This is a resubmission of the original package submission:
 
 ## Reverse dependencies
 
-This is a new release, so there are no reverse dependencies.
+There are currently no downstream dependencies for this package.
 
