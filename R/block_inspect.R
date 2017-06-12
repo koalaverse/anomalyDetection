@@ -50,7 +50,7 @@ inspect_block <- function(data, block_length){
 
   i <- 1
   start <- 1
-  for (i in seq_along(num_blocks)) {
+  for (i in seq_len(num_blocks)) {
     stopp <-  block_length*i
     Blocks[[i]] <- data[start:stopp,]
     start <- stopp + 1

@@ -65,8 +65,8 @@ factor_analysis <- function(data, hc_points) {
   v <- suppressWarnings(diag(M) * diag(1 / sqrt(stats::var(data))))
   Xs <- Xd %*% v
 
-  eigval2 <- eigval[seq_along(num_factors)]
-  eigvec2 <- eigvec[,seq_along(num_factors)]
+  eigval2 <- eigval[seq_len(num_factors)]
+  eigvec2 <- eigvec[,seq_len(num_factors)]
 
   lambda_mat <- vapply(seq_len(num_factors), function(i) sqrt(eigval2[i]) %*% eigvec2[ , i]), numeric(M))
 

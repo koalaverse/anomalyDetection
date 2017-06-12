@@ -76,7 +76,7 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50, level_ke
   ## find which columns are less than or equal to the level limit
   list1 <- which(vapply(data, nlevels, integer(1)) <= level_limit, arr.ind = TRUE)
   ## find which columns are greater than the level limit
-  list2 <- which(vapply(data, nlevels, , integer(1)) > level_limit, arr.ind = TRUE)
+  list2 <- which(vapply(data, nlevels, integer(1)) > level_limit, arr.ind = TRUE)
   ## if no columns above level limit, set level_keep to 0
   if (length(list2) == 0) level_keep <- 0
   ## count the number of levels in all the columns found in list 1
@@ -87,7 +87,7 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50, level_ke
 
   i <- 1
   start <- 1
-  for (i in seq_along(num_blocks)){
+  for (i in seq_len(num_blocks)){
     stopp <- block_length*i
     # create a temp variable to represent iterative block
     assign("temp",data[start:stopp,])
@@ -99,7 +99,7 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50, level_ke
     list2 <- which(vapply(temp_fac, nlevels, integer(1)) > level_limit, arr.ind = TRUE)
     # for all columns in list 1, create a summary list
     vec1 <- sapply(temp_fac[list1], summary)
-    if (length(list2) != 0) { ######### IS THIS RIGHT
+    if (length(list2) != 0) {
       j <- 1
       vec3 <- vector("list", length = length(list2)*level_keep)
       for (j in seq_along(list2)){
@@ -125,7 +125,7 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50, level_ke
     k <- 1
     for (k in seq_along(list2)){
       # takes the original name of the column and adds a number to it
-      list2names <- c(list2names, paste(names(temp_fac[list2[k]]), seq_along(level_keep), sep="_"))
+      list2names <- c(list2names, paste(names(temp_fac[list2[k]]), seq_len(level_keep), sep="_"))
     }
   }
 
@@ -135,7 +135,7 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50, level_ke
   # turn NAs into NA1, NA2, etc.
   missing_names <- is.na(namelist)
   missing_n <- sum(missing_names)
-  replace_missing <- paste0("NA", seq_along(missing_n))
+  replace_missing <- paste0("NA", seq_len(missing_n))
   namelist[missing_names] <- replace_missing
 
   # add column names

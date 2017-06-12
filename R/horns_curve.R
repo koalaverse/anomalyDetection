@@ -74,7 +74,7 @@ horns_curve <- function(data, n = NULL, p = NULL) {
   K <- 1000
   Eigvals_master <- matrix(0, K, p)
 
-  for (i in seq_along(K)){
+  for (i in seq_len(K)){
     M <- matrix(stats::rnorm(n * p), n, p)
     C <- stats::cov(M)
     Eigvals_C <- eigen(C)$values
