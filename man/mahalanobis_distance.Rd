@@ -33,12 +33,12 @@ Depending on the \code{output} parameter, the output will return either:
 }
 \examples{
 \dontrun{
-library(dplyr)
+
 x <- data.frame(C1 = rnorm(100), C2 = rnorm(100), C3 = rnorm(100))
 
 # add Mahalanobis distance results to data frame
 x \%>\%
-  mutate(MD = mahalanobis_distance(x))
+  dplyr::mutate(MD = mahalanobis_distance(x))
 
 # add Mahalanobis distance and breakdown distance results to data frame
 x \%>\%
