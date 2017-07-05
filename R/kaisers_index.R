@@ -52,10 +52,10 @@ kaisers_index <- function(loadings) {
   N <- nrow(loadings)
   M <- ncol(loadings)
 
-  t2 <- rowSums(loadings ^ 4)
-  t4 <- rowSums(loadings ^ 2)
+  t2 <- rowSums(loadings ^ 2)
+  t4 <- rowSums(loadings ^ 4)
 
-  sum1 <- sum(M * t1[seq_len(M)] - t2[seq_len(M)] ^ 2)
+  sum1 <- sum(M * t4[seq_len(M)] - t2[seq_len(M)] ^ 2)
   sum2 <- sum((M - 1) * t2[seq_len(M)] ^ 2)
 
   result <- sqrt(sum1/sum2)
