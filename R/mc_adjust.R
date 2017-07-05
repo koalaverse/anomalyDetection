@@ -67,9 +67,9 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
             "levels to allow for some variables to be retained.")
       }
 
-    # deliver warning if over 50% of the variables are being removed
+    # deliver message if over 50% of the variables are being removed
     if(sum(col2rmv) > ncol(data)*.5) {
-      warning("Over 50% of the variables have been removed based\n",
+      message("Over 50% of the variables have been removed based\n",
               "on the min_var level.")
      }
 
