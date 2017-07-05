@@ -2,7 +2,7 @@
 
 This is a resubmission. In this version I have:
 
-- Fixed a bug in `tabulate_state_vector` driven by NAs
+- Fixed a minor dplyr vs. plyr bug in help file examples by prefacing (dplyr::mutate)
 
 ## Test environments
 
