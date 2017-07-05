@@ -68,7 +68,7 @@ factor_analysis <- function(data, hc_points) {
   eigval2 <- eigval[seq_len(num_factors)]
   eigvec2 <- eigvec[,seq_len(num_factors)]
 
-  lambda_mat <- vapply(seq_len(num_factors), function(i) sqrt(eigval2[i]) %*% eigvec2[ , i]), numeric(M))
+  lambda_mat <- vapply(seq_len(num_factors), function(i) sqrt(eigval2[i]) %*% eigvec2[ , i], numeric(M))
 
   # generalized inverse is necessary to avoid matrix close to singularity
   fa_scores <- Xs %*% MASS::ginv(R) %*% lambda_mat
