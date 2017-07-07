@@ -4,6 +4,7 @@ This is a resubmission. In this version I have:
 
 - Fixed a minor dplyr vs. plyr bug in help file examples by prefacing (dplyr::mutate)
 - Made minor function efficiency improvements
+- Changed the URL since we moved the GitHub repo to an organization account
 
 ## Test environments
 
