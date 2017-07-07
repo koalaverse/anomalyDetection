@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-anomalyDetection <img src="tools/anomalyDetection_logo.png" align="right" width="120" height="139" />
+anomalyDetection <img src="tools/anomalyDetection-logo.png" align="right" width="120" height="139" />
 =====================================================================================================
 
 **Authors:** [Brad Boehmke](http://bradleyboehmke.github.io/) & Robert Gutierrez<br/> **License:** [GPL-3.0](https://opensource.org/licenses/GPL-3.0)
