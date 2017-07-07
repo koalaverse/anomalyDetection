@@ -33,10 +33,10 @@ inspect_block <- function(data, block_length){
   }
 
   # return error if arguments are wrong type
-  if(!is.data.frame(data) & !is.matrix(data)) {
+  if(!is.data.frame(data) && !is.matrix(data)) {
     stop("data must be a data frame or matrix", call. = FALSE)
   }
-  if(is.null(nrow(data)) | isTRUE(nrow(data) < block_length)) {
+  if(is.null(nrow(data)) || isTRUE(nrow(data) < block_length)) {
     stop("Your data input does not have sufficient number of rows", call. = FALSE)
   }
   if(!is.numeric(block_length)) {
@@ -50,11 +50,10 @@ inspect_block <- function(data, block_length){
 
   i <- 1
   start <- 1
-  for (i in 1:num_blocks) {
+  for (i in seq_len(num_blocks)) {
     stopp <-  block_length*i
     Blocks[[i]] <- data[start:stopp,]
     start <- stopp + 1
-    next
   }
 
   return(Blocks)

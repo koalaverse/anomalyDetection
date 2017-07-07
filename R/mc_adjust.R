@@ -42,14 +42,14 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
 
   # add argument validation
   if(is.null(colnames(data))) {
-    colnames(data) <- paste0("var", 1:ncol(data))
+    colnames(data) <- paste0("var", seq_len(ncol(data)))
   }
 
-  if(!is.numeric(min_var) | !is.numeric(max_cor)) {
+  if(!is.numeric(min_var) || !is.numeric(max_cor)) {
     stop("min_var and max_cor must be numeric inputs")
   }
 
-  if(action != "exclude" & action != "select") {
+  if(action != "exclude" && action != "select") {
     stop("The action argument must be either 'exclude' or 'select'")
   }
 
@@ -57,24 +57,24 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
   data <- as.matrix(data)
 
   # remove any columns with minimal variance
-  col2rmv <- which(matrixStats::colVars(data) < min_var)
-  if(length(col2rmv) > 0) {
+  col2rmv <- matrixStats::colVars(data) < min_var
+  if(any(col2rmv)) {
 
     # throw error if all columns are removed
-    if(length(col2rmv) == ncol(data)) {
+    if(sum(col2rmv) == ncol(data)) {
        stop("All variables have been removed based on the min_var\n",
             "level. Consider adjusting minimum acceptable variance\n",
             "levels to allow for some variables to be retained.")
       }
 
     # deliver message if over 50% of the variables are being removed
-    if(length(col2rmv) > ncol(data)*.5) {
+    if(sum(col2rmv) > ncol(data)*.5) {
       message("Over 50% of the variables have been removed based\n",
               "on the min_var level.")
      }
 
     # subset data to remove minimal variance columns
-    newdata <- subset(data, select = -col2rmv)
+    newdata <- data[ , ! col2rmv]
   } else {
 
     # no subsetting required if no columns meet the minimal variance threshold
@@ -84,39 +84,36 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
   # remove linearly dependent columns
   col2rmv <- caret::findLinearCombos(newdata)$remove
   if(!is.null(col2rmv)){
-    newdata <- subset(newdata, select = -col2rmv)
+    newdata <- newdata[ , -col2rmv]
   }
 
   # identify columns with strong correlation
   C <- stats::cor(newdata)
   samp <- data.frame(which(apply(abs(C), MARGIN = 2, function(x) dplyr::between(x, max_cor, 1.0)), arr.ind = TRUE))
-  mylist <- data.frame(matrix(nrow = nrow(C), ncol = 2))
-  colnames(mylist) <- c("num", "name")
-  mylist[,1] <- 1:ncol(C)
-  mylist[,2] <- colnames(newdata)
+  mylist <- data.frame(num = seq_len(ncol(C)), name = colnames(newdata))
   temp <- qdapTools::lookup(samp, mylist)
-  col2rmv <- which(colnames(newdata) %in% temp[duplicated(temp)])
+  col2rmv <- colnames(newdata) %in% temp[duplicated(temp)]
 
   # remove strong correlation columns
-  if(action == "exclude" & length(col2rmv) > 0) {
+  if(action == "exclude" && sum(col2rmv) > 0) {
 
     # throw error if all columns are removed
-    if(length(col2rmv) == ncol(newdata)) {
+    if(sum(col2rmv) == ncol(newdata)) {
       stop("All variables have been removed based on the max_cor\n",
            "level. Consider adjusting maximum acceptable correlation\n",
            "levels to allow for some variables to be retained.")
     }
 
     # deliver message if over 50% of the variables are being removed
-    if(length(col2rmv) > ncol(newdata)*.5) {
+    if(sum(col2rmv) > ncol(newdata)*.5) {
       message("Over 50% of the variables have been removed based\n",
               "on the max_cor level.")
     }
 
     # subset data to remove minimal variance columns
-    newdata <- subset(newdata, select = -col2rmv)
+    newdata <- newdata[ , ! col2rmv]
     tibble::as_tibble(newdata)
-  } else if(action == "select" & length(col2rmv) > 0) {
+  } else if(action == "select" && sum(col2rmv) > 0) {
     # create data frame to report high correlated variables
     options_to_rm <- data.frame(v1 = rownames(C)[row(C)[upper.tri(C)]],
                                 v2 = colnames(C)[col(C)[upper.tri(C)]],
@@ -127,7 +124,7 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
 
       message("The following variable pairs exceed the max_cor input:\n")
 
-      for(i in 1:nrow(options_to_rm)) {
+      for(i in seq_len(nrow(options_to_rm))) {
         cat(options_to_rm[i, 1], " & ", options_to_rm[i, 2], " (r = ", options_to_rm[i, 3],")", sep = "")
         cat("\n")
       }
@@ -148,7 +145,7 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
 
       col2rmv <- if(interactive()) fun()
 
-      newdata <- newdata[, -which(colnames(newdata) %in% col2rmv)]
+      newdata <- newdata[, ! colnames(newdata) %in% col2rmv]
       tibble::as_tibble(newdata)
 
   } else {

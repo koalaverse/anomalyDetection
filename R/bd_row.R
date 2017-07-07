@@ -44,13 +44,13 @@ bd_row <- function(data, row, n = NULL) {
   if(missing(data)) {
     stop("Missing data argument", call. = FALSE)
   }
-  if(row %in% 1:nrow(data) == FALSE) {
+  if(! row %in% seq_len(nrow(data))) {
     stop("Invalid row value", call. = FALSE)
   }
   if(length(row) != 1) {
     stop("row value must be a single integer", call. = FALSE)
   }
-  if(!isTRUE(n %in% 1:ncol(data)) & !is.null(n)) {
+  if(!isTRUE(n %in% seq_len(ncol(data))) && !is.null(n)) {
     stop("Invalid n value", call. = FALSE)
   }
 
@@ -67,7 +67,7 @@ bd_row <- function(data, row, n = NULL) {
   names(output) <- colnames(data)[bd_index]
 
   if(!is.null(n)) {
-     output <- output[1:n]
+     output <- output[seq_len(n)]
   }
 
   return(output)

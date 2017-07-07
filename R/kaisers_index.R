@@ -51,22 +51,12 @@ kaisers_index <- function(loadings) {
 
   N <- nrow(loadings)
   M <- ncol(loadings)
-  t1 <- matrix(0, N, 1)
-  t2 <- matrix(0, N, 1)
-  sum1 <- 0
-  sum2 <- 0
 
-  for (i in 1:N) {
-    for (j in 1:M){
-      t1[i,1] <- t1[i,1] + loadings[i,j]^4
-      t2[i,1] <- t2[i,1] + loadings[i,j]^2
-    }
-  }
+  t2 <- rowSums(loadings ^ 2)
+  t4 <- rowSums(loadings ^ 4)
 
-  for (i in 1:M){
-    sum1 <- sum1 + (M*t1[i,1] - t2[i,1]^2)
-    sum2 <- sum2 + (M -1)* (t2[i,1]^2)
-  }
+  sum1 <- sum(M * t4[seq_len(M)] - t2[seq_len(M)] ^ 2)
+  sum2 <- sum((M - 1) * t2[seq_len(M)] ^ 2)
 
   result <- sqrt(sum1/sum2)
   return(result)

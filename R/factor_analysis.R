@@ -65,13 +65,10 @@ factor_analysis <- function(data, hc_points) {
   v <- suppressWarnings(diag(M) * diag(1 / sqrt(stats::var(data))))
   Xs <- Xd %*% v
 
-  eigval2 <- eigval[1:num_factors]
-  eigvec2 <- eigvec[,1:num_factors]
-  lambda_mat <- matrix(0, M, num_factors)
-  for (i in 1:num_factors) {
-    lambda_mat[,i] <- sqrt(eigval2[i]) %*% eigvec2[,i]
-    next
-  }
+  eigval2 <- eigval[seq_len(num_factors)]
+  eigvec2 <- eigvec[,seq_len(num_factors)]
+
+  lambda_mat <- vapply(seq_len(num_factors), function(i) sqrt(eigval2[i]) %*% eigvec2[ , i], numeric(M))
 
   # generalized inverse is necessary to avoid matrix close to singularity
   fa_scores <- Xs %*% MASS::ginv(R) %*% lambda_mat
@@ -147,7 +144,7 @@ factor_analysis_results <- function(data, results = 1) {
     stop("Missing argument: results argument", call. = FALSE)
   }
 
-  if(result_input %in% paste(1:5)) {
+  if(result_input %in% as.character(1:5)) {
     data[[results]]
   } else if(result_input %in% result_options) {
     data[[result_input]]

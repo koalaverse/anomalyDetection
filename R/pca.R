@@ -115,7 +115,7 @@ principal_components_result <- function(data, results = 2) {
     stop("Missing argument: results argument", call. = FALSE)
   }
 
-  if(result_input %in% paste(1:5)) {
+  if(result_input %in% as.character(1:5)) {
     data[[results]]
   } else if(result_input %in% result_options) {
     data[[result_input]]

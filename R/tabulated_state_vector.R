@@ -36,10 +36,10 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50, level_ke
   }
 
   # return error if arguments are wrong type
-  if(!is.data.frame(data) & !is.matrix(data)) {
+  if(!is.data.frame(data) && !is.matrix(data)) {
     stop("data must be a data frame or matrix", call. = FALSE)
   }
-  if(is.null(nrow(data)) | isTRUE(nrow(data) < block_length)) {
+  if(is.null(nrow(data)) || isTRUE(nrow(data) < block_length)) {
     stop("Your data input does not have sufficient number of rows", call. = FALSE)
   }
   if(!is.numeric(block_length)) {
@@ -72,62 +72,60 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50, level_ke
 
   # the next block of code is to determine the block width to dimensionalize the State Vector
   ## find how many numeric variables there are
-  numeric_vars <- as.numeric(sum(sapply(data, is.numeric) == TRUE))
+  numeric_vars <- as.numeric(sum(vapply(data, is.numeric, logical(1))))
   ## find which columns are less than or equal to the level limit
-  list1 <- which(sapply(data, nlevels) <= level_limit, arr.ind = TRUE)
+  list1 <- which(vapply(data, nlevels, integer(1)) <= level_limit, arr.ind = TRUE)
   ## find which columns are greater than the level limit
-  list2 <- which(sapply(data, nlevels) > level_limit, arr.ind = TRUE)
+  list2 <- which(vapply(data, nlevels, integer(1)) > level_limit, arr.ind = TRUE)
   ## if no columns above level limit, set level_keep to 0
   if (length(list2) == 0) level_keep <- 0
   ## count the number of levels in all the columns found in list 1
-  num_levels <- data[, list1] %>% sapply(nlevels) %>% as.numeric() %>% sum()
+  num_levels <- data[, list1] %>% vapply(nlevels, numeric(1)) %>% sum()
   ## determines the width of the state vector
   block_width <- num_levels + numeric_vars + length(list2) * level_keep
   State_Vector <- matrix(nrow = num_blocks, ncol = block_width)
 
   i <- 1
   start <- 1
-  for (i in 1:num_blocks){
+  for (i in seq_len(num_blocks)){
     stopp <- block_length*i
     # create a temp variable to represent iterative block
     assign("temp",data[start:stopp,])
     # subset temp with only the columns that are of type factor
     temp_fac <- temp %>% dplyr::select_if(is.factor)
     # find which columns in temp_fac are less than or equal to the level limit
-    list1 <- which(sapply(temp_fac, nlevels) <= level_limit, arr.ind = TRUE)
+    list1 <- which(vapply(temp_fac, nlevels, integer(1)) <= level_limit, arr.ind = TRUE)
     # find which columns in temp_fac are greater than the level limit
-    list2 <- which(sapply(temp_fac, nlevels) > level_limit, arr.ind = TRUE)
+    list2 <- which(vapply(temp_fac, nlevels, integer(1)) > level_limit, arr.ind = TRUE)
     # for all columns in list 1, create a summary list
     vec1 <- sapply(temp_fac[list1], summary)
-    if (length(list2 != 0)) {
+    if (length(list2) != 0) {
       j <- 1
       vec3 <- vector("list", length = length(list2)*level_keep)
-      for (j in 1:length(list2)){
+      for (j in seq_along(list2)){
         # finds the top most occurring factor levels for those that exceed the level limit
         temp1 <- utils::head(sapply(temp_fac[list2[j]],summary), n = level_keep)
         temp2 <- as.vector(temp1)
         vec3[[j]] <- temp2
-        next
       }
     }
     # subset the temp with only the columns that are of type numeric
     temp_num <- temp %>% dplyr::select_if(is.numeric)
     # sum the entire column
-    vec2 <- sapply(temp_num, sum)
+    vec2 <- vapply(temp_num, sum, numeric(1))
     vec0 <- c(unlist(vec1), unlist(vec2))
     if (exists("vec3")) vec0 <- c(vec0, unlist(vec3))
     State_Vector[i,] <- vec0
     start <- stopp + 1
-    next
   }
 
   # the following set of code is to build the name list for the level_keep variables
   list2names <- NULL
   if (length(list2) != 0) {
     k <- 1
-    for (k in 1:length(list2)){
+    for (k in seq_along(list2)){
       # takes the original name of the column and adds a number to it
-      list2names <- c(list2names, paste(names(temp_fac[list2[k]]), 1:level_keep, sep="_"))
+      list2names <- c(list2names, paste(names(temp_fac[list2[k]]), seq_len(level_keep), sep="_"))
     }
   }
 
@@ -135,10 +133,10 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50, level_ke
   namelist <- c(unlist(sapply(temp_fac[list1], levels)), names(temp_num), list2names)
 
   # turn NAs into NA1, NA2, etc.
-  missing_names <- which(is.na(namelist))
-  missing_n <- length(missing_names)
-  replace_missing <- paste0("NA", 1:missing_n)
-  namelist[is.na(namelist)] <- replace_missing
+  missing_names <- is.na(namelist)
+  missing_n <- sum(missing_names)
+  replace_missing <- paste0("NA", seq_len(missing_n))
+  namelist[missing_names] <- replace_missing
 
   # add column names
   colnames(State_Vector) <- namelist
