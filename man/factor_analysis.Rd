@@ -9,7 +9,7 @@ factor_analysis(data, hc_points)
 \arguments{
 \item{data}{numeric data}
 
-\item{hc_points}{vector of eigenvalues [designed to use output from horns_curve() function]}
+\item{hc_points}{vector of eigenvalues [designed to use output from \code{\link{horns_curve}}]}
 }
 \value{
 A list containing:

@@ -6,7 +6,7 @@
 #' of the correlation matrix.
 #'
 #' @param data numeric data
-#' @param hc_points vector of eigenvalues [designed to use output from horns_curve() function]
+#' @param hc_points vector of eigenvalues [designed to use output from \code{\link{horns_curve}}]
 #'
 #' @return A list containing:
 #'     \enumerate{
