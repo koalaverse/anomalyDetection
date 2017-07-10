@@ -33,4 +33,4 @@ You can install `anomalyDetection` two ways.
 Learning
 --------
 
-To get started with `anomalyDetection`, read the intro vignette: `vignette("Introduction", package = "anomalyDetection")`. This will provide a thorough introduction to the functions provided in the package.
+To get started with `anomalyDetection`, read the intro [vignette](https://cran.r-project.org/web/packages/anomalyDetection/vignettes/Introduction.html): `vignette("Introduction", package = "anomalyDetection")`. This will provide a thorough introduction to the functions provided in the package.
