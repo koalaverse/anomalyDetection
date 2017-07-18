@@ -22,22 +22,25 @@ LazyData: true
 Depends:
     R (>= 2.10)
 Imports:
-    stats,
-    MASS,
-    magrittr,
-    plyr,
-    gmp,
     caret,
-    matrixStats,
-    qdapTools,
     dplyr,
+    gmp,
+    gplots,
+    magrittr,
+    MASS,
+    matrixStats,
+    plyr,
     purrr,
-    tibble,
+    qdapTools,
     RColorBrewer,
+    Rcpp (>= 0.12.11),
+    stats,
+    tibble,
     tidyverse,
-    gplots
 RoxygenNote: 6.0.1
-Suggests: testthat,
+Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat,
+LinkingTo: Rcpp, RcppArmadillo
 VignetteBuilder: knitr

@@ -2,56 +2,59 @@
 % Please edit documentation in R/mahalanobis_distance.R
 \name{mahalanobis_distance}
 \alias{mahalanobis_distance}
+\alias{mahalanobis_distance.matrix}
+\alias{mahalanobis_distance.data.frame}
 \title{Mahalanobis Distance}
 \usage{
-mahalanobis_distance(data, output = "md", normalize = FALSE)
+mahalanobis_distance(data, output = c("md", "bd", "both"),
+  normalize = FALSE)
+
+\method{mahalanobis_distance}{matrix}(data, output = c("md", "bd", "both"),
+  normalize = FALSE)
+
+\method{mahalanobis_distance}{data.frame}(data, output = c("md", "bd",
+  "both"), normalize = FALSE)
 }
 \arguments{
-\item{data}{numeric data}
+\item{data}{A matrix or data frame. Data frames will be converted to matrices
+via \code{data.matrix}.}
 
-\item{output}{character vector stating the results to be returned. Can be "md"
-to return the Mahalanobis distances (default), "bd" to return the absolute breakdown
-distances (used to see which columns drive the Mahalanobis distance), or "both"
-to return both md and bd values.}
+\item{output}{Character string specifying which distance metric(s) to
+compute. Current options include: \code{"md"} for Mahalanobis distance
+(default); \code{"bd"} for absolute breakdown distance (used to see which
+columns drive the Mahalanobis distance); and \code{"both"} to return both
+distance metrics.}
 
-\item{normalize}{logical value of either \code{TRUE} or \code{FALSE}. If \code{TRUE}
-will normalize the breakdown distances within each variable so that breakdown distances
-across variables can be compared.}
+\item{normalize}{Logical indicating whether or not to normalize the breakdown
+distances within each column (so that breakdown distances across columns can
+be compared).}
 }
 \value{
-Depending on the \code{output} parameter, the output will return either:
-    \enumerate{
-      \item \code{md}: vector of Mahalanobis distances, one for each matrix row
-      \item \code{bd}: matrix of the absolute values of the breakdown distances; used to see which columns drive the Mahalanobis distance
-      \item \code{both}: matrix containing both Mahalanobis and breakdown distances
-    }
+If \code{output = "md"}, then a vector containing the Mahalanobis
+distances is returned. Otherwise, a matrix.
 }
 \description{
-\code{mahalanobis_distance} calculates the distance between the elements in data
-  and the mean vector of the data for outlier detection. Values are independent
-  of the scale between variables.
+Calculates the distance between the elements in a data set and the mean
+vector of the data for outlier detection. Values are independent of the scale
+between variables.
 }
 \examples{
 \dontrun{
-
+# Simulate some data
 x <- data.frame(C1 = rnorm(100), C2 = rnorm(100), C3 = rnorm(100))
 
-# add Mahalanobis distance results to data frame
-x \%>\%
-  dplyr::mutate(MD = mahalanobis_distance(x))
+# Add Mahalanobis distances
+x \%>\% dplyr::mutate(MD = mahalanobis_distance(x))
 
-# add Mahalanobis distance and breakdown distance results to data frame
-x \%>\%
-  cbind(mahalanobis_distance(x, "both"))
+# Add Mahalanobis and breakdown distances
+x \%>\% cbind(mahalanobis_distance(x, output = "both"))
 
-# add Mahalanobis distance and normalized breakdown distance results to data frame
-x \%>\%
-  cbind(mahalanobis_distance(x, "both", normalize = TRUE))
+# Add Mahalanobis and normalized breakdown distances
+x \%>\% cbind(mahalanobis_distance(x, output = "both", normalize = TRUE))
 }
-
 }
 \references{
 W. Wang and R. Battiti, "Identifying Intrusions in Computer Networks with
-Principal Component Analysis," in First International Conference on Availability,
-Reliability and Security, 2006.
+Principal Component Analysis," in First International Conference on
+Availability, Reliability and Security, 2006.
 }

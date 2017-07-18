@@ -1,101 +1,88 @@
-#' @title Mahalanobis Distance
+#' Mahalanobis Distance
 #'
-#' @description
-#' \code{mahalanobis_distance} calculates the distance between the elements in data
-#'   and the mean vector of the data for outlier detection. Values are independent
-#'   of the scale between variables.
+#' Calculates the distance between the elements in a data set and the mean
+#' vector of the data for outlier detection. Values are independent of the scale
+#' between variables.
 #'
-#' @param data numeric data
-#' @param output character vector stating the results to be returned. Can be "md"
-#'   to return the Mahalanobis distances (default), "bd" to return the absolute breakdown
-#'   distances (used to see which columns drive the Mahalanobis distance), or "both"
-#'   to return both md and bd values.
-#' @param normalize logical value of either \code{TRUE} or \code{FALSE}. If \code{TRUE}
-#'   will normalize the breakdown distances within each variable so that breakdown distances
-#'   across variables can be compared.
+#' @param data A matrix or data frame. Data frames will be converted to matrices
+#' via \code{data.matrix}.
 #'
-#' @return Depending on the \code{output} parameter, the output will return either:
-#'     \enumerate{
-#'       \item \code{md}: vector of Mahalanobis distances, one for each matrix row
-#'       \item \code{bd}: matrix of the absolute values of the breakdown distances; used to see which columns drive the Mahalanobis distance
-#'       \item \code{both}: matrix containing both Mahalanobis and breakdown distances
-#'     }
+#' @param output Character string specifying which distance metric(s) to
+#' compute. Current options include: \code{"md"} for Mahalanobis distance
+#' (default); \code{"bd"} for absolute breakdown distance (used to see which
+#' columns drive the Mahalanobis distance); and \code{"both"} to return both
+#' distance metrics.
+#'
+#' @param normalize Logical indicating whether or not to normalize the breakdown
+#' distances within each column (so that breakdown distances across columns can
+#' be compared).
+#'
+#' @return If \code{output = "md"}, then a vector containing the Mahalanobis
+#' distances is returned. Otherwise, a matrix.
 #'
 #' @references
-#'
 #' W. Wang and R. Battiti, "Identifying Intrusions in Computer Networks with
-#' Principal Component Analysis," in First International Conference on Availability,
-#' Reliability and Security, 2006.
+#' Principal Component Analysis," in First International Conference on
+#' Availability, Reliability and Security, 2006.
 #'
-#' @importFrom magrittr %>%
+#' @rdname mahalanobis_distance
+#'
+#' @export
 #'
 #' @examples
 #' \dontrun{
-#'
+#' # Simulate some data
 #' x <- data.frame(C1 = rnorm(100), C2 = rnorm(100), C3 = rnorm(100))
 #'
-#' # add Mahalanobis distance results to data frame
-#' x %>%
-#'   dplyr::mutate(MD = mahalanobis_distance(x))
+#' # Add Mahalanobis distances
+#' x %>% dplyr::mutate(MD = mahalanobis_distance(x))
 #'
-#' # add Mahalanobis distance and breakdown distance results to data frame
-#' x %>%
-#'   cbind(mahalanobis_distance(x, "both"))
+#' # Add Mahalanobis and breakdown distances
+#' x %>% cbind(mahalanobis_distance(x, output = "both"))
 #'
-#' # add Mahalanobis distance and normalized breakdown distance results to data frame
-#' x %>%
-#'   cbind(mahalanobis_distance(x, "both", normalize = TRUE))
+#' # Add Mahalanobis and normalized breakdown distances
+#' x %>% cbind(mahalanobis_distance(x, output = "both", normalize = TRUE))
 #' }
-#'
+mahalanobis_distance <- function(data, output = c("md", "bd", "both"),
+                                 normalize = FALSE) {
+  UseMethod("mahalanobis_distance")
+}
+
+
+#' @rdname mahalanobis_distance
 #' @export
+mahalanobis_distance.matrix <- function(data, output = c("md", "bd", "both"),
+                                        normalize = FALSE) {
 
-mahalanobis_distance <- function(data, output = "md", normalize = FALSE) {
+  # Check params
+  output <- match.arg(output)
 
-  # return error if parameters are missing
-  if(missing(data)) {
-    stop("Missing data argument", call. = FALSE)
-  }
-  if(output != "md" && output != "bd" && output != "both") {
-    stop("Invalid output argument; must be 'md', 'bd', or 'both'", call. = FALSE)
-  }
-  if(! normalize %in% c(TRUE, FALSE)) {
-    stop("Invalid normalize argument; must be TRUE or FALSE", call. = FALSE)
+  # Check column names
+  if (is.null(colnames(data))) {
+    colnames(data) <- seq_len(ncol(data))
   }
 
-  data <- as.matrix(data)
-  N <- nrow(data)
-  M <- ncol(data)
-  md <- rep(0,N)
-  bd <- matrix(rep(0,N), nrow = N, ncol = M)
-  C <- stats::cov(data)
-  IC <- MASS::ginv(C)
-  CM <- as.matrix(colMeans(data))
-
-
-  for (i in seq_len(N)) {
-    D <- (data[i,] - t(CM))
-    md[i] <- D %*% IC %*% t(D)
-    bd[i,] <- abs(D / sqrt(diag(C)))
+  # Compute distances
+  if (output == "md") {  # mahalanobis distance only
+    compute_md(data)[, , drop = TRUE]
+  } else if (output == "bd") {  # absolute breakdown distance only
+    out <- compute_bd(data, normalize = normalize)
+    colnames(out) <- paste0(colnames(data), "_BD")
+    out
+  } else {  # both
+    out <- compute_md_and_bd(data, normalize = normalize)
+    colnames(out) <- c("MD", paste0(colnames(data), "_BD"))
+    out
   }
-
-  if(normalize) {
-    bd <- bd %*% diag(1 / colSums(data))
-  }
-
-  colnames(bd) <- paste(colnames(data), "BD", sep = "_")
-  output_list <- list(md = md,
-                 bd = bd)
-
-  if(output == "md") {
-    output <- output_list$md
-  } else if(output == "bd") {
-    output <- output_list$bd
-  } else {
-    output <- cbind(output_list$md, output_list$bd)
-    colnames(output) <- c("MD", paste(colnames(data), "BD", sep = "_"))
-  }
-
-  return(output)
 
 }
 
+
+#' @rdname mahalanobis_distance
+#' @export
+mahalanobis_distance.data.frame <- function(data,
+                                            output = c("md", "bd", "both"),
+                                            normalize = FALSE) {
+  mahalanobis_distance.matrix(data.matrix(data), output = output,
+                              normalize = normalize)
+}
