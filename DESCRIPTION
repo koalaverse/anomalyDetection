@@ -3,11 +3,28 @@ Type: Package
 Title: Implementation of Augmented Network Log Anomaly Detection Procedures
 Version: 0.1.2
 Authors@R: c( 
-    person("Bradley", "Boehmke", email = "bradleyboehmke@gmail.com", role = c("aut", "cre")), 
-    person("Robert", "Gutierrez", email = "rjgutierrez2015@gmail.com", role = c("aut")),
-    person("Kenneth", "Bauer", email = "kenneth.bauer@afit.edu", role = c("ctb")),
-    person("Trevor", "Bihl", email = "trevor.bihl.2@us.af.mil", role = c("ctb")),
-    person("Cade", "Saie", email = "cade.saie@gmail.com", role = c("ctb")) )
+    person("Bradley", "Boehmke", 
+           email = "bradleyboehmke@gmail.com", 
+           role = c("aut", "cre")), 
+    person("Robert", "Gutierrez", 
+           email = "rjgutierrez2015@gmail.com", 
+           role = c("aut")),
+    person("Brandon", "Greenwell",
+           email = "greenwell.brandon@gmail.com",
+           role = c("aut")),
+    person("Andrew", "McCarthy",
+           email = "andrew.mccarthy@theperducogroup.com",
+           role = c("aut")),
+    person("Kenneth", "Bauer", 
+           email = "kenneth.bauer@afit.edu", 
+           role = c("ctb")),
+    person("Trevor", "Bihl", 
+           email = "trevor.bihl.2@us.af.mil", 
+           role = c("ctb")),
+    person("Cade", "Saie", 
+           email = "cade.saie@gmail.com", 
+           role = c("ctb"))
+    )
 Maintainer: Bradley Boehmke <bradleyboehmke@gmail.com>
 Date: 2017-06-30
 Description: Implements procedures to aid in detecting network log anomalies.
