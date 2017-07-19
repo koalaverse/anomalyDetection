@@ -37,7 +37,7 @@ arma::mat compute_md_and_bd(arma::mat x, bool normalize) {
   arma::vec sqrt_diag_covx = arma::sqrt(covx.diag());
   arma::rowvec colmeans = arma::mean(x, 0);
   arma::mat xsweep = x.each_row() - colmeans;
-  arma::vec md = sum(xsweep * arma::pinv(covx) * xsweep.t(), 1);
+  arma::vec md = sum(xsweep * arma::pinv(arma::cov(x)) % xsweep, 1);
   arma::mat out = arma::abs(xsweep.each_row() / sqrt_diag_covx.t());
   if (normalize) {
     out = out * arma::diagmat(1 / arma::sum(x, 0));
