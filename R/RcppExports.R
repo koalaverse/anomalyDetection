@@ -13,3 +13,7 @@ compute_md_and_bd <- function(x, normalize) {
     .Call('anomalyDetection_compute_md_and_bd', PACKAGE = 'anomalyDetection', x, normalize)
 }
 
+compute_hc <- function(n, p, nsim) {
+    .Call('anomalyDetection_compute_hc', PACKAGE = 'anomalyDetection', n, p, nsim)
+}
+

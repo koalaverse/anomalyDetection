@@ -45,3 +45,15 @@ arma::mat compute_md_and_bd(arma::mat x, bool normalize) {
   out.insert_cols(0, md);
   return out;
 }
+
+
+// [[Rcpp::export]]
+arma::mat compute_hc(int n, int p, int nsim) {
+  arma::vec eig_vals(p);
+  arma::mat eig_vecs(nsim, p);
+  for(int i = 0; i < nsim; ++i) {
+    eig_vals = arma::eig_sym(arma::cov(arma::randn(n, p)));
+    eig_vecs.row(i) = arma::sort(eig_vals, "descend").t();
+  }
+  return arma::mean(eig_vecs, 0).t();
+}

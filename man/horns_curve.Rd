@@ -2,44 +2,44 @@
 % Please edit documentation in R/horns_curve.R
 \name{horns_curve}
 \alias{horns_curve}
+\alias{horns_curve.default}
+\alias{horns_curve.data.frame}
+\alias{horns_curve.matrix}
 \title{Horn's Parallel Analysis}
 \usage{
-horns_curve(data, n = NULL, p = NULL)
+horns_curve(data, n, p)
+
+\method{horns_curve}{default}(n, p)
+
+\method{horns_curve}{data.frame}(data)
+
+\method{horns_curve}{matrix}(data)
 }
 \arguments{
-\item{data}{numeric data}
+\item{data}{A matrix or data frame.}
 
-\item{n}{integer value representing number of rows (default = NULL)}
+\item{n}{Integer specifying the number of rows.}
 
-\item{p}{integer value representing number of columns (default = NULL)}
+\item{p}{Integer specifying the number of columns.}
 }
 \value{
-A vector of length \code{p} with the computed average eigenvalues. The
-  values can then be plotted or compared to the true eigenvalues of a dataset
-  for a dimensionality assessment.
+A vector of length \code{p} containing the averaged eigenvalues. The
+values can then be plotted or compared to the true eigenvalues from a dataset
+for a dimensionality reduction assessment.
 }
 \description{
-\code{horns_curve} computes the average eigenvalues produced by a Monte Carlo
-  simulation that randomly generates a large number of matrices of size \code{n} x \code{p},
-  where each element is drawn from a standard normal probability distribution. If a
-  data matrix or data frame is supplied \code{n} and \code{p} will be extracted from
-  the data dimensions.  Otherwise, \code{n} and \code{p} must be supplied.
+Computes the average eigenvalues produced by a Monte Carlo simulation that
+randomly generates a large number of \code{n}x\code{p} matrices of standard
+normal deviates.
 }
 \examples{
 # Perform Horn's Parallel analysis with matrix n x p dimensions
-x <- matrix(rnorm(200*3), ncol = 10)
-
-# using data
+x <- matrix(rnorm(200 * 3), ncol = 10)
 horns_curve(x)
-
-# using n & p inputs
-horns_curve(data = NULL, n = 25, p = 10)
-
-# Graph the scree line for a dimensionality assessment
-horns_curve(x) \%>\%
-  plot()
-
+horns_curve(n = 25, p = 10)
+plot(horns_curve(x))  # scree plot
 }
 \references{
-J. L. Horn, "A rationale and test for the number of factors in factor analysis," Psychometrika, vol. 30, no. 2, pp. 179-185, 1965.
+J. L. Horn, "A rationale and test for the number of factors in factor
+analysis," Psychometrika, vol. 30, no. 2, pp. 179-185, 1965.
 }

@@ -41,11 +41,25 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// compute_hc
+arma::mat compute_hc(int n, int p, int nsim);
+RcppExport SEXP anomalyDetection_compute_hc(SEXP nSEXP, SEXP pSEXP, SEXP nsimSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    Rcpp::traits::input_parameter< int >::type nsim(nsimSEXP);
+    rcpp_result_gen = Rcpp::wrap(compute_hc(n, p, nsim));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"anomalyDetection_compute_md", (DL_FUNC) &anomalyDetection_compute_md, 1},
     {"anomalyDetection_compute_bd", (DL_FUNC) &anomalyDetection_compute_bd, 2},
     {"anomalyDetection_compute_md_and_bd", (DL_FUNC) &anomalyDetection_compute_md_and_bd, 2},
+    {"anomalyDetection_compute_hc", (DL_FUNC) &anomalyDetection_compute_hc, 3},
     {NULL, NULL, 0}
 };
 
