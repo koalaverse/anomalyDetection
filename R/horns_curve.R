@@ -46,12 +46,12 @@ horns_curve.default <- function(n, p, nsim = 1000) {
 #' @rdname horns_curve
 #' @export
 horns_curve.matrix <- function(data, nsim = 1000) {
-  compute_hc.default(n = nrow(data), p = ncol(data), nsim = nsim)
+  compute_hc(n = nrow(data), p = ncol(data), nsim = nsim)[, , drop = TRUE]
 }
 
 
 #' @rdname horns_curve
 #' @export
 horns_curve.data.frame <- function(data, nsim = 1000) {
-  compute_hc.default(n = nrow(data), p = ncol(data), nsim = nsim)
+  compute_hc(n = nrow(data), p = ncol(data), nsim = nsim)[, , drop = TRUE]
 }
