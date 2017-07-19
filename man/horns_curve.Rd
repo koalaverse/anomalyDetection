@@ -3,17 +3,17 @@
 \name{horns_curve}
 \alias{horns_curve}
 \alias{horns_curve.default}
-\alias{horns_curve.data.frame}
 \alias{horns_curve.matrix}
+\alias{horns_curve.data.frame}
 \title{Horn's Parallel Analysis}
 \usage{
-horns_curve(data, n, p)
+horns_curve(data, n, p, nsim)
 
-\method{horns_curve}{default}(n, p)
+\method{horns_curve}{default}(n, p, nsim = 1000)
 
-\method{horns_curve}{data.frame}(data)
+\method{horns_curve}{matrix}(data, nsim = 1000)
 
-\method{horns_curve}{matrix}(data)
+\method{horns_curve}{data.frame}(data, nsim = 1000)
 }
 \arguments{
 \item{data}{A matrix or data frame.}
@@ -21,6 +21,9 @@ horns_curve(data, n, p)
 \item{n}{Integer specifying the number of rows.}
 
 \item{p}{Integer specifying the number of columns.}
+
+\item{nsim}{Integer specifying the number of Monte Carlo simulations to run.
+Default is \code{1000}.}
 }
 \value{
 A vector of length \code{p} containing the averaged eigenvalues. The

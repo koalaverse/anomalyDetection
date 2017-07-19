@@ -10,6 +10,9 @@
 #'
 #' @param p Integer specifying the number of columns.
 #'
+#' @param nsim Integer specifying the number of Monte Carlo simulations to run.
+#' Default is \code{1000}.
+#'
 #' @return A vector of length \code{p} containing the averaged eigenvalues. The
 #' values can then be plotted or compared to the true eigenvalues from a dataset
 #' for a dimensionality reduction assessment.
@@ -42,13 +45,13 @@ horns_curve.default <- function(n, p, nsim = 1000) {
 
 #' @rdname horns_curve
 #' @export
-horns_curve.data.frame <- function(data, nsim = 1000) {
+horns_curve.matrix <- function(data, nsim = 1000) {
   compute_hc.default(n = nrow(data), p = ncol(data), nsim = nsim)
 }
 
 
 #' @rdname horns_curve
 #' @export
-horns_curve.matrix <- function(data, nsim = 1000) {
+horns_curve.data.frame <- function(data, nsim = 1000) {
   compute_hc.default(n = nrow(data), p = ncol(data), nsim = nsim)
 }
