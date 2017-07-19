@@ -52,6 +52,9 @@ arma::mat compute_hc(int n, int p, int nsim) {
   arma::vec eig_vals(p);
   arma::mat eig_vecs(nsim, p);
   for(int i = 0; i < nsim; ++i) {
+    if (i % 100 == 0) {
+      Rcpp::checkUserInterrupt();  // check for user interuption
+    }
     eig_vals = arma::eig_sym(arma::cov(arma::randn(n, p)));
     eig_vecs.row(i) = arma::sort(eig_vals, "descend").t();
   }
