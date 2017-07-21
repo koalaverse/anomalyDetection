@@ -2,18 +2,9 @@
 % Please edit documentation in R/horns_curve.R
 \name{horns_curve}
 \alias{horns_curve}
-\alias{horns_curve.default}
-\alias{horns_curve.matrix}
-\alias{horns_curve.data.frame}
 \title{Horn's Parallel Analysis}
 \usage{
-horns_curve(data, n, p, nsim)
-
-\method{horns_curve}{default}(n, p, nsim = 1000)
-
-\method{horns_curve}{matrix}(data, nsim = 1000)
-
-\method{horns_curve}{data.frame}(data, nsim = 1000)
+horns_curve(data, n, p, nsim = 1000L)
 }
 \arguments{
 \item{data}{A matrix or data frame.}
@@ -37,9 +28,9 @@ normal deviates.
 }
 \examples{
 # Perform Horn's Parallel analysis with matrix n x p dimensions
-x <- matrix(rnorm(200 * 3), ncol = 10)
+x <- matrix(rnorm(200 * 10), ncol = 10)
 horns_curve(x)
-horns_curve(n = 25, p = 10)
+horns_curve(n = 200, p = 10)
 plot(horns_curve(x))  # scree plot
 }
 \references{

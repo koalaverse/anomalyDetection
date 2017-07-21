@@ -27,31 +27,30 @@
 #'
 #' @examples
 #' # Perform Horn's Parallel analysis with matrix n x p dimensions
-#' x <- matrix(rnorm(200 * 3), ncol = 10)
+#' x <- matrix(rnorm(200 * 10), ncol = 10)
 #' horns_curve(x)
-#' horns_curve(n = 25, p = 10)
+#' horns_curve(n = 200, p = 10)
 #' plot(horns_curve(x))  # scree plot
-horns_curve <- function(data, n, p, nsim) {
-  UseMethod("horns_curve")
+horns_curve <- function(data, n, p, nsim = 1000L) {
+  if (!missing(data)) {
+    if (!inherits(data, c("data.frame", "matrix"))) {
+      stop("data must be a data frame or matrix")
+    }
+    compute_hc(n = nrow(data), p = ncol(data), nsim = nsim)[, , drop = TRUE]
+  } else {
+    if (missing(n)) {
+      stop("missing n; please supply the number of rows")
+    }
+    if (missing(p)) {
+      stop("missing p; please supply the number of columns")
+    }
+    if (!(n %% 2 %in% c(0, 1)) || n < 1) {
+      stop("n should be a positive integer")
+    }
+    if (!(p %% 2 %in% c(0, 1)) || p < 1) {
+      stop("p should be a positive integer")
+    }
+    compute_hc(n = n, p = p, nsim = nsim)[, , drop = TRUE]
+  }
 }
 
-
-#' @rdname horns_curve
-#' @export
-horns_curve.default <- function(n, p, nsim = 1000) {
-  compute_hc(n = n, p = p, nsim = nsim)[, , drop = TRUE]
-}
-
-
-#' @rdname horns_curve
-#' @export
-horns_curve.matrix <- function(data, nsim = 1000) {
-  compute_hc(n = nrow(data), p = ncol(data), nsim = nsim)[, , drop = TRUE]
-}
-
-
-#' @rdname horns_curve
-#' @export
-horns_curve.data.frame <- function(data, nsim = 1000) {
-  compute_hc(n = nrow(data), p = ncol(data), nsim = nsim)[, , drop = TRUE]
-}

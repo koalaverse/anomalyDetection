@@ -5,7 +5,6 @@ set.seed(123)
 x <- matrix(runif(100), ncol = 10)
 
 test_that("horns_curve provides proper messages and warnings", {
-  expect_that(horns_curve(x, p = 10), throws_error())
   expect_that(horns_curve(n = 10), throws_error())
   expect_that(horns_curve(p = 10), throws_error())
   expect_that(horns_curve(n = "a"), throws_error())
