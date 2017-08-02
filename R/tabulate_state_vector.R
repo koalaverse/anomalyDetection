@@ -78,8 +78,8 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50,
   }
 
   # Determine which variables have more categories than level_limit
-  map(data,unique) %>%
-    map_dbl(length) %>%
+  purrr::map(data,unique) %>%
+    purrr::map_dbl(length) %>%
     subset(. > level_limit) %>%
     names() -> overflowvars
 
@@ -94,20 +94,20 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50,
     # Find and store 10 most popular levels of each overflow variable
     suppressMessages(
       data %>%
-        select(overflowvars) %>%
-        gather(Variables, Values) %>%
-        filter(!is.na(Values), !substr(Values,1,1) == "0") %>%
-        group_by(Variables) %>%
-        count(Values) %>%
-        arrange(Variables, desc(n)) %>%
-        top_n(level_keep) %>%
-        group_by(Variables) %>%
-        mutate(n = 1:n()) %>%
-        spread(Variables,Values) %>%
-        select(-n) -> popvars
+        dplyr::select_(~overflowvars) %>%
+        tidyr::gather_("Variables", "Values",overflowvars) %>%
+        na.omit() %>%
+        dplyr::filter_(.dots = ~ substr(Values,1,1) != "0") %>%
+        dplyr::group_by_("Variables") %>%
+        dplyr::count_("Values") %>%
+        dplyr::top_n(level_keep) %>%
+        dplyr::group_by_("Variables") %>%
+        dplyr::mutate_(.dots = list(n = quote(1:n()))) %>%
+        tidyr::spread_("Variables","Values") %>%
+        dplyr::select_(~overflowvars) -> popvars
     )
 
-    # replace unpopular categories with string "Removed"
+    # replace unpopular categories with "0"
     for (i in overflowvars) {
       data[[i]][!(data[[i]] %in% popvars[[i]])] <- "0"
     }
@@ -116,24 +116,21 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50,
 
   # construct state vector
   data %>%
-    mutate(BLK = rep(1:nblocks,
-                     each = block_length,
-                     length.out = nrow(.))) %>%
-    gather(Variables, Values, -BLK) %>%
-    filter(Values != "0") %>%
-    mutate(Values = if_else(grepl("[A-Za-z]", Values),
-                            Values,
-                            paste0(Variables,"_",Values)
-    )) %>%
-    select(-Variables) %>%
-    group_by(BLK) %>%
+    dplyr::mutate_(.dots = list(BLK = quote(floor((1:n()-1)/block_length)+1))) %>%
+    tidyr::gather_("Variables", "Values",names(.)[-length(names(.))]) %>%
+    dplyr::filter_(.dots = ~ Values != "0") %>%
+    # dplyr::mutate_("Values" = if_else(grepl("[A-Za-z]", Values),
+    #                         Values,
+    #                         paste0(Variables,"_",Values)
+    # )) %>%
+    dplyr::select_(~ c(BLK,Values)) %>%
+    dplyr::group_by_("BLK") %>%
     table() %>%
-    as.tibble() %>%
-    spread(Values,n) %>%
-    arrange(as.numeric(BLK)) %>%
-    select(-BLK) %>%
-    map_df(as.numeric) %>%
-    as.tibble() %>%
+    tibble::as.tibble() %>%
+    tidyr::spread_("Values","n") %>%
+    dplyr::select_(names(.)[-1]) %>%
+    purrr::map_df(as.numeric) %>%
+    tibble::as.tibble() %>%
     return()
 
 }
