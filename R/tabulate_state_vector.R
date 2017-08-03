@@ -116,19 +116,18 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50,
 
   # construct state vector
   data %>%
-    dplyr::mutate_(.dots = list(BLK = quote(floor((1:n()-1)/block_length)+1))) %>%
+    dplyr::mutate_(.dots = list(BLK = quote(as.numeric(floor((1:n()-1)/block_length)+1)))) %>%
     tidyr::gather_("Variables", "Values",names(.)[-length(names(.))]) %>%
     dplyr::filter_(.dots = ~ Values != "0") %>%
-    # dplyr::mutate_("Values" = if_else(grepl("[A-Za-z]", Values),
-    #                         Values,
-    #                         paste0(Variables,"_",Values)
-    # )) %>%
+    dplyr::mutate_(Values = ~ dplyr::if_else(grepl("[A-Za-z]", Values),
+                                                        Values,
+                                                        paste0(Variables,"_",Values))) %>%
     dplyr::select_(~ c(BLK,Values)) %>%
     dplyr::group_by_("BLK") %>%
     table() %>%
     tibble::as.tibble() %>%
     tidyr::spread_("Values","n") %>%
-    dplyr::select_(names(.)[-1]) %>%
+    dplyr::select_(~ names(.)[-1]) %>%
     purrr::map_df(as.numeric) %>%
     tibble::as.tibble() %>%
     return()
