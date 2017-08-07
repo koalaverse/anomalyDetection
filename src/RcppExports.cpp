@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // compute_md
 arma::mat compute_md(arma::mat x);
-RcppExport SEXP anomalyDetection_compute_md(SEXP xSEXP) {
+RcppExport SEXP _anomalyDetection_compute_md(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 // compute_bd
 arma::mat compute_bd(arma::mat x, bool normalize);
-RcppExport SEXP anomalyDetection_compute_bd(SEXP xSEXP, SEXP normalizeSEXP) {
+RcppExport SEXP _anomalyDetection_compute_bd(SEXP xSEXP, SEXP normalizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -31,7 +31,7 @@ END_RCPP
 }
 // compute_md_and_bd
 arma::mat compute_md_and_bd(arma::mat x, bool normalize);
-RcppExport SEXP anomalyDetection_compute_md_and_bd(SEXP xSEXP, SEXP normalizeSEXP) {
+RcppExport SEXP _anomalyDetection_compute_md_and_bd(SEXP xSEXP, SEXP normalizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,7 +43,7 @@ END_RCPP
 }
 // compute_hc
 arma::mat compute_hc(int n, int p, int nsim);
-RcppExport SEXP anomalyDetection_compute_hc(SEXP nSEXP, SEXP pSEXP, SEXP nsimSEXP) {
+RcppExport SEXP _anomalyDetection_compute_hc(SEXP nSEXP, SEXP pSEXP, SEXP nsimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -56,10 +56,10 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"anomalyDetection_compute_md", (DL_FUNC) &anomalyDetection_compute_md, 1},
-    {"anomalyDetection_compute_bd", (DL_FUNC) &anomalyDetection_compute_bd, 2},
-    {"anomalyDetection_compute_md_and_bd", (DL_FUNC) &anomalyDetection_compute_md_and_bd, 2},
-    {"anomalyDetection_compute_hc", (DL_FUNC) &anomalyDetection_compute_hc, 3},
+    {"_anomalyDetection_compute_md", (DL_FUNC) &_anomalyDetection_compute_md, 1},
+    {"_anomalyDetection_compute_bd", (DL_FUNC) &_anomalyDetection_compute_bd, 2},
+    {"_anomalyDetection_compute_md_and_bd", (DL_FUNC) &_anomalyDetection_compute_md_and_bd, 2},
+    {"_anomalyDetection_compute_hc", (DL_FUNC) &_anomalyDetection_compute_hc, 3},
     {NULL, NULL, 0}
 };
 

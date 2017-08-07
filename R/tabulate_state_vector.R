@@ -96,7 +96,7 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50,
       data %>%
         dplyr::select_(~overflowvars) %>%
         tidyr::gather_("Variables", "Values",overflowvars) %>%
-        na.omit() %>%
+        stats::na.omit() %>%
         dplyr::filter_(.dots = ~ substr(Values,1,1) != "0") %>%
         dplyr::group_by_("Variables") %>%
         dplyr::count_("Values") %>%
