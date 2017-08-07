@@ -11,41 +11,41 @@ hmat(data, input = "data", top = 20, block_length = NULL,
 \arguments{
 \item{data}{the data set (data frame or matrix)}
 
-\item{input}{the type of input data being passed to the function. `data` for
-a raw categorical data set, `SV` for a state vector input, and `MD` if the
+\item{input}{the type of input data being passed to the function. \code{data} for
+a raw categorical data set, \code{SV} for a state vector input, and \code{MD} if the
 input has already had the Mahalanobis distances calculated}
 
-\item{top}{how many of the most anomalous blocks you would like to display,
-with default 20}
+\item{top}{how many of the most anomalous blocks you would like to display
+(default 20)}
 
-\item{block_length}{argument fed into `tabulate_state_vector`, necessary if
-`input = data`}
+\item{block_length}{argument fed into \code{tabulate_state_vector}, necessary if
+\code{input = data}}
 
-\item{level_limit}{argument fed into `tabulate_state_vector`, if the
+\item{level_limit}{argument fed into \code{tabulate_state_vector}, if the
 number of unique categories for a variable exceeds this number, only keep
 a limited number of the most popular values (default 50)}
 
-\item{level_keep}{argument fed into `tabulate_state_vector`, if `level_limit`
+\item{level_keep}{argument fed into \code{tabulate_state_vector}, if \code{level_limit}
 is exceeded, keep this many of the most popular values (default 10)}
 
-\item{keep}{argument fed into `tabulate_state_vector`, if the number of
-entries is not divisible by the `block_length`, this logical decides
-whether to keep the smaller last block (default TRUE)}
+\item{keep}{argument fed into \code{tabulate_state_vector}, if the number of
+entries is not divisible by the \code{block_length}, this logical decides
+whether to keep the smaller last block (default \code{TRUE})}
 
-\item{min_var}{argument fed into `mc_adjust`, if a column in the state
+\item{min_var}{argument fed into \code{mc_adjust}, if a column in the state
 vector has variance less than this value, remove it (default 0.1)}
 
-\item{max_cor}{argument fed into `mc_adjust`, if a column in the state
+\item{max_cor}{argument fed into \code{mc_adjust}, if a column in the state
 vector has correlation greater than this value, remove it (default 0.9)}
 
-\item{action}{argument fed into `mc_adjust`, if a column does not fall in
+\item{action}{argument fed into \code{mc_adjust}, if a column does not fall in
 the specified range, determine what to do with it (default "exclude")}
 
-\item{output}{argument fed into `mahalanobis_distance` that decides
+\item{output}{argument fed into \code{mahalanobis_distance} that decides
 whether to add a column for the Mahalanobis Distance ('MD'), the breakdown
 distances ('BD') or both (default "both")}
 
-\item{normalize}{argument fed into `mahalanobis_distance` that decides
+\item{normalize}{argument fed into \code{mahalanobis_distance} that decides
 whether to normalize the values by column (default = FALSE)}
 }
 \description{
@@ -82,4 +82,5 @@ security_logs \%>\%
   ggplot2::ggtitle("Histogram Matrix of security_logs") +
   ggplot2::xlab("Top 20 Blocks") +
   ggplot2::ylab(NULL)
+
 }
