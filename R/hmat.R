@@ -61,6 +61,8 @@
 #'   ggplot2::ggtitle("Histogram Matrix of security_logs") +
 #'   ggplot2::xlab("Top 20 Blocks") +
 #'   ggplot2::ylab(NULL)
+#'
+#' @export
 
 hmat <- function(data, input = "data", top = 20, block_length = NULL,
                  level_limit = 50, level_keep = 10, keep = TRUE, min_var = 0.1,
