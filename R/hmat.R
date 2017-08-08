@@ -87,24 +87,26 @@ hmat <- function(data, input = "data", top = 20, block_length = NULL,
     }
 
     suppressWarnings(
-      data %>%
-        anomalyDetection::tabulate_state_vector(block_length,
-                                                level_limit,
-                                                level_keep,
-                                                keep) %>%
-        anomalyDetection::mc_adjust(min_var, max_cor, action) %>%
-        anomalyDetection::mahalanobis_distance(output, normalize) %>%
-        tibble::as_tibble() %>%
-        dplyr::mutate_(.dots = list(Block = quote(as.factor(1:n())))) %>%
-        dplyr::mutate_(Ranked = ~ rank(-MD, ties = "random")) %>%
-        tidyr::gather_("Variable","BD",
-                       names(.)[-c(1,length(names(.))-1,length(names(.)))]) %>%
-        dplyr::filter_(.dots = ~ Ranked <= top) %>%
-        dplyr::mutate_(Variable = ~ substr(Variable,1,nchar(Variable)-3)) %>%
-        ggplot2::ggplot(ggplot2::aes_string(x = "Block", y = "Variable",
-                                            color = "MD", size = "BD")) +
-        ggplot2::geom_point() %>%
-        return()
+      suppressMessages(
+        data %>%
+          anomalyDetection::tabulate_state_vector(block_length,
+                                                  level_limit,
+                                                  level_keep,
+                                                  keep) %>%
+          anomalyDetection::mc_adjust(min_var, max_cor, action) %>%
+          anomalyDetection::mahalanobis_distance(output, normalize) %>%
+          tibble::as_tibble() %>%
+          dplyr::mutate_(.dots = list(Block = quote(as.factor(1:n())))) %>%
+          dplyr::mutate_(Ranked = ~ rank(-MD, ties = "random")) %>%
+          tidyr::gather_("Variable","BD",
+                         names(.)[-c(1,length(names(.))-1,length(names(.)))]) %>%
+          dplyr::filter_(.dots = ~ Ranked <= top) %>%
+          dplyr::mutate_(Variable = ~ substr(Variable,1,nchar(Variable)-3)) %>%
+          ggplot2::ggplot(ggplot2::aes_string(x = "Block", y = "Variable",
+                                              color = "MD", size = "BD")) +
+          ggplot2::geom_point() %>%
+          return()
+      )
     )
 
   } else if (input == "SV") {
