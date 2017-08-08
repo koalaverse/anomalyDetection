@@ -41,6 +41,7 @@ Depends:
 Imports:
     caret,
     dplyr,
+    ggplot2,
     gmp,
     gplots,
     magrittr,
@@ -54,7 +55,6 @@ Imports:
     stats,
     tibble,
     tidyr,
-    tidyverse,
 RoxygenNote: 6.0.1
 Suggests: 
     knitr,

@@ -19,6 +19,8 @@
 #' @param keep a logical which determines whether incomplete blocks are kept in
 #'   the analysis in the case where the number of log entries isn't evenly
 #'   divisible by the block_length
+#' @param na.rm whether to keep missing values as part of the analysis or
+#'   ignore them
 #'
 #' @return A data frame where each row represents one block and the columns count
 #'   the number of occurrences that character/factor level occurred in that block
@@ -29,7 +31,8 @@
 #' @export
 
 tabulate_state_vector <- function(data, block_length, level_limit = 50,
-                                  level_keep = 10L, keep = FALSE) {
+                                  level_keep = 10L, keep = FALSE,
+                                  na.rm = FALSE) {
 
   # return error if parameters are missing
   if(missing(data)) {
@@ -96,7 +99,7 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50,
       data %>%
         dplyr::select_(~overflowvars) %>%
         tidyr::gather_("Variables", "Values",overflowvars) %>%
-        na.omit() %>%
+        stats::na.omit() %>%
         dplyr::filter_(.dots = ~ substr(Values,1,1) != "0") %>%
         dplyr::group_by_("Variables") %>%
         dplyr::count_("Values") %>%
@@ -109,27 +112,56 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50,
 
     # replace unpopular categories with "0"
     for (i in overflowvars) {
-      data[[i]][!(data[[i]] %in% popvars[[i]])] <- "0"
+      data[[i]][!is.na(data[[i]]) & !(data[[i]] %in% popvars[[i]])] <- "0"
     }
   }
 
 
   # construct state vector
-  data %>%
-    dplyr::mutate_(.dots = list(BLK = quote(as.numeric(floor((1:n()-1)/block_length)+1)))) %>%
-    tidyr::gather_("Variables", "Values",names(.)[-length(names(.))]) %>%
-    dplyr::filter_(.dots = ~ Values != "0") %>%
-    dplyr::mutate_(Values = ~ dplyr::if_else(grepl("[A-Za-z]", Values),
-                                                        Values,
-                                                        paste0(Variables,"_",Values))) %>%
-    dplyr::select_(~ c(BLK,Values)) %>%
-    dplyr::group_by_("BLK") %>%
-    table() %>%
-    tibble::as.tibble() %>%
-    tidyr::spread_("Values","n") %>%
-    dplyr::select_(~ names(.)[-1]) %>%
-    purrr::map_df(as.numeric) %>%
-    tibble::as.tibble() %>%
-    return()
+  if (na.rm == TRUE) {
+
+    # Remove NAs
+    data %>%
+      dplyr::mutate_(.dots = list(BLK = quote(as.numeric(floor((1:n()-1)/block_length)+1)))) %>%
+      tidyr::gather_("Variables", "Values",names(.)[-length(names(.))]) %>%
+      stats::na.omit() %>%
+      dplyr::filter_(.dots = ~ Values != "0") %>%
+      dplyr::mutate_(Values = ~ dplyr::if_else(grepl("[A-Za-z]", Values),
+                                               Values,
+                                               paste0(Variables,"_",Values))) %>%
+      dplyr::select_(~ c(BLK,Values)) %>%
+      dplyr::group_by_("BLK") %>%
+      table() %>%
+      tibble::as.tibble() %>%
+      tidyr::spread_("Values","n") %>%
+      dplyr::select_(~ names(.)[-1]) %>%
+      purrr::map_df(as.numeric) %>%
+      tibble::as.tibble() %>%
+      return()
+
+  } else {
+
+    # Do not remove NAs
+    data %>%
+      dplyr::mutate_(.dots = list(BLK = quote(as.numeric(floor((1:n()-1)/block_length)+1)))) %>%
+      tidyr::gather_("Variables", "Values",names(.)[-length(names(.))]) %>%
+      dplyr::mutate_(Values = ~ dplyr::if_else(is.na(Values),
+                                               paste0(Variables,"_NA"),
+                                               Values)) %>%
+      dplyr::filter_(.dots = ~ Values != "0") %>%
+      dplyr::mutate_(Values = ~ dplyr::if_else(grepl("[A-Za-z]", Values),
+                                               Values,
+                                               paste0(Variables,"_",Values))) %>%
+      dplyr::select_(~ c(BLK,Values)) %>%
+      dplyr::group_by_("BLK") %>%
+      table() %>%
+      tibble::as.tibble() %>%
+      tidyr::spread_("Values","n") %>%
+      dplyr::select_(~ names(.)[-1]) %>%
+      purrr::map_df(as.numeric) %>%
+      tibble::as.tibble() %>%
+      return()
+
+  }
 
 }
