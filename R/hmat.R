@@ -77,6 +77,8 @@ hmat <- function(data, input = "data", top = 20, block_length = NULL,
     stop("data is NULL")
   }
 
+
+
   # if the input is a raw data set, not a state vector
   if (input == "data") {
 
