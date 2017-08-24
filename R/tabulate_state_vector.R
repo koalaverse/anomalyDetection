@@ -68,14 +68,14 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50,
   if (keep == TRUE) {
     nblocks <- ceiling(nrow(data)/block_length)
     if (left != 0) {
-      warning(paste("The last block contains only",as.character(left),
+      message(paste("The last block contains only",as.character(left),
                     "observations"))
     }
   } else {
     nblocks <- floor(nrow(data)/block_length)
     data <- data[1:(nrow(data)-left),]
     if (left != 0) {
-      warning(paste("You have removed the last",as.character(left),
+      message(paste("You have removed the last",as.character(left),
                     "observations from the data set"))
     }
   }
