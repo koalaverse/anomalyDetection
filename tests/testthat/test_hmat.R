@@ -14,7 +14,6 @@ p <- security_logs %>%
   ggplot2::geom_point()
 
 test_that("hmat produces a ggplot object", {
-  expect_error(hmat(security_logs,input = "SVP",block_length=5))
   expect_equal(hmat(security_logs,block_length = 5),p)
   expect_equal(security_logs %>% tabulate_state_vector(5) %>%
                  hmat(input = "SV"),p)
@@ -23,4 +22,11 @@ test_that("hmat produces a ggplot object", {
                  mahalanobis_distance("both") %>%
                  hmat(input = "MD"),p)
 
+})
+
+test_that("hmat error messages", {
+  expect_error(hmat(NULL))
+  expect_error(hmat(security_logs,input = "SVP",block_length=5))
+  expect_error(hmat(6))
+  expect_error(hmat(security_logs))
 })

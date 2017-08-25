@@ -54,7 +54,7 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50,
     stop("block_length must be a numeric input", call. = FALSE)
   }
   if(!is.numeric(level_limit)) {
-    stop("level_keep must be a numeric input", call. = FALSE)
+    stop("level_limit must be a numeric input", call. = FALSE)
   }
   if(!is.numeric(level_keep)) {
     stop("level_keep must be a numeric input", call. = FALSE)
