@@ -35,32 +35,17 @@
 #' whether to normalize the values by column (default = FALSE)
 #'
 #' @examples
+#' \dontrun{
 #' # Data set input
-#' security_logs %>%
-#'   hmat(block_length = 8)
+#' hmat(security_logs,block_length = 8)
 #'
 #' # Data Set input with top 10 blocks displayed
-#' security_logs %>%
-#'   hmat(top = 10, block_length = 5)
+#' hmat(security_logs, top = 10, block_length = 5)
 #'
 #' # State Vector Input
-#' security_logs %>%
-#'   tabulate_state_vector(block_length = 6, level_limit = 20) %>%
+#' tabulate_state_vector(security_logs, block_length = 6, level_limit = 20) %>%
 #'   hmat(input = "SV")
-#'
-#' # Mahalanobis Distance input
-#' security_logs %>%
-#'   tabulate_state_vector(block_length = 4) %>%
-#'   mc_adjust() %>%
-#'   mahalanobis_distance("both", normalize = TRUE) %>%
-#'   hmat(input = "MD")
-#'
-#' # ggplot2 additional commands included
-#' security_logs %>%
-#'   hmat(block_length = 8) +
-#'   ggplot2::ggtitle("Histogram Matrix of security_logs") +
-#'   ggplot2::xlab("Top 20 Blocks") +
-#'   ggplot2::ylab(NULL)
+#' }
 #'
 #' @export
 
@@ -88,58 +73,78 @@ hmat <- function(data, input = "data", top = 20, block_length = NULL,
 
     suppressWarnings(
       suppressMessages(
-        data %>%
-          anomalyDetection::tabulate_state_vector(block_length,
-                                                  level_limit,
-                                                  level_keep,
-                                                  keep) %>%
-          anomalyDetection::mc_adjust(min_var, max_cor, action) %>%
-          anomalyDetection::mahalanobis_distance(output, normalize) %>%
-          tibble::as_tibble() %>%
-          dplyr::mutate_(.dots = list(Block = quote(as.factor(1:n())))) %>%
-          dplyr::mutate_(Ranked = ~ rank(-MD, ties = "random")) %>%
-          tidyr::gather_("Variable","BD",
-                         names(.)[-c(1,length(names(.))-1,length(names(.)))]) %>%
-          dplyr::filter_(.dots = ~ Ranked <= top) %>%
-          dplyr::mutate_(Variable = ~ substr(Variable,1,nchar(Variable)-3)) %>%
-          ggplot2::ggplot(ggplot2::aes_string(x = "Block", y = "Variable",
-                                              color = "MD", size = "BD")) +
-          ggplot2::geom_point() %>%
-          return()
+        temp <- dplyr::mutate_(
+            tibble::as.tibble(
+              anomalyDetection::mahalanobis_distance(
+                anomalyDetection::mc_adjust(
+                  anomalyDetection::tabulate_state_vector(data,block_length,
+                                                          level_limit,
+                                                          level_keep,
+                                                          keep)
+                ,min_var, max_cor, action)
+              ,output, normalize)
+            )
+          ,.dots = list(Block = quote(as.factor(1:n()))))
       )
     )
+    temp$Ranked <- rank(dplyr::desc(temp$MD), ties.method = "random")
+    temp <- dplyr::filter_(
+      tidyr::gather_(temp,"Variable","BD",names(temp)[-c(1,length(names(temp))-1,length(names(temp)))])
+      ,.dots = ~ Ranked <= top)
+    temp$Variable <- substr(temp$Variable,1,nchar(temp$Variable)-3)
+    return(
+      ggplot2::ggplot(temp,
+        ggplot2::aes_string(x = "Block", y = "Variable",
+                             color = "MD", size = "BD")) +
+        ggplot2::geom_point()
+    )
+
 
   } else if (input == "SV") {
 
-    data %>%
-      anomalyDetection::mc_adjust(min_var, max_cor, action) %>%
-      anomalyDetection::mahalanobis_distance(output, normalize) %>%
-      tibble::as_tibble() %>%
-      dplyr::mutate_(.dots = list(Block = quote(as.factor(1:n())))) %>%
-      dplyr::mutate_(Ranked = ~ rank(-MD, ties = "random")) %>%
-      tidyr::gather_("Variable","BD",
-                     names(.)[-c(1,length(names(.))-1,length(names(.)))]) %>%
-      dplyr::filter_(.dots = ~ Ranked <= top) %>%
-      dplyr::mutate_(Variable = ~ substr(Variable,1,nchar(Variable)-3)) %>%
-      ggplot2::ggplot(ggplot2::aes_string(x = "Block", y = "Variable",
+    suppressWarnings(
+      suppressMessages(
+        temp <- dplyr::mutate_(
+          tibble::as.tibble(
+            anomalyDetection::mahalanobis_distance(
+              anomalyDetection::mc_adjust(data,min_var, max_cor, action)
+              ,output, normalize)
+          )
+          ,.dots = list(Block = quote(as.factor(1:n()))))
+      )
+    )
+    temp$Ranked <- rank(dplyr::desc(temp$MD), ties.method = "random")
+    temp <- dplyr::filter_(
+      tidyr::gather_(temp,"Variable","BD",names(temp)[-c(1,length(names(temp))-1,length(names(temp)))])
+      ,.dots = ~ Ranked <= top)
+    temp$Variable <- substr(temp$Variable,1,nchar(temp$Variable)-3)
+    return(
+      ggplot2::ggplot(temp,
+                      ggplot2::aes_string(x = "Block", y = "Variable",
                                           color = "MD", size = "BD")) +
-      ggplot2::geom_point() %>%
-      return()
+        ggplot2::geom_point()
+    )
 
   } else if (input == "MD") {
 
-    data %>%
-      tibble::as_tibble() %>%
-      dplyr::mutate_(.dots = list(Block = quote(as.factor(1:n())))) %>%
-      dplyr::mutate_(Ranked = ~ rank(-MD, ties = "random")) %>%
-      tidyr::gather_("Variable","BD",
-                     names(.)[-c(1,length(names(.))-1,length(names(.)))]) %>%
-      dplyr::filter_(.dots = ~ Ranked <= top) %>%
-      dplyr::mutate_(Variable = ~ substr(Variable,1,nchar(Variable)-3)) %>%
-      ggplot2::ggplot(ggplot2::aes_string(x = "Block", y = "Variable",
+    suppressWarnings(
+      suppressMessages(
+        temp <- dplyr::mutate_(
+          tibble::as.tibble(data)
+          ,.dots = list(Block = quote(as.factor(1:n()))))
+      )
+    )
+    temp$Ranked <- rank(dplyr::desc(temp$MD), ties.method = "random")
+    temp <- dplyr::filter_(
+      tidyr::gather_(temp,"Variable","BD",names(temp)[-c(1,length(names(temp))-1,length(names(temp)))])
+      ,.dots = ~ Ranked <= top)
+    temp$Variable <- substr(temp$Variable,1,nchar(temp$Variable)-3)
+    return(
+      ggplot2::ggplot(temp,
+                      ggplot2::aes_string(x = "Block", y = "Variable",
                                           color = "MD", size = "BD")) +
-      ggplot2::geom_point() %>%
-      return()
+        ggplot2::geom_point()
+    )
 
   } else {
 

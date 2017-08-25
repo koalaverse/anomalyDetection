@@ -11,7 +11,7 @@ test_that("tabulate_state_vector computes correctly", {
   expect_equal(tabulate_state_vector(security_logs, 30) %>% .[[1, 1]], 4)
   expect_equal(tabulate_state_vector(security_logs, 30) %>% .[[4, 4]], 1)
   expect_equal(tabulate_state_vector(security_logs, 30, 4, 2) %>% .[[4, 4]], 1)
-  expect_equal(tabulate_state_vector(security_logs, 7,keep = F) %>% .[[42,50]],6)
+  expect_equal(tabulate_state_vector(security_logs, 7,keep = F) %>% nrow,42)
   expect_equal(tabulate_state_vector(security_logs, 7,keep = T) %>% nrow,43)
   expect_equal(tabulate_state_vector(security_logs, 30, na.rm = T) %>% .[[4,4]],1)
 

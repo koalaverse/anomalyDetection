@@ -30,7 +30,7 @@
 #'
 #' @export
 
-tabulate_state_vector <- function(data, block_length, level_limit = 50,
+tabulate_state_vector <- function(data, block_length, level_limit = 50L,
                                   level_keep = 10L, keep = FALSE,
                                   na.rm = FALSE) {
 
@@ -81,10 +81,8 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50,
   }
 
   # Determine which variables have more categories than level_limit
-  purrr::map(data,unique) %>%
-    purrr::map_dbl(length) %>%
-    subset(. > level_limit) %>%
-    names() -> overflowvars
+  counts <- purrr::map_dbl(purrr::map(data,unique),length)
+  overflowvars <- names(subset(counts,counts > level_limit))
 
   # Only evaluate if there is an issue with overflow variables
   if (length(overflowvars) > 0) {
@@ -96,24 +94,35 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50,
 
     # Find and store 10 most popular levels of each overflow variable
     suppressMessages(
-      data %>%
-        dplyr::select_(~overflowvars) %>%
-        tidyr::gather_("Variables", "Values",overflowvars) %>%
-        stats::na.omit() %>%
-        dplyr::filter_(.dots = ~ substr(Values,1,1) != "0") %>%
-        dplyr::group_by_("Variables") %>%
-        dplyr::count_("Values") %>%
-        dplyr::top_n(level_keep) %>%
-        dplyr::group_by_("Variables") %>%
-        dplyr::mutate_(.dots = list(n = quote(1:n()))) %>%
-        tidyr::spread_("Variables","Values") %>%
-        dplyr::select_(~overflowvars) -> popvars
+      popvars <- dplyr::select_(
+        tidyr::spread_(
+          dplyr::mutate_(
+            dplyr::group_by_(
+              dplyr::top_n(
+                dplyr::count_(
+                  dplyr::group_by_(
+                    dplyr::filter_(
+                      stats::na.omit(
+                        tidyr::gather_(
+                          dplyr::select_(data, ~overflowvars)
+                          ,"Variables","Values",overflowvars)
+                      )
+                      ,.dots = ~ substr(Values,1,1) != "0")
+                    ,"Variables")
+                  ,"Values")
+                ,level_keep)
+              ,"Variables")
+            ,.dots = list(n = quote(1:n())))
+          ,"Variables","Values")
+        , ~overflowvars)
     )
 
     # replace unpopular categories with "0"
-    for (i in overflowvars) {
-      data[[i]][!is.na(data[[i]]) & !(data[[i]] %in% popvars[[i]])] <- "0"
-    }
+    suppressWarnings(
+      for (i in overflowvars) {
+        data[[i]][!is.na(data[[i]]) & !(data[[i]] %in% popvars[[i]])] <- "0"
+      }
+    )
   }
 
 
@@ -121,46 +130,68 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50,
   if (na.rm == TRUE) {
 
     # Remove NAs
-    data %>%
-      dplyr::mutate_(.dots = list(BLK = quote(as.numeric(floor((1:n()-1)/block_length)+1)))) %>%
-      tidyr::gather_("Variables", "Values",names(.)[-length(names(.))]) %>%
-      stats::na.omit() %>%
-      dplyr::filter_(.dots = ~ Values != "0") %>%
-      dplyr::mutate_(Values = ~ dplyr::if_else(grepl("[A-Za-z]", Values),
-                                               Values,
-                                               paste0(Variables,"_",Values))) %>%
-      dplyr::select_(~ c(BLK,Values)) %>%
-      dplyr::group_by_("BLK") %>%
-      table() %>%
-      tibble::as.tibble() %>%
-      tidyr::spread_("Values","n") %>%
-      dplyr::select_(~ names(.)[-1]) %>%
-      purrr::map_df(as.numeric) %>%
-      tibble::as.tibble() %>%
-      return()
+    temp <- dplyr::mutate_(data, .dots = list(BLK = quote(as.numeric(floor((1:n()-1)/block_length)+1))))
+    temp <- tidyr::spread_(
+      tibble::as.tibble(
+        base::table(
+          dplyr::group_by_(
+            dplyr::select_(
+              dplyr::mutate_(
+                dplyr::filter_(
+                  stats::na.omit(
+                    tidyr::gather_(temp,"Variables","Values",names(temp)[-length(names(temp))])
+                  )
+                  ,.dots = ~ Values != "0")
+                ,Values = ~ dplyr::if_else(grepl("[A-Za-z]", Values),
+                                           Values,
+                                           paste0(Variables,"_",Values)))
+              ,~ c(BLK,Values))
+            ,"BLK")
+        )
+      )
+      ,"Values","n")
+    return(
+      tibble::as.tibble(
+        purrr::map_df(
+          dplyr::select_(temp, ~ names(temp)[-1])
+          ,base::as.numeric)
+      )
+    )
+
+
 
   } else {
 
     # Do not remove NAs
-    data %>%
-      dplyr::mutate_(.dots = list(BLK = quote(as.numeric(floor((1:n()-1)/block_length)+1)))) %>%
-      tidyr::gather_("Variables", "Values",names(.)[-length(names(.))]) %>%
-      dplyr::mutate_(Values = ~ dplyr::if_else(is.na(Values),
-                                               paste0(Variables,"_NA"),
-                                               Values)) %>%
-      dplyr::filter_(.dots = ~ Values != "0") %>%
-      dplyr::mutate_(Values = ~ dplyr::if_else(grepl("[A-Za-z]", Values),
-                                               Values,
-                                               paste0(Variables,"_",Values))) %>%
-      dplyr::select_(~ c(BLK,Values)) %>%
-      dplyr::group_by_("BLK") %>%
-      table() %>%
-      tibble::as.tibble() %>%
-      tidyr::spread_("Values","n") %>%
-      dplyr::select_(~ names(.)[-1]) %>%
-      purrr::map_df(as.numeric) %>%
-      tibble::as.tibble() %>%
-      return()
+    temp <- dplyr::mutate_(data, .dots = list(BLK = quote(as.numeric(floor((1:n()-1)/block_length)+1))))
+    temp <- tidyr::spread_(
+      tibble::as.tibble(
+        base::table(
+          dplyr::group_by_(
+            dplyr::select_(
+              dplyr::mutate_(
+                dplyr::filter_(
+                  dplyr::mutate_(
+                    tidyr::gather_(temp,"Variables","Values",names(temp)[-length(names(temp))])
+                  , Values = ~ dplyr::if_else(is.na(Values),
+                                              paste0(Variables,"_NA"),
+                                              Values))
+                  ,.dots = ~ Values != "0")
+                ,Values = ~ dplyr::if_else(grepl("[A-Za-z]", Values),
+                                           Values,
+                                           paste0(Variables,"_",Values)))
+              ,~ c(BLK,Values))
+            ,"BLK")
+        )
+      )
+      ,"Values","n")
+    return(
+      tibble::as.tibble(
+        purrr::map_df(
+          dplyr::select_(temp, ~ names(temp)[-1])
+          ,base::as.numeric)
+      )
+    )
 
   }
 

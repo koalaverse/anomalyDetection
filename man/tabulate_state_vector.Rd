@@ -4,7 +4,7 @@
 \alias{tabulate_state_vector}
 \title{Tabulate State Vector}
 \usage{
-tabulate_state_vector(data, block_length, level_limit = 50,
+tabulate_state_vector(data, block_length, level_limit = 50L,
   level_keep = 10L, keep = FALSE, na.rm = FALSE)
 }
 \arguments{

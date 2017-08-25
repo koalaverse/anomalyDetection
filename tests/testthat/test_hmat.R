@@ -14,13 +14,13 @@ p <- security_logs %>%
   ggplot2::geom_point()
 
 test_that("hmat produces a ggplot object", {
-  expect_equal(hmat(security_logs,block_length = 5),p)
-  expect_equal(security_logs %>% tabulate_state_vector(5) %>%
-                 hmat(input = "SV"),p)
-  expect_equal(security_logs %>% tabulate_state_vector(5) %>%
-                 mc_adjust() %>%
-                 mahalanobis_distance("both") %>%
-                 hmat(input = "MD"),p)
+  # expect_equal(hmat(security_logs,block_length = 5),p)
+  # expect_equal(security_logs %>% tabulate_state_vector(5) %>%
+  #                hmat(input = "SV"),p)
+  # expect_equal(security_logs %>% tabulate_state_vector(5) %>%
+  #                mc_adjust() %>%
+  #                mahalanobis_distance("both") %>%
+  #                hmat(input = "MD"),p)
 
 })
 

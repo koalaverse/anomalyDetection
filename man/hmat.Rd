@@ -56,31 +56,16 @@ of the points indicate which values are driving the anomaly, with larger
 blocks representing more anomalous values.
 }
 \examples{
+\dontrun{
 # Data set input
-security_logs \%>\%
-  hmat(block_length = 8)
+hmat(security_logs,block_length = 8)
 
 # Data Set input with top 10 blocks displayed
-security_logs \%>\%
-  hmat(top = 10, block_length = 5)
+hmat(security_logs, top = 10, block_length = 5)
 
 # State Vector Input
-security_logs \%>\%
-  tabulate_state_vector(block_length = 6, level_limit = 20) \%>\%
+tabulate_state_vector(security_logs, block_length = 6, level_limit = 20) \%>\%
   hmat(input = "SV")
-
-# Mahalanobis Distance input
-security_logs \%>\%
-  tabulate_state_vector(block_length = 4) \%>\%
-  mc_adjust() \%>\%
-  mahalanobis_distance("both", normalize = TRUE) \%>\%
-  hmat(input = "MD")
-
-# ggplot2 additional commands included
-security_logs \%>\%
-  hmat(block_length = 8) +
-  ggplot2::ggtitle("Histogram Matrix of security_logs") +
-  ggplot2::xlab("Top 20 Blocks") +
-  ggplot2::ylab(NULL)
+}
 
 }
