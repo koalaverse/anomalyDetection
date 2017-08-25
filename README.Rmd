@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 [![codecov](https://codecov.io/gh/AFIT-R/anomalyDetection/branch/master/graph/badge.svg)](https://codecov.io/gh/AFIT-R/anomalyDetection)
 
 
-`anomalyDetection` implements procedures to aid in detecting network log anomolies. By combining various multivariate analytic approaches relevant to network anomoly detection, it provides cyber analysts efficient means to detect suspected anomalies requiring further evaluation.
+`anomalyDetection` implements procedures to aid in detecting network log anomalies. By combining various multivariate analytic approaches relevant to network anomoly detection, it provides cyber analysts efficient means to detect suspected anomalies requiring further evaluation.
 
 
 ## Installation
