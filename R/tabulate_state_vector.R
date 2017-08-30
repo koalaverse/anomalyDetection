@@ -16,10 +16,10 @@
 #'   levels to keep (default is 50)
 #' @param level_keep integer value indicating the top number of factor levels to
 #'   retain if a column has more than the level limit (default is 10)
-#' @param keep a logical which determines whether incomplete blocks are kept in
+#' @param partial_block a logical which determines whether incomplete blocks are kept in
 #'   the analysis in the case where the number of log entries isn't evenly
-#'   divisible by the block_length
-#' @param na.rm whether to keep missing values as part of the analysis or
+#'   divisible by the \code{block_length}
+#' @param na.rm whether to keep track of missing values as part of the analysis or
 #'   ignore them
 #'
 #' @return A data frame where each row represents one block and the columns count
@@ -31,7 +31,7 @@
 #' @export
 
 tabulate_state_vector <- function(data, block_length, level_limit = 50L,
-                                  level_keep = 10L, keep = FALSE,
+                                  level_keep = 10L, partial_block = FALSE,
                                   na.rm = FALSE) {
 
   # return error if parameters are missing
@@ -59,13 +59,19 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50L,
   if(!is.numeric(level_keep)) {
     stop("level_keep must be a numeric input", call. = FALSE)
   }
+  if(!is.logical(partial_block)) {
+    stop("partial_block must be a logical input", call. = FALSE)
+  }
+  if(!is.logical(na.rm)) {
+    stop("na.rm must be a logical input", call. = FALSE)
+  }
 
   # Calculate the number of leftover log entries
   left <- nrow(data) %% block_length
 
   # Calculate number of blocks necessary and throw a warning if
   # observations are removed
-  if (keep == TRUE) {
+  if (partial_block == TRUE) {
     nblocks <- ceiling(nrow(data)/block_length)
     if (left != 0) {
       message(paste("The last block contains only",as.character(left),

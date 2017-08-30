@@ -5,7 +5,7 @@
 \title{Tabulate State Vector}
 \usage{
 tabulate_state_vector(data, block_length, level_limit = 50L,
-  level_keep = 10L, keep = FALSE, na.rm = FALSE)
+  level_keep = 10L, partial_block = FALSE, na.rm = FALSE)
 }
 \arguments{
 \item{data}{data}
@@ -19,11 +19,11 @@ levels to keep (default is 50)}
 \item{level_keep}{integer value indicating the top number of factor levels to
 retain if a column has more than the level limit (default is 10)}
 
-\item{keep}{a logical which determines whether incomplete blocks are kept in
+\item{partial_block}{a logical which determines whether incomplete blocks are kept in
 the analysis in the case where the number of log entries isn't evenly
-divisible by the block_length}
+divisible by the \code{block_length}}
 
-\item{na.rm}{whether to keep missing values as part of the analysis or
+\item{na.rm}{whether to keep track of missing values as part of the analysis or
 ignore them}
 }
 \value{

@@ -5,8 +5,9 @@
 \title{Plot a Histogram Matrix}
 \usage{
 hmat(data, input = "data", top = 20, block_length = NULL,
-  level_limit = 50, level_keep = 10, keep = TRUE, min_var = 0.1,
-  max_cor = 0.9, action = "exclude", output = "both", normalize = FALSE)
+  level_limit = 50, level_keep = 10, partial_block = TRUE,
+  min_var = 0.1, max_cor = 0.9, action = "exclude", output = "both",
+  normalize = FALSE)
 }
 \arguments{
 \item{data}{the data set (data frame or matrix)}
@@ -28,7 +29,7 @@ a limited number of the most popular values (default 50)}
 \item{level_keep}{argument fed into \code{tabulate_state_vector}, if \code{level_limit}
 is exceeded, keep this many of the most popular values (default 10)}
 
-\item{keep}{argument fed into \code{tabulate_state_vector}, if the number of
+\item{partial_block}{argument fed into \code{tabulate_state_vector}, if the number of
 entries is not divisible by the \code{block_length}, this logical decides
 whether to keep the smaller last block (default \code{TRUE})}
 

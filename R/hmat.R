@@ -19,7 +19,7 @@
 #' a limited number of the most popular values (default 50)
 #' @param level_keep argument fed into \code{tabulate_state_vector}, if \code{level_limit}
 #' is exceeded, keep this many of the most popular values (default 10)
-#' @param keep argument fed into \code{tabulate_state_vector}, if the number of
+#' @param partial_block argument fed into \code{tabulate_state_vector}, if the number of
 #' entries is not divisible by the \code{block_length}, this logical decides
 #' whether to keep the smaller last block (default \code{TRUE})
 #' @param min_var argument fed into \code{mc_adjust}, if a column in the state
@@ -50,7 +50,7 @@
 #' @export
 
 hmat <- function(data, input = "data", top = 20, block_length = NULL,
-                 level_limit = 50, level_keep = 10, keep = TRUE, min_var = 0.1,
+                 level_limit = 50, level_keep = 10, partial_block = TRUE, min_var = 0.1,
                  max_cor = 0.9, action = "exclude", output = "both",
                  normalize = FALSE) {
 
@@ -79,7 +79,7 @@ hmat <- function(data, input = "data", top = 20, block_length = NULL,
                   anomalyDetection::tabulate_state_vector(data,block_length,
                                                           level_limit,
                                                           level_keep,
-                                                          keep)
+                                                          partial_block)
                 ,min_var, max_cor, action)
               ,output, normalize)
             )
