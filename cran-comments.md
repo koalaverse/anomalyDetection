@@ -2,14 +2,14 @@
 
 This is a resubmission. In this version I have:
 
-- Fixed a minor dplyr vs. plyr bug in help file examples by prefacing (dplyr::mutate)
-- Made minor function efficiency improvements
-- Changed the URL since we moved the GitHub repo to an organization account
+- Allowed for better tolerance when inverting covariance matrices
+- Rewritten code to improve speed (and accuracy), both in R and C++
+- Added new function to display histogram matrices
 
 ## Test environments
 
-* local OS X install, R 3.3.3
-* ubuntu 12.04 (on travis-ci), R 3.3.3
+* local Windows install, R 3.4.1
+* ubuntu 12.04 (on travis-ci), R 3.4.1
 * Windows (on apveyor)
 * win-builder (devel and release)
 
