@@ -2,18 +2,18 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 compute_md <- function(x) {
-    .Call('_anomalyDetection_compute_md', PACKAGE = 'anomalyDetection', x)
+    .Call(`_anomalyDetection_compute_md`, x)
 }
 
 compute_bd <- function(x, normalize) {
-    .Call('_anomalyDetection_compute_bd', PACKAGE = 'anomalyDetection', x, normalize)
+    .Call(`_anomalyDetection_compute_bd`, x, normalize)
 }
 
 compute_md_and_bd <- function(x, normalize) {
-    .Call('_anomalyDetection_compute_md_and_bd', PACKAGE = 'anomalyDetection', x, normalize)
+    .Call(`_anomalyDetection_compute_md_and_bd`, x, normalize)
 }
 
 compute_hc <- function(n, p, nsim) {
-    .Call('_anomalyDetection_compute_hc', PACKAGE = 'anomalyDetection', n, p, nsim)
+    .Call(`_anomalyDetection_compute_hc`, n, p, nsim)
 }
 

@@ -2,7 +2,7 @@
 #' detection procedures.
 #'
 #' @importFrom Rcpp evalCpp
-#' @useDynLib anomalyDetection
+#' @useDynLib anomalyDetection, .registration = TRUE
 #' @docType package
 #' @name anomalyDetection
 NULL
