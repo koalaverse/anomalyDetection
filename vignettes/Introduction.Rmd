@@ -44,6 +44,7 @@ library(tibble)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(magrittr)
 library(anomalyDetection)
 
 security_logs
@@ -64,7 +65,7 @@ tabulate_state_vector(security_logs, 10)
 
 ## Multicollinearity Adjustment
 
-Prior to proceeding with any multivariate statistical analyses we should inspect the state vector for multicollinearity, to avoid issues such as matrix singularity, rank deficiency, and strong correlation values, and remove any columns that pose an issue. We can use `mc_adjust` to handle issues with multi-collinearity by first removing any columns whose variance is close to or less than a minimum level of variance (`min_var`). Then, it removes linearly dependent columns. Finally, it removes any columns that have a high absolute correlation value equal to or greater than `max_cor`. In order to perform multivariate analysis, we need the number of blocks to exceed the number of features, so instead of blocks of size 10, we downsize to blocks of 6.  
+Prior to proceeding with any multivariate statistical analyses we should inspect the state vector for multicollinearity, to avoid issues such as matrix singularity, rank deficiency, and strong correlation values, and remove any columns that pose an issue. We can use `mc_adjust` to handle issues with multi-collinearity by first removing any columns whose variance is close to or less than a minimum level of variance (`min_var`). Then, it removes linearly dependent columns. Finally, it removes any columns that have a high absolute correlation value equal to or greater than `max_cor`. In order to perform multivariate analysis, we need the number of blocks to exceed the number of features, so instead of blocks of size 10, we downsize to blocks of 6 observations each.  
 
 ```{r, collapse=TRUE}
 (state_vec <- security_logs %>%
@@ -79,7 +80,7 @@ By default, `mc_adjust` removes *all* columns that violate the variance, depende
 
 With our data adjusted to eliminate multicollinearity concerns, we can now proceed with multivariate analyses to identify anomalies.  First we'll use the `mahalanobis_distance` function to compare the distance between each observation by its distance from the data mean, independent of scale.  This is computed as
 
-$$MD = \sqrt{(x - \bar{x})C^{-1}(x-\bar{x})} \tag{1}$$
+$$MD = \sqrt{(x - \bar{x})'C^{-1}(x-\bar{x})} \tag{1}$$
 
 where $x$ is a vector of $p$ observations, $x=(x_1, \dots, x_p)$, $\bar{x}$ is the mean vector of the data, $\bar{x}=(\bar{x}_1, \dots, \bar{x}_p)$, and $C^{-1}$ is the inverse data covariance matrix. 
 
@@ -103,7 +104,8 @@ state_vec %>%
   geom_point()
 ```
 
-This process could be streamlined by using the `hmat` command to create the histogram matrix. This command can take raw data, a state vector, or calculated Mahalanobis distances as input. Additional `ggplot2` aesthetics can be added using the `+` operator. By default, `hmat` displays the top 20 most anomalous blocks. The user can change the number of blocks kept using the `top` argument. 
+
+This process could be streamlined by using the `hmat` command to create the histogram matrix. This command can take raw data, a state vector, or calculated Mahalanobis distances as input. Additional `ggplot2` aesthetics can be added using the `+` operator. By default, `hmat` displays the top 20 most anomalous blocks. The user can change the number of blocks kept using the `top` argument. The arguments needed to feed into `tabulate_state_vector`, `mc_adjust`, and/or `mahalanobis_distance` can be entered directly into `hmat`.
 
 ```{r, fig.align='center', fig.width=7, fig.height=6}
 state_vec %>% 
