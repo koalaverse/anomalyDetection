@@ -3,62 +3,62 @@ Type: Package
 Title: Implementation of Augmented Network Log Anomaly Detection Procedures
 Version: 0.2.2
 Authors@R: c( 
-    person("Andrew", "McCarthy",
-           email = "andrew.mccarthy@theperducogroup.com",
-           role = c("aut")),
-    person("Brandon", "Greenwell",
-           email = "greenwell.brandon@gmail.com",
-           role = c("aut")),
-    person("Bradley", "Boehmke", 
-           email = "bradleyboehmke@gmail.com", 
-           role = c("aut", "cre")), 
-    person("Robert", "Gutierrez", 
-           email = "rjgutierrez2015@gmail.com", 
-           role = c("aut")),
-    person("Kenneth", "Bauer", 
-           email = "kenneth.bauer@afit.edu", 
-           role = c("ctb")),
-    person("Trevor", "Bihl", 
-           email = "trevor.bihl.2@us.af.mil", 
-           role = c("ctb")),
-    person("Cade", "Saie", 
-           email = "cade.saie@gmail.com", 
-           role = c("ctb"))
-    )
+  person("Andrew", "McCarthy",
+         email = "andrew.mccarthy@theperducogroup.com",
+         role = c("aut")),
+  person("Brandon", "Greenwell",
+         email = "greenwell.brandon@gmail.com",
+         role = c("aut")),
+  person("Bradley", "Boehmke", 
+         email = "bradleyboehmke@gmail.com", 
+         role = c("aut", "cre")), 
+  person("Robert", "Gutierrez", 
+         email = "rjgutierrez2015@gmail.com", 
+         role = c("aut")),
+  person("Kenneth", "Bauer", 
+         email = "kenneth.bauer@afit.edu", 
+         role = c("ctb")),
+  person("Trevor", "Bihl", 
+         email = "trevor.bihl.2@us.af.mil", 
+         role = c("ctb")),
+  person("Cade", "Saie", 
+         email = "cade.saie@gmail.com", 
+         role = c("ctb"))
+  )
 Maintainer: Andrew McCarthy <andrew.mccarthy@theperducogroup.com>
 Date: 2017-08-30
-Description: Implements procedures to aid in detecting network log anomalies.
-    By combining various multivariate analytic approaches relevant to network
-    anomaly detection, it provides cyber analysts efficient means to detect
-    suspected anomalies requiring further evaluation.
+Description: Implements procedures to aid in detecting network log anomalies. By 
+  combining various multivariate analytic approaches relevant to network anomaly 
+  detection, it provides cyber analysts efficient means to detect suspected 
+  anomalies requiring further evaluation.
 URL: https://github.com/AFIT-R/anomalyDetection
 BugReports: https://github.com/AFIT-R/anomalyDetection/issues
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 2.10)
+  R (>= 2.10)
 Imports:
-    caret,
-    dplyr,
-    ggplot2,
-    gmp,
-    gplots,
-    magrittr,
-    MASS,
-    matrixStats,
-    plyr,
-    purrr,
-    qdapTools,
-    RColorBrewer,
-    Rcpp (>= 0.12.11),
-    stats,
-    tibble,
-    tidyr,
+  caret,
+  dplyr,
+  ggplot2,
+  gmp,
+  gplots,
+  magrittr,
+  MASS,
+  matrixStats,
+  plyr,
+  purrr,
+  qdapTools,
+  RColorBrewer,
+  Rcpp (>= 0.12.11),
+  stats,
+  tibble,
+  tidyr,
 RoxygenNote: 6.0.1
 Suggests: 
-    knitr,
-    rmarkdown,
-    testthat,
+  knitr,
+  rmarkdown,
+  testthat,
 LinkingTo: Rcpp, RcppArmadillo
 VignetteBuilder: knitr
