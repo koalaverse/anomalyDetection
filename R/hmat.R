@@ -99,7 +99,7 @@ hmat <- function(data, input = "data", top = 20, order = "numeric", block_length
       ,.dots = ~ Ranked <= top)
     temp$Variable <- substr(temp$Variable,1,nchar(temp$Variable)-3)
     if (order == "anomaly") {
-      temp$Block <- reorder(temp$Block, temp$Ranked)
+      temp$Block <- stats::reorder(temp$Block, temp$Ranked)
     }
     return(
       ggplot2::ggplot(temp,
@@ -128,7 +128,7 @@ hmat <- function(data, input = "data", top = 20, order = "numeric", block_length
       ,.dots = ~ Ranked <= top)
     temp$Variable <- substr(temp$Variable,1,nchar(temp$Variable)-3)
     if (order == "anomaly") {
-      temp$Block <- reorder(temp$Block, temp$Ranked)
+      temp$Block <- stats::reorder(temp$Block, temp$Ranked)
     }
     return(
       ggplot2::ggplot(temp,
@@ -152,7 +152,7 @@ hmat <- function(data, input = "data", top = 20, order = "numeric", block_length
       ,.dots = ~ Ranked <= top)
     temp$Variable <- substr(temp$Variable,1,nchar(temp$Variable)-3)
     if (order == "anomaly") {
-      temp$Block <- reorder(temp$Block, temp$Ranked)
+      temp$Block <- stats::reorder(temp$Block, temp$Ranked)
     }
     return(
       ggplot2::ggplot(temp,
