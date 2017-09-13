@@ -12,6 +12,8 @@
 #' input has already had the Mahalanobis distances calculated
 #' @param top how many of the most anomalous blocks you would like to display
 #' (default 20)
+#' @param order whether to show the anomalous blocks in numeric order or in order of
+#' most anomalous to least anomalous (default is "numeric", other choice is "anomaly")
 #' @param block_length argument fed into \code{tabulate_state_vector}, necessary if
 #' \code{input = data}
 #' @param level_limit argument fed into \code{tabulate_state_vector}, if the
@@ -49,7 +51,7 @@
 #'
 #' @export
 
-hmat <- function(data, input = "data", top = 20, block_length = NULL,
+hmat <- function(data, input = "data", top = 20, order = "numeric", block_length = NULL,
                  level_limit = 50, level_keep = 10, partial_block = TRUE, min_var = 0.1,
                  max_cor = 0.9, action = "exclude", output = "both",
                  normalize = FALSE) {
@@ -60,6 +62,11 @@ hmat <- function(data, input = "data", top = 20, block_length = NULL,
   }
   if (is.null(data)) {
     stop("data is NULL")
+  }
+
+  # if the order input is not "numeric" or "anomaly", stop
+  if (order != "numeric" & order != "anomaly") {
+    stop("Invalid Input: argument order must be either 'numeric' or 'anomaly'")
   }
 
 
@@ -91,6 +98,9 @@ hmat <- function(data, input = "data", top = 20, block_length = NULL,
       tidyr::gather_(temp,"Variable","BD",names(temp)[-c(1,length(names(temp))-1,length(names(temp)))])
       ,.dots = ~ Ranked <= top)
     temp$Variable <- substr(temp$Variable,1,nchar(temp$Variable)-3)
+    if (order == "anomaly") {
+      temp$Block <- reorder(temp$Block, temp$Ranked)
+    }
     return(
       ggplot2::ggplot(temp,
         ggplot2::aes_string(x = "Block", y = "Variable",
@@ -117,6 +127,9 @@ hmat <- function(data, input = "data", top = 20, block_length = NULL,
       tidyr::gather_(temp,"Variable","BD",names(temp)[-c(1,length(names(temp))-1,length(names(temp)))])
       ,.dots = ~ Ranked <= top)
     temp$Variable <- substr(temp$Variable,1,nchar(temp$Variable)-3)
+    if (order == "anomaly") {
+      temp$Block <- reorder(temp$Block, temp$Ranked)
+    }
     return(
       ggplot2::ggplot(temp,
                       ggplot2::aes_string(x = "Block", y = "Variable",
@@ -138,6 +151,9 @@ hmat <- function(data, input = "data", top = 20, block_length = NULL,
       tidyr::gather_(temp,"Variable","BD",names(temp)[-c(1,length(names(temp))-1,length(names(temp)))])
       ,.dots = ~ Ranked <= top)
     temp$Variable <- substr(temp$Variable,1,nchar(temp$Variable)-3)
+    if (order == "anomaly") {
+      temp$Block <- reorder(temp$Block, temp$Ranked)
+    }
     return(
       ggplot2::ggplot(temp,
                       ggplot2::aes_string(x = "Block", y = "Variable",

@@ -4,10 +4,10 @@
 \alias{hmat}
 \title{Plot a Histogram Matrix}
 \usage{
-hmat(data, input = "data", top = 20, block_length = NULL,
-  level_limit = 50, level_keep = 10, partial_block = TRUE,
-  min_var = 0.1, max_cor = 0.9, action = "exclude", output = "both",
-  normalize = FALSE)
+hmat(data, input = "data", top = 20, order = "numeric",
+  block_length = NULL, level_limit = 50, level_keep = 10,
+  partial_block = TRUE, min_var = 0.1, max_cor = 0.9,
+  action = "exclude", output = "both", normalize = FALSE)
 }
 \arguments{
 \item{data}{the data set (data frame or matrix)}
@@ -18,6 +18,9 @@ input has already had the Mahalanobis distances calculated}
 
 \item{top}{how many of the most anomalous blocks you would like to display
 (default 20)}
+
+\item{order}{whether to show the anomalous blocks in numeric order or in order of
+most anomalous to least anomalous (default is "numeric", other choice is "anomaly")}
 
 \item{block_length}{argument fed into \code{tabulate_state_vector}, necessary if
 \code{input = data}}

@@ -1,7 +1,7 @@
 Package: anomalyDetection
 Type: Package
 Title: Implementation of Augmented Network Log Anomaly Detection Procedures
-Version: 0.2.2
+Version: 0.2.3
 Authors@R: c( 
   person("Andrew", "McCarthy",
          email = "andrew.mccarthy@theperducogroup.com",
@@ -26,7 +26,7 @@ Authors@R: c(
          role = c("ctb"))
   )
 Maintainer: Andrew McCarthy <andrew.mccarthy@theperducogroup.com>
-Date: 2017-08-30
+Date: 2017-09-13
 Description: Implements procedures to aid in detecting network log anomalies. By 
   combining various multivariate analytic approaches relevant to network anomaly 
   detection, it provides cyber analysts efficient means to detect suspected 
