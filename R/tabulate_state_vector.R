@@ -143,11 +143,15 @@ tabulate_state_vector <- function(data, block_length, level_limit = 50L,
           base::table(
             dplyr::group_by_(
               dplyr::select_(
-                dplyr::filter_(
-                  stats::na.omit(
-                    tidyr::gather_(temp,"Variables","Values",names(temp)[-length(names(temp))])
-                  )
-                  ,.dots = ~ Values != "0")
+                dplyr::mutate_(
+                  dplyr::filter_(
+                    stats::na.omit(
+                      tidyr::gather_(temp,"Variables","Values",names(temp)[-length(names(temp))])
+                    )
+                    ,.dots = ~ Values != "0")
+                  ,Values = ~ dplyr::if_else(grepl("[A-Za-z]", Values),
+                                             Values,
+                                             paste0(Variables,"_",Values)))
                 ,~ c(BLK,Values))
               ,"BLK")
           )
