@@ -6,7 +6,7 @@
 \usage{
 hmat(data, input = "data", top = 20, order = "numeric",
   block_length = NULL, level_limit = 50, level_keep = 10,
-  partial_block = TRUE, min_var = 0.1, max_cor = 0.9,
+  partial_block = TRUE, na.rm = FALSE, min_var = 0.1, max_cor = 0.9,
   action = "exclude", output = "both", normalize = FALSE)
 }
 \arguments{
@@ -35,6 +35,9 @@ is exceeded, keep this many of the most popular values (default 10)}
 \item{partial_block}{argument fed into \code{tabulate_state_vector}, if the number of
 entries is not divisible by the \code{block_length}, this logical decides
 whether to keep the smaller last block (default \code{TRUE})}
+
+\item{na.rm}{whether to keep track of missing values as part of the analysis or
+ignore them}
 
 \item{min_var}{argument fed into \code{mc_adjust}, if a column in the state
 vector has variance less than this value, remove it (default 0.1)}
