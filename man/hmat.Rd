@@ -37,7 +37,7 @@ entries is not divisible by the \code{block_length}, this logical decides
 whether to keep the smaller last block (default \code{TRUE})}
 
 \item{na.rm}{whether to keep track of missing values as part of the analysis or
-ignore them}
+ignore them (default \code{FALSE})}
 
 \item{min_var}{argument fed into \code{mc_adjust}, if a column in the state
 vector has variance less than this value, remove it (default 0.1)}
