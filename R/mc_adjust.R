@@ -57,7 +57,7 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
   data <- as.data.frame(data)
 
   # Remove columns with minimal variance
-  low_var <- names(data)[diag(var(data)) > min_var]
+  low_var <- names(data)[diag(stats::var(data)) > min_var]
   # throw error if all columns are removed
   if(length(low_var) == 0) {
     stop("All variables have been removed based on the min_var\n",
