@@ -88,7 +88,7 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
   }
 
   # identify columns with strong correlation
-  C <- stats::cor(newdata)
+  C <- stats::cor(as.data.frame(newdata))
   samp <- data.frame(which(apply(abs(C), MARGIN = 2, function(x) dplyr::between(x, max_cor, 1.0)), arr.ind = TRUE))
   mylist <- data.frame(num = seq_len(ncol(C)), name = colnames(newdata))
   temp <- qdapTools::lookup(samp, mylist)
