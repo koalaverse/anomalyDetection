@@ -67,25 +67,29 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
     if (action == "exclude") {data <- data[,low_var]}
   }
 
-  # Remove linearly dependent columns
-  cor_mat <- stats::cor(data)
-  cor_mat[lower.tri(cor_mat, diag = TRUE)] <- 0
-  high_cor <- names(data[,sapply(as.data.frame(cor_mat),function(x) max(abs(x)) < 0.9)])
-  if (action == "exclude") {data <- data[,high_cor]; return(tibble::as.tibble(data))}
+  # Remove linearly dependent columns (but only if there are at least 2 columns)
+  if (ncol(data) > 1) {
+    cor_mat <- stats::cor(data)
+    cor_mat[lower.tri(cor_mat, diag = TRUE)] <- 0
+    high_cor <- names(data[,sapply(as.data.frame(cor_mat),function(x) max(abs(x)) < 0.9)])
+    if (action == "exclude") {data <- data[,high_cor]; return(tibble::as.tibble(data))}
 
-  if (action == "select" & ncol(data) != length(intersect(low_var, high_cor))) {
-    col2rmv <- setdiff(names(data),intersect(low_var, high_cor))
-    message("The following variables are set to be removed:")
-    message(paste(col2rmv,"\n"))
-    keep <- unlist(strsplit(readline("Which of these variables would you like to keep? "), split = " "))
-    if (all(keep %in% col2rmv)) {
-      data <- data[,union(intersect(low_var, high_cor),keep)]
-      return(tibble::as.tibble(data))
-    } else if (keep == ""){
-      data <- data[,intersect(low_var, high_cor)]
-    } else {
-      stop("One or more of the variables entered is not an option.")
+    if (action == "select" & ncol(data) != length(intersect(low_var, high_cor))) {
+      col2rmv <- setdiff(names(data),intersect(low_var, high_cor))
+      message("The following variables are set to be removed:")
+      message(paste(col2rmv,"\n"))
+      keep <- unlist(strsplit(readline("Which of these variables would you like to keep? "), split = " "))
+      if (all(keep %in% col2rmv)) {
+        data <- data[,union(intersect(low_var, high_cor),keep)]
+        return(tibble::as.tibble(data))
+      } else if (keep == ""){
+        data <- data[,intersect(low_var, high_cor)]
+      } else {
+        stop("One or more of the variables entered is not an option.")
+      }
     }
+  } else {
+    return(tibble::as.tibble(data))
   }
 
 }
