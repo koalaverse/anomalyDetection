@@ -73,7 +73,7 @@ Prior to proceeding with any multivariate statistical analyses we should inspect
   mc_adjust())
 ```
 
-By default, `mc_adjust` removes *all* columns that violate the variance, dependency, and correlation thresholds.  Alternatively, we can use `action = "select"` as an argument, which provides interactivity where the user can select the variables that violate the correlation threshold that they would like to remove.
+By default, `mc_adjust` removes *all* columns that violate the variance, dependency, and correlation thresholds.  Alternatively, we can use `action = "select"` as an argument, which provides interactivity where the user can select the variables that violate the correlation threshold that they would like to retain.
 
 
 ## Multivariate Statistical Analyses

@@ -81,6 +81,8 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
     if (all(keep %in% col2rmv)) {
       data <- data[,union(intersect(low_var, high_cor),keep)]
       return(tibble::as.tibble(data))
+    } else if (keep == ""){
+      data <- data[,intersect(low_var, high_cor)]
     } else {
       stop("One or more of the variables entered is not an option.")
     }
