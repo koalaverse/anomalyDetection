@@ -64,7 +64,7 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
          "level. Consider adjusting minimum acceptable variance\n",
          "levels to allow for some variables to be retained.")
   } else {
-    if (action == "exclude") {data <- data[,low_var]}
+    if (action == "exclude") {data <- data[,low_var, drop = FALSE]}
   }
 
   # Remove linearly dependent columns (but only if there are at least 2 columns)
@@ -72,7 +72,7 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
     cor_mat <- stats::cor(data)
     cor_mat[lower.tri(cor_mat, diag = TRUE)] <- 0
     high_cor <- names(data[,sapply(as.data.frame(cor_mat),function(x) max(abs(x)) < 0.9)])
-    if (action == "exclude") {data <- data[,high_cor]; return(tibble::as.tibble(data))}
+    if (action == "exclude") {data <- data[,high_cor, drop = FALSE]; return(tibble::as.tibble(data))}
 
     if (action == "select" & ncol(data) != length(intersect(low_var, high_cor))) {
       col2rmv <- setdiff(names(data),intersect(low_var, high_cor))
@@ -80,10 +80,10 @@ mc_adjust <- function(data, min_var = 0.1, max_cor = 0.9, action = "exclude") {
       message(paste(col2rmv,"\n"))
       keep <- unlist(strsplit(readline("Which of these variables would you like to keep? "), split = " "))
       if (all(keep %in% col2rmv)) {
-        data <- data[,union(intersect(low_var, high_cor),keep)]
+        data <- data[,union(intersect(low_var, high_cor),keep), drop = FALSE]
         return(tibble::as.tibble(data))
       } else if (keep == ""){
-        data <- data[,intersect(low_var, high_cor)]
+        data <- data[,intersect(low_var, high_cor), drop = FALSE]
       } else {
         stop("One or more of the variables entered is not an option.")
       }
