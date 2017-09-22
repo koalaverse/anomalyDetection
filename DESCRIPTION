@@ -26,7 +26,7 @@ Authors@R: c(
          role = c("ctb"))
   )
 Maintainer: Andrew McCarthy <andrew.mccarthy@theperducogroup.com>
-Date: 2017-09-19
+Date: 2017-09-22
 Description: Implements procedures to aid in detecting network log anomalies. By 
   combining various multivariate analytic approaches relevant to network anomaly 
   detection, it provides cyber analysts efficient means to detect suspected 
