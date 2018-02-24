@@ -22,8 +22,8 @@ Description: Implements procedures to aid in detecting network log anomalies. By
   combining various multivariate analytic approaches relevant to network anomaly 
   detection, it provides cyber analysts efficient means to detect suspected 
   anomalies requiring further evaluation.
-URL: https://github.com/AFIT-R/anomalyDetection
-BugReports: https://github.com/AFIT-R/anomalyDetection/issues
+URL: https://github.com/koalaverse/anomalyDetection
+BugReports: https://github.com/koalaverse/anomalyDetection/issues
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true

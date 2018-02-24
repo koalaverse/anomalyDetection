@@ -26,7 +26,7 @@ You can install `anomalyDetection` two ways.
       install.packages("devtools")
     }
 
-    devtools::install_github("AFIT-R/anomalyDetection", build_vignettes = TRUE)
+    devtools::install_github("koalaverse/anomalyDetection", build_vignettes = TRUE)
 
 Learning
 --------
