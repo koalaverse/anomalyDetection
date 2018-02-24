@@ -1,32 +1,23 @@
 Package: anomalyDetection
 Type: Package
 Title: Implementation of Augmented Network Log Anomaly Detection Procedures
-Version: 0.2.4
+Version: 0.2.5
 Authors@R: c( 
-  person("Andrew", "McCarthy",
-         email = "andrew.mccarthy@theperducogroup.com",
+  person("Bradley", "Boehmke",
+         email = "bradleyboehmke@gmail.com",
          role = c("aut", "cre")),
   person("Brandon", "Greenwell",
          email = "greenwell.brandon@gmail.com",
          role = c("aut")),
-  person("Bradley", "Boehmke", 
-         email = "bradleyboehmke@gmail.com", 
+  person("Jason", "Freels", 
+         email = "auburngrads@live.com", 
          role = c("aut")), 
   person("Robert", "Gutierrez", 
          email = "rjgutierrez2015@gmail.com", 
-         role = c("aut")),
-  person("Kenneth", "Bauer", 
-         email = "kenneth.bauer@afit.edu", 
-         role = c("ctb")),
-  person("Trevor", "Bihl", 
-         email = "trevor.bihl.2@us.af.mil", 
-         role = c("ctb")),
-  person("Cade", "Saie", 
-         email = "cade.saie@gmail.com", 
-         role = c("ctb"))
+         role = c("aut"))
   )
-Maintainer: Andrew McCarthy <andrew.mccarthy@theperducogroup.com>
-Date: 2017-09-22
+Maintainer: Bradley Boehmke <bradleyboehmke@gmail.com>
+Date: 2018-02-24
 Description: Implements procedures to aid in detecting network log anomalies. By 
   combining various multivariate analytic approaches relevant to network anomaly 
   detection, it provides cyber analysts efficient means to detect suspected 
