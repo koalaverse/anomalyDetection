@@ -1,3 +1,5 @@
+context("tabulate_state_vector")
+
 test_that("tabulate_state_vector output has correct dimensions", {
 
   expect_true(tabulate_state_vector(security_logs, 30) %>% is.data.frame())

@@ -1,3 +1,5 @@
+context("factor_analysis")
+
 set.seed(123)
 x = matrix(rnorm(200*3), ncol = 10)
 
@@ -23,6 +25,8 @@ test_that("factor_analysis output has correct dimensions", {
 })
 
 test_that("factor_analysis computes correctly", {
+
+  skip_on_cran()
 
   expect_equal(factor_analysis(x, hc_points) %>% .[[1]] %>% .[1,1] %>% round(3), -0.499)
   expect_equal(factor_analysis(x, hc_points) %>% .[[2]] %>% .[1,1] %>% round(2), 0.97)

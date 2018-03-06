@@ -1,3 +1,4 @@
+context("get_all_factors")
 
 test_that("get_all_factors provides proper messages and warnings", {
 

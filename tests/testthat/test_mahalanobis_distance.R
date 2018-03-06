@@ -1,3 +1,5 @@
+context("mahalanobis_distance")
+
 set.seed(123)
 x <- data.frame(C1 = rnorm(100), C2 = rnorm(100), C3 = rnorm(100))
 

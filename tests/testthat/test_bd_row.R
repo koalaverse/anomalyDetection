@@ -1,3 +1,5 @@
+context("bd_row")
+
 set.seed(123)
 x = matrix(rnorm(200*3), ncol = 10)
 colnames(x) = paste0("C", 1:ncol(x))
@@ -5,6 +7,8 @@ colnames(x) = paste0("C", 1:ncol(x))
 m1 <- x %>% mahalanobis_distance("bd", normalize = TRUE)
 
 test_that("bd_row provides proper messages and warnings", {
+
+  skip_on_cran()
 
   expect_that(bd_row(m1), throws_error())
   expect_that(bd_row(m1, 250), throws_error())

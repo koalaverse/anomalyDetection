@@ -1,3 +1,5 @@
+
+
 test_that("inspect_block provides proper messages and warnings", {
 
   expect_that(inspect_block(data = letters, 30), throws_error())

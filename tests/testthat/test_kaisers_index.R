@@ -1,3 +1,5 @@
+context("kaisers_index")
+
 set.seed(123)
 x <- matrix(rnorm(200*3), ncol = 10)
 

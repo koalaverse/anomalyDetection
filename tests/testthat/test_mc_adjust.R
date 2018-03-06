@@ -1,3 +1,5 @@
+context("mc_adjust")
+
 set.seed(123)
 x <- matrix(runif(100), ncol = 10)
 

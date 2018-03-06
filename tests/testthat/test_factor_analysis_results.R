@@ -1,3 +1,5 @@
+context("factor_analysis_result")
+
 set.seed(123)
 x = matrix(rnorm(200*3), ncol = 10)
 
@@ -31,6 +33,8 @@ test_that("factor_analysis_result output has correct dimensions", {
 })
 
 test_that("factor_analysis_result gets the right output", {
+
+  skip_on_cran()
 
   expect_equal(factor_analysis_results(fa) %>% .[1,1] %>% round(3), -0.499)
   expect_equal(factor_analysis_results(fa, 1) %>% .[1,1] %>% round(3), -0.499)

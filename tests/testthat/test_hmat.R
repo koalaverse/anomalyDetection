@@ -1,3 +1,5 @@
+context("hmat")
+
 test_that("hmat produces a ggplot object", {
   expect_is(hmat(security_logs,block_length = 5),"ggplot")
   expect_is(security_logs %>% tabulate_state_vector(5) %>%
