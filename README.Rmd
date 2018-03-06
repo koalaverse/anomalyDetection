@@ -12,10 +12,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/anomalyDetection)](https://cran.r-project.org/package=anomalyDetection)
-[![Travis-CI Build Status](https://travis-ci.org/AFIT-R/anomalyDetection.svg?branch=master)](https://travis-ci.org/AFIT-R/anomalyDetection)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/anomalyDetection)](https://cran.r-project.org/package=anomalyDetection)
+[![Travis-CI Build Status](https://travis-ci.org/koalaverse/anomalyDetection.svg?branch=master)](https://travis-ci.org/koalaverse/anomalyDetection)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/bradleyboehmke/anomalyDetection?branch=master&svg=true)](https://ci.appveyor.com/project/bradleyboehmke/anomalyDetection)
-[![codecov](https://codecov.io/gh/AFIT-R/anomalyDetection/branch/master/graph/badge.svg)](https://codecov.io/gh/AFIT-R/anomalyDetection)
+[![codecov](https://codecov.io/gh/koalaverse/anomalyDetection/branch/master/graph/badge.svg)](https://codecov.io/gh/koalaverse/anomalyDetection)
 [![Downloads](http://cranlogs.r-pkg.org/badges/anomalyDetection)](http://cranlogs.r-pkg.org/badges/anomalyDetection)
 [![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/anomalyDetection)](http://cranlogs.r-pkg.org/badges/grand-total/anomalyDetection)
 

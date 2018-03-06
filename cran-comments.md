@@ -2,22 +2,23 @@
 
 This is a resubmission. In this version I have:
 
-- Allowed for better tolerance when inverting covariance matrices
-- Rewritten code to improve speed (and accuracy), both in R and C++
-- Added new function to display histogram matrices
+- Tested and fixed any issues with new tidyr version dependency
+- Updated maintainership and active authors
+- Updated URL for new Github organization holding this package
+- Updated vignette package loading in vignette to resolve 1 note
 
 ## Test environments
 
-* local Windows install, R 3.4.1
-* ubuntu 12.04 (on travis-ci), R 3.4.1
+* local Windows install, R 3.4.3
+* ubuntu 12.04 (on travis-ci), R 3.4.3
 * Windows (on apveyor)
 * win-builder (devel and release)
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 notes
 
-We believe that the note is a false positive.
+
 
 
 ## Reverse dependencies

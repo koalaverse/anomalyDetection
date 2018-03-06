@@ -38,8 +38,10 @@ security_logs <- tibble::as_tibble(security_logs)
 ```
 
 ```{r, collapse=TRUE, message=FALSE, warning=FALSE}
-# we'll use tidyverse for some common manipulations
-library(tidyverse)
+library(dplyr)            # common data manipulations
+library(tidyr)            # common data manipulations
+library(tibble)           # turning output into convenient tibble
+library(ggplot2)          # visualizations
 library(anomalyDetection)
 
 security_logs
