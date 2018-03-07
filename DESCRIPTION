@@ -18,10 +18,10 @@ Authors@R: c(
   )
 Maintainer: Bradley Boehmke <bradleyboehmke@gmail.com>
 Date: 2018-02-24
-Description: Implements procedures to aid in detecting network log anomalies. By 
-  combining various multivariate analytic approaches relevant to network anomaly 
-  detection, it provides cyber analysts efficient means to detect suspected 
-  anomalies requiring further evaluation.
+Description: Implements procedures developed by Gutierrez et al. (2017, <https://journal.r-project.org/archive/2017/RJ-2017-039/index.html>) 
+  to aid in detecting network log anomalies. By combining various multivariate 
+  analytic approaches relevant to network anomaly detection, it provides cyber 
+  analysts efficient means to detect suspected anomalies requiring further evaluation.
 URL: https://github.com/koalaverse/anomalyDetection
 BugReports: https://github.com/koalaverse/anomalyDetection/issues
 License: GPL (>= 2)

@@ -6,6 +6,7 @@ This is a resubmission. In this version I have:
 - Updated maintainership and active authors
 - Updated URL for new Github organization holding this package
 - Updated vignette package loading in vignette to resolve 1 note
+- Added reference in the Description field
 
 ## Test environments
 
