@@ -47,3 +47,7 @@ devtools::install_github("koalaverse/anomalyDetection", build_vignettes = TRUE)
 ## Learning
 
 To get started with `anomalyDetection`, read the intro [vignette](https://cran.r-project.org/web/packages/anomalyDetection/vignettes/Introduction.html): `vignette("Introduction", package = "anomalyDetection")`. This will provide a thorough introduction to the functions provided in the package.
+
+## References
+
+Gutierrez, R.J., Boehmke, B.C., Bauer, K.W., Saie, C.M. & Bihl, T.J. (2017) "`anomalyDetection`: Implementation of augmented network log anomaly detection procedures." The R Journal, 9(2), 354-365. [link](https://journal.r-project.org/archive/2017/RJ-2017-039/index.html)

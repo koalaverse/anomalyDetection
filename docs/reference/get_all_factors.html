@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • anomalyDetection</title>
+<title>Find All Factors — get_all_factors • anomalyDetection</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,12 +25,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
 
 
 
-<meta property="og:title" content="Authors" />
+<meta property="og:title" content="Find All Factors — get_all_factors" />
+
+<meta property="og:description" content="get_all_factors finds all factor pairs for a given integer (i.e. a number
+that divides evenly into another number)." />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -46,7 +50,7 @@
   </head>
 
   <body>
-    <div class="container template-authors">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -57,7 +61,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">anomalyDetection</a>
+        <a class="navbar-link" href="../index.html">anomalyDetection</a>
         <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
       </span>
     </div>
@@ -65,13 +69,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -81,12 +85,12 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/Introduction.html">Introduction</a>
+      <a href="../articles/Introduction.html">Introduction</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -107,34 +111,64 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Authors</h1>
+    <h1>Find All Factors</h1>
+    <small class="dont-index">Source: <a href='https://github.com/koalaverse/anomalyDetection/blob/master/R/get_all_factors.R'><code>R/get_all_factors.R</code></a></small>
+    <div class="hidden name"><code>get_all_factors.Rd</code></div>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>Bradley Boehmke</strong>. Author, maintainer. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Brandon Greenwell</strong>. Author. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Jason Freels</strong>. Author. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Robert Gutierrez</strong>. Author. 
-        </p>
-      </li>
+    <div class="ref-description">
+    
+    <p><code>get_all_factors</code> finds all factor pairs for a given integer (i.e. a number
+that divides evenly into another number).</p>
+    
+    </div>
+
+    <pre class="usage"><span class='fu'>get_all_factors</span>(<span class='no'>n</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>n</th>
+      <td><p>number to be factored</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='http://stackoverflow.com/a/6425597/3851274'>http://stackoverflow.com/a/6425597/3851274</a></p>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list containing the integer vector(s) containing all factors for the given
+<code>n</code> inputs.</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='co'># Find all the factors of 39304</span>
+<span class='fu'>get_all_factors</span>(<span class='fl'>39304</span>)</div><div class='output co'>#&gt; $`39304`
+#&gt;  [1]     1     2     4     8    17    34    68   136   289   578  1156  2312
+#&gt; [13]  4913  9826 19652 39304
+#&gt; </div><div class='input'>
+</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#source">Source</a></li>
+
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
-
 </div>
-
 
       <footer>
       <div class="copyright">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • anomalyDetection</title>
+<title>Security Log Data — security_logs • anomalyDetection</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,12 +25,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
 
 
 
-<meta property="og:title" content="Authors" />
+<meta property="og:title" content="Security Log Data — security_logs" />
+
+<meta property="og:description" content="A mock dataset containing common information that appears in security logs." />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -46,7 +49,7 @@
   </head>
 
   <body>
-    <div class="container template-authors">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -57,7 +60,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">anomalyDetection</a>
+        <a class="navbar-link" href="../index.html">anomalyDetection</a>
         <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
       </span>
     </div>
@@ -65,13 +68,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -81,12 +84,12 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/Introduction.html">Introduction</a>
+      <a href="../articles/Introduction.html">Introduction</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -107,34 +110,47 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Authors</h1>
+    <h1>Security Log Data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/koalaverse/anomalyDetection/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>security_logs.Rd</code></div>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>Bradley Boehmke</strong>. Author, maintainer. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Brandon Greenwell</strong>. Author. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Jason Freels</strong>. Author. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Robert Gutierrez</strong>. Author. 
-        </p>
-      </li>
-    </ul>
+    <div class="ref-description">
+    
+    <p>A mock dataset containing common information that appears in security logs.</p>
+    
+    </div>
+
+    <pre class="usage"><span class='no'>security_logs</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A data frame with 300 rows and 10 variables:</p><dl class='dl-horizontal'>
+  <dt>Device_Vendor</dt><dd><p>Company who made the device</p></dd>
+  <dt>Device_Product</dt><dd><p>Name of the security device</p></dd>
+  <dt>Device_Action</dt><dd><p>Outcome result of access</p></dd>
+  <dt>Src_IP</dt><dd><p>IP address of the source</p></dd>
+  <dt>Dst_IP</dt><dd><p>IP address of the destination</p></dd>
+  <dt>Src_Port</dt><dd><p>Port identifier of the source</p></dd>
+  <dt>Dst_Port</dt><dd><p>Port identifier of the destination</p></dd>
+  <dt>Protocol</dt><dd><p>Transport protocol used</p></dd>
+  <dt>Country_Src</dt><dd><p>Country of the source</p></dd>
+  <dt>Bytes_TRF</dt><dd><p>Number of bytes transferred</p></dd>
+</dl>
+    
 
   </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      
+      <li><a href="#format">Format</a></li>
+          </ul>
 
+  </div>
 </div>
-
 
       <footer>
       <div class="copyright">
