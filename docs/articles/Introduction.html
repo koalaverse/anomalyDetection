@@ -325,16 +325,16 @@ security_logs
 <p>where <span class="math inline">\(X_s\)</span> is the standardized observations, <span class="math inline">\(R^{-1}\)</span> is the inverse of the correlation matrix, and $ $ is the factor loadings matrix. To simplify the results for interpretation, the factor loadings can undergo an orthogonal or oblique rotation. Orthogonal rotations assume independence between the factors while oblique rotations allow the factors to correlate. <code>anomalyDetection</code> utilizes the most common rotation option known as varimax. Varimax rotates the factors orthogonally to maximize the variance of the squared factor loadings which forces large factors to increase and small ones to decrease, providing easier interpretation.</p>
 <p>To begin using factor analysis, the dimensions of the reduced state vector matrix are first passed to the <code>horns_curve</code> function to find the recommended set of eigenvalues.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>(state_vec)
-##  [1]  4.878016e+00  4.303062e+00  3.877053e+00  3.536650e+00  3.235012e+00
-##  [6]  2.964519e+00  2.728217e+00  2.510677e+00  2.299107e+00  2.112608e+00
-## [11]  1.935380e+00  1.774756e+00  1.618505e+00  1.477132e+00  1.340807e+00
-## [16]  1.211372e+00  1.087453e+00  9.755744e-01  8.696106e-01  7.726981e-01
-## [21]  6.807284e-01  5.947711e-01  5.116986e-01  4.353286e-01  3.652337e-01
-## [26]  2.986222e-01  2.362019e-01  1.777729e-01  1.196026e-01  1.099229e-15
-## [31]  8.486189e-16  6.889096e-16  5.644668e-16  4.588364e-16  3.631992e-16
-## [36]  2.748938e-16  1.928609e-16  1.132566e-16  3.552007e-17 -4.103825e-17
-## [41] -1.202947e-16 -1.981430e-16 -2.808249e-16 -3.665819e-16 -4.606614e-16
-## [46] -5.700066e-16 -6.955580e-16 -8.650080e-16 -1.108035e-15</code></pre></div>
+##  [1]  4.864425e+00  4.286930e+00  3.882178e+00  3.538029e+00  3.236028e+00
+##  [6]  2.972332e+00  2.736012e+00  2.510896e+00  2.308525e+00  2.121181e+00
+## [11]  1.945609e+00  1.780481e+00  1.622023e+00  1.478508e+00  1.339477e+00
+## [16]  1.213879e+00  1.093282e+00  9.826708e-01  8.752770e-01  7.752387e-01
+## [21]  6.833954e-01  5.952606e-01  5.127429e-01  4.348906e-01  3.658092e-01
+## [26]  2.997252e-01  2.379825e-01  1.789847e-01  1.210048e-01  1.101072e-15
+## [31]  8.555818e-16  6.945318e-16  5.697942e-16  4.613000e-16  3.666789e-16
+## [36]  2.761458e-16  1.944784e-16  1.153664e-16  3.846040e-17 -3.973425e-17
+## [41] -1.156400e-16 -1.944458e-16 -2.790074e-16 -3.649007e-16 -4.607593e-16
+## [46] -5.675847e-16 -6.937367e-16 -8.562724e-16 -1.110663e-15</code></pre></div>
 <p>Next, the dimensionality is determined by finding the eigenvalues of the correlation matrix of the state vector matrix and retaining only those factors whose eigenvalues are greater than or equal to those produced by <code>horns_curve</code>. We use <code>factor_analysis</code> to reduce the state vector matrix into resultant factors. The <code>factor_analysis</code> function generates a list containing five outputs:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -396,7 +396,7 @@ security_logs
 <span class="st">  </span><span class="kw"><a href="../reference/factor_analysis.html">factor_analysis</a></span>(<span class="dt">data =</span> state_vec, <span class="dt">hc_points =</span> .) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/factor_analysis_results.html">factor_analysis_results</a></span>(fa_loadings_rotated) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/kaisers_index.html">kaisers_index</a></span>()
-## [1] 0.6182339</code></pre></div>
+## [1] 0.6326953</code></pre></div>
 <p>We can visualize the factor analysis results to show the correlation between the columns of the reduced state vector to the rotated factor loadings. Strong negative correlations are depicted as red while strong positive correlations are shown as blue. This helps to identify which factors are correlated with each security log data attribute. Furthermore, this helps to identify two or more security log data attributes that appear to have relationships with their occurrences. For example, this shows that Russia is highly correlated with IP address 223.70.128. If there is an abnormally large amount of instances with Russian occurrances this would be the logical IP address to start investigating.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fa_loadings &lt;-<span class="st"> </span>state_vec <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>() <span class="op">%&gt;%</span>

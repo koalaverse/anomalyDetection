@@ -1,0 +1,22 @@
+citHeader("To cite anomalyDetection in publications use:")
+
+citEntry(entry = "Article",
+  title        = "anomalyDetection: Implementation of augmented network log anomaly detection procedures.",
+  author       = personList(as.person("Robert J. Gutierrez"),
+                   as.person("Bradley C. Boehmke"),
+                   as.person("Kenneth W. Bauer"),
+                   as.person("Cade M. Saie"),
+                   as.person("Trevor J. Bihl")),
+  journal      = "The R Journal",
+  year         = "2017",
+  volume       = "9",
+  number       = "2",
+  pages        = "354--365",
+  url          = "https://journal.r-project.org/archive/2017/RJ-2017-039/index.html",
+
+  textVersion  =
+  paste("Robert J. Gutierrez, Bradley C. Boehmke, Kenneth W. Bauer, Cade M. Saie, Trevor J. Bihl (2017).",
+        "anomalyDetection: Implementation of augmented network log anomaly detection procedures.",
+        "The R Journal, 9(2), 354--365.",
+        "URL https://journal.r-project.org/archive/2017/RJ-2017-039/index.html.")
+)
