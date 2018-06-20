@@ -325,16 +325,16 @@ security_logs
 <p>where <span class="math inline">\(X_s\)</span> is the standardized observations, <span class="math inline">\(R^{-1}\)</span> is the inverse of the correlation matrix, and $ $ is the factor loadings matrix. To simplify the results for interpretation, the factor loadings can undergo an orthogonal or oblique rotation. Orthogonal rotations assume independence between the factors while oblique rotations allow the factors to correlate. <code>anomalyDetection</code> utilizes the most common rotation option known as varimax. Varimax rotates the factors orthogonally to maximize the variance of the squared factor loadings which forces large factors to increase and small ones to decrease, providing easier interpretation.</p>
 <p>To begin using factor analysis, the dimensions of the reduced state vector matrix are first passed to the <code>horns_curve</code> function to find the recommended set of eigenvalues.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>(state_vec)
-##  [1]  4.863568e+00  4.295224e+00  3.881517e+00  3.540082e+00  3.238986e+00
-##  [6]  2.968408e+00  2.733296e+00  2.509295e+00  2.304274e+00  2.117619e+00
-## [11]  1.939330e+00  1.776363e+00  1.624371e+00  1.480391e+00  1.342642e+00
-## [16]  1.213491e+00  1.091282e+00  9.785141e-01  8.736847e-01  7.741414e-01
-## [21]  6.810849e-01  5.945415e-01  5.129965e-01  4.359338e-01  3.632641e-01
-## [26]  2.959568e-01  2.345110e-01  1.774036e-01  1.197105e-01  1.099006e-15
-## [31]  8.553321e-16  6.921994e-16  5.664011e-16  4.610828e-16  3.642003e-16
-## [36]  2.777612e-16  1.924765e-16  1.149611e-16  3.907201e-17 -3.671131e-17
-## [41] -1.129329e-16 -1.933823e-16 -2.743357e-16 -3.613732e-16 -4.588072e-16
-## [46] -5.626753e-16 -6.892059e-16 -8.478229e-16 -1.098510e-15</code></pre></div>
+##  [1]  4.878016e+00  4.303062e+00  3.877053e+00  3.536650e+00  3.235012e+00
+##  [6]  2.964519e+00  2.728217e+00  2.510677e+00  2.299107e+00  2.112608e+00
+## [11]  1.935380e+00  1.774756e+00  1.618505e+00  1.477132e+00  1.340807e+00
+## [16]  1.211372e+00  1.087453e+00  9.755744e-01  8.696106e-01  7.726981e-01
+## [21]  6.807284e-01  5.947711e-01  5.116986e-01  4.353286e-01  3.652337e-01
+## [26]  2.986222e-01  2.362019e-01  1.777729e-01  1.196026e-01  1.099229e-15
+## [31]  8.486189e-16  6.889096e-16  5.644668e-16  4.588364e-16  3.631992e-16
+## [36]  2.748938e-16  1.928609e-16  1.132566e-16  3.552007e-17 -4.103825e-17
+## [41] -1.202947e-16 -1.981430e-16 -2.808249e-16 -3.665819e-16 -4.606614e-16
+## [46] -5.700066e-16 -6.955580e-16 -8.650080e-16 -1.108035e-15</code></pre></div>
 <p>Next, the dimensionality is determined by finding the eigenvalues of the correlation matrix of the state vector matrix and retaining only those factors whose eigenvalues are greater than or equal to those produced by <code>horns_curve</code>. We use <code>factor_analysis</code> to reduce the state vector matrix into resultant factors. The <code>factor_analysis</code> function generates a list containing five outputs:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -364,21 +364,21 @@ security_logs
 <span class="st">  </span><span class="kw"><a href="../reference/factor_analysis.html">factor_analysis</a></span>(state_vec, <span class="dt">hc_points =</span> .) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/factor_analysis_results.html">factor_analysis_results</a></span>(<span class="dv">4</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span>as_tibble
-## # A tibble: 30 x 15
-##         V1     V2       V3     V4      V5      V6      V7     V8       V9
-##      &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
-##  1  0.244   0.255 -0.679   -1.57  -0.170  -1.37    2.32   -0.691 -0.173  
-##  2  1.68   -0.117  1.91     0.895 -1.65   -0.0236  0.128   1.50  -0.00454
-##  3  0.0508  1.22   0.962    1.44   0.506   0.0744  1.61   -0.342  0.249  
-##  4  0.404  -1.42  -1.43     2.05  -0.0189  1.97   -0.436  -1.24  -0.0290 
-##  5  0.339  -0.910 -0.0850  -0.157  0.0488 -0.424  -0.420  -1.58  -0.110  
-##  6  0.869   0.225  0.00382 -0.931  0.206  -0.434   0.0910  0.355  0.424  
-##  7 -2.35   -1.81   2.14    -0.495  1.20   -0.255  -0.0561  0.423  0.740  
-##  8 -0.0749  0.993 -0.553   -0.502 -0.126  -0.880  -0.392  -2.13  -0.376  
-##  9  1.23   -1.14  -0.0272   0.490  0.210  -0.123   0.853   1.12   0.748  
-## 10 -0.559   0.737  1.88     0.231  0.193   1.20   -0.149  -0.855 -1.89   
-## # ... with 20 more rows, and 6 more variables: V10 &lt;dbl&gt;, V11 &lt;dbl&gt;,
-## #   V12 &lt;dbl&gt;, V13 &lt;dbl&gt;, V14 &lt;dbl&gt;, V15 &lt;dbl&gt;</code></pre></div>
+## # A tibble: 30 x 16
+##         V1     V2     V3      V4      V5      V6     V7      V8      V9
+##      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1  1.61    0.240 -0.150 -0.0880 -0.326  -1.13    2.43  -0.808  -0.0687
+##  2 -1.08    0.169  2.18   1.40   -1.08    0.0738  0.385  1.44    1.54  
+##  3 -1.21    1.24   0.400  0.408   0.511   0.0768  1.51  -0.306  -0.529 
+##  4 -1.85   -1.31  -1.03   0.629  -0.347   2.06   -0.514 -1.58   -0.0344
+##  5  0.224  -1.22   0.231  0.157  -0.0906 -0.331  -0.384 -1.37   -1.23  
+##  6  1.00    0.451  0.622  0.547   0.625  -0.181   0.475 -0.396   0.546 
+##  7  0.159  -1.07   1.77  -2.65    2.07    0.314   0.332  0.0922  1.05  
+##  8  0.475   0.457 -0.835  0.0191 -0.495  -1.18   -0.656 -1.11   -0.879 
+##  9 -0.433  -1.34  -0.361  1.42    0.110  -0.132   0.953  1.27    0.397 
+## 10  0.0617  0.392  1.67  -0.315  -0.438   1.03   -0.762 -0.0156 -2.25  
+## # ... with 20 more rows, and 7 more variables: V10 &lt;dbl&gt;, V11 &lt;dbl&gt;,
+## #   V12 &lt;dbl&gt;, V13 &lt;dbl&gt;, V14 &lt;dbl&gt;, V15 &lt;dbl&gt;, V16 &lt;dbl&gt;</code></pre></div>
 <p>To evaluate the quality for a factor analysis solution Kaiser proposed the <a href="https://link.springer.com/article/10.1007/BF02291575">Index of Factorial Simplicity</a> (IFS). The IFS is computed as</p>
 <p><span class="math display">\[ IFS = \frac{∑_i\big[q ∑_sv_js^4-(∑_sv_{js}^2)^2\big]}{∑_i\big[(q-1)(∑_sv_{js}^2)^2 \big]} \tag{6}\]</span></p>
 <p>where <span class="math inline">\(q\)</span> is the number of factors, <span class="math inline">\(j\)</span> the row index, <span class="math inline">\(s\)</span> the column index, and <span class="math inline">\(v_{js}\)</span> is the value in the loadings matrix. Furthermore, Kaiser created the following evaluations of the score produced by the IFS as shown below:</p>
@@ -396,7 +396,7 @@ security_logs
 <span class="st">  </span><span class="kw"><a href="../reference/factor_analysis.html">factor_analysis</a></span>(<span class="dt">data =</span> state_vec, <span class="dt">hc_points =</span> .) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/factor_analysis_results.html">factor_analysis_results</a></span>(fa_loadings_rotated) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/kaisers_index.html">kaisers_index</a></span>()
-## [1] 0.6326953</code></pre></div>
+## [1] 0.6182339</code></pre></div>
 <p>We can visualize the factor analysis results to show the correlation between the columns of the reduced state vector to the rotated factor loadings. Strong negative correlations are depicted as red while strong positive correlations are shown as blue. This helps to identify which factors are correlated with each security log data attribute. Furthermore, this helps to identify two or more security log data attributes that appear to have relationships with their occurrences. For example, this shows that Russia is highly correlated with IP address 223.70.128. If there is an abnormally large amount of instances with Russian occurrances this would be the logical IP address to start investigating.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fa_loadings &lt;-<span class="st"> </span>state_vec <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>() <span class="op">%&gt;%</span>
