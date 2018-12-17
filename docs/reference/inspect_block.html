@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">anomalyDetection</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
       </span>
     </div>
 
@@ -157,173 +157,173 @@
     <pre class="examples"><div class='input'>
 <span class='fu'>inspect_block</span>(<span class='no'>security_logs</span>, <span class='fl'>30</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; # A tibble: 30 x 10
-#&gt;    Device_Vendor Device_Product Device_Action Src_IP  Dst_IP  Src_Port Dst_Port
-#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;      &lt;int&gt;    &lt;int&gt;
-#&gt;  1 McAfee        NSP            Attempt       223.70… 32.73.…      135    20000
-#&gt;  2 CISCO         ASA            Failure       174.11… 219.14…       80       25
-#&gt;  3 IBM           SNIPS          Success       174.11… 145.11…       80      593
-#&gt;  4 McAfee        NSP            Success       227.12… 151.19…       21       25
-#&gt;  5 Juniper       SRX            Success       28.9.2… 145.11…      135       90
-#&gt;  6 McAfee        NSP            Success       28.9.2… 145.11…       80       25
-#&gt;  7 McAfee        NSP            Attempt       28.9.2… 56.137…       80       25
-#&gt;  8 McAfee        ePO            Attempt       223.70… 151.19…       25    20000
-#&gt;  9 McAfee        ePO            Attempt       174.11… 151.19…       25      593
-#&gt; 10 CISCO         ASA            Attempt       227.12… 56.137…       25       90
-#&gt; # ... with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;,
-#&gt; #   Country_Src &lt;chr&gt;, Bytes_TRF &lt;int&gt;
+#&gt;    Device_Vendor Device_Product Device_Action Src_IP Dst_IP Src_Port Dst_Port
+#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
+#&gt;  1 McAfee        NSP            Attempt       223.7… 32.73…      135    20000
+#&gt;  2 CISCO         ASA            Failure       174.1… 219.1…       80       25
+#&gt;  3 IBM           SNIPS          Success       174.1… 145.1…       80      593
+#&gt;  4 McAfee        NSP            Success       227.1… 151.1…       21       25
+#&gt;  5 Juniper       SRX            Success       28.9.… 145.1…      135       90
+#&gt;  6 McAfee        NSP            Success       28.9.… 145.1…       80       25
+#&gt;  7 McAfee        NSP            Attempt       28.9.… 56.13…       80       25
+#&gt;  8 McAfee        ePO            Attempt       223.7… 151.1…       25    20000
+#&gt;  9 McAfee        ePO            Attempt       174.1… 151.1…       25      593
+#&gt; 10 CISCO         ASA            Attempt       227.1… 56.13…       25       90
+#&gt; # … with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;, Country_Src &lt;chr&gt;,
+#&gt; #   Bytes_TRF &lt;int&gt;
 #&gt; 
 #&gt; [[2]]
 #&gt; # A tibble: 30 x 10
-#&gt;    Device_Vendor  Device_Product Device_Action Src_IP  Dst_IP Src_Port Dst_Port
-#&gt;    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
-#&gt;  1 Juniper        SRX            Failure       227.12… 151.1…       80       90
-#&gt;  2 CISCO          ASA            Success       28.9.2… 32.73…       25    20000
-#&gt;  3 McAfee         ePO            Success       174.11… 32.73…      113       80
-#&gt;  4 CISCO          ASA            Failure       227.12… 219.1…       21       80
-#&gt;  5 Juniper        SRX            Success       227.12… 219.1…       25      593
-#&gt;  6 CISCO          ASA            Failure       28.9.2… 219.1…      113       90
-#&gt;  7 CISCO          ASA            Failure       89.130… 145.1…       21    20000
-#&gt;  8 Palo Alto Net… Firewall       Failure       174.11… 145.1…      113       90
-#&gt;  9 IBM            SNIPS          Success       174.11… 151.1…       21      593
-#&gt; 10 CISCO          ASA            Success       89.130… 145.1…       80       80
-#&gt; # ... with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;,
-#&gt; #   Country_Src &lt;chr&gt;, Bytes_TRF &lt;int&gt;
+#&gt;    Device_Vendor Device_Product Device_Action Src_IP Dst_IP Src_Port Dst_Port
+#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
+#&gt;  1 Juniper       SRX            Failure       227.1… 151.1…       80       90
+#&gt;  2 CISCO         ASA            Success       28.9.… 32.73…       25    20000
+#&gt;  3 McAfee        ePO            Success       174.1… 32.73…      113       80
+#&gt;  4 CISCO         ASA            Failure       227.1… 219.1…       21       80
+#&gt;  5 Juniper       SRX            Success       227.1… 219.1…       25      593
+#&gt;  6 CISCO         ASA            Failure       28.9.… 219.1…      113       90
+#&gt;  7 CISCO         ASA            Failure       89.13… 145.1…       21    20000
+#&gt;  8 Palo Alto Ne… Firewall       Failure       174.1… 145.1…      113       90
+#&gt;  9 IBM           SNIPS          Success       174.1… 151.1…       21      593
+#&gt; 10 CISCO         ASA            Success       89.13… 145.1…       80       80
+#&gt; # … with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;, Country_Src &lt;chr&gt;,
+#&gt; #   Bytes_TRF &lt;int&gt;
 #&gt; 
 #&gt; [[3]]
 #&gt; # A tibble: 30 x 10
-#&gt;    Device_Vendor  Device_Product Device_Action Src_IP  Dst_IP Src_Port Dst_Port
-#&gt;    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
-#&gt;  1 IBM            SNIPS          Success       28.9.2… 219.1…      113       25
-#&gt;  2 Palo Alto Net… Firewall       Success       89.130… 56.13…       21       80
-#&gt;  3 Palo Alto Net… Firewall       Success       89.130… 145.1…       21       25
-#&gt;  4 IBM            SNIPS          Failure       174.11… 151.1…       80       80
-#&gt;  5 CISCO          ASA            Attempt       223.70… 219.1…      113       90
-#&gt;  6 CISCO          ASA            Success       223.70… 219.1…      113       25
-#&gt;  7 Juniper        SRX            Attempt       89.130… 151.1…      113       80
-#&gt;  8 McAfee         NSP            Attempt       223.70… 219.1…       80      593
-#&gt;  9 McAfee         NSP            Failure       89.130… 219.1…       21    20000
-#&gt; 10 McAfee         NSP            Failure       89.130… 151.1…       21       25
-#&gt; # ... with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;,
-#&gt; #   Country_Src &lt;chr&gt;, Bytes_TRF &lt;int&gt;
+#&gt;    Device_Vendor Device_Product Device_Action Src_IP Dst_IP Src_Port Dst_Port
+#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
+#&gt;  1 IBM           SNIPS          Success       28.9.… 219.1…      113       25
+#&gt;  2 Palo Alto Ne… Firewall       Success       89.13… 56.13…       21       80
+#&gt;  3 Palo Alto Ne… Firewall       Success       89.13… 145.1…       21       25
+#&gt;  4 IBM           SNIPS          Failure       174.1… 151.1…       80       80
+#&gt;  5 CISCO         ASA            Attempt       223.7… 219.1…      113       90
+#&gt;  6 CISCO         ASA            Success       223.7… 219.1…      113       25
+#&gt;  7 Juniper       SRX            Attempt       89.13… 151.1…      113       80
+#&gt;  8 McAfee        NSP            Attempt       223.7… 219.1…       80      593
+#&gt;  9 McAfee        NSP            Failure       89.13… 219.1…       21    20000
+#&gt; 10 McAfee        NSP            Failure       89.13… 151.1…       21       25
+#&gt; # … with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;, Country_Src &lt;chr&gt;,
+#&gt; #   Bytes_TRF &lt;int&gt;
 #&gt; 
 #&gt; [[4]]
 #&gt; # A tibble: 30 x 10
-#&gt;    Device_Vendor Device_Product Device_Action Src_IP  Dst_IP  Src_Port Dst_Port
-#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;      &lt;int&gt;    &lt;int&gt;
-#&gt;  1 Juniper       SRX            Success       223.70… 219.14…       80       80
-#&gt;  2 CISCO         ASA            Success       223.70… 32.73.…       21       80
-#&gt;  3 McAfee        ePO            Attempt       227.12… 56.137…      135       80
-#&gt;  4 IBM           SNIPS          Success       28.9.2… 32.73.…      135      593
-#&gt;  5 Juniper       SRX            Attempt       223.70… 56.137…       25       90
-#&gt;  6 McAfee        ePO            Success       174.11… 151.19…      135       25
-#&gt;  7 IBM           SNIPS          Attempt       89.130… 32.73.…       21      593
-#&gt;  8 McAfee        NSP            Success       227.12… 151.19…       80       90
-#&gt;  9 CISCO         ASA            Success       223.70… 56.137…       80      593
-#&gt; 10 McAfee        ePO            Success       28.9.2… 151.19…       80      593
-#&gt; # ... with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;,
-#&gt; #   Country_Src &lt;chr&gt;, Bytes_TRF &lt;int&gt;
+#&gt;    Device_Vendor Device_Product Device_Action Src_IP Dst_IP Src_Port Dst_Port
+#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
+#&gt;  1 Juniper       SRX            Success       223.7… 219.1…       80       80
+#&gt;  2 CISCO         ASA            Success       223.7… 32.73…       21       80
+#&gt;  3 McAfee        ePO            Attempt       227.1… 56.13…      135       80
+#&gt;  4 IBM           SNIPS          Success       28.9.… 32.73…      135      593
+#&gt;  5 Juniper       SRX            Attempt       223.7… 56.13…       25       90
+#&gt;  6 McAfee        ePO            Success       174.1… 151.1…      135       25
+#&gt;  7 IBM           SNIPS          Attempt       89.13… 32.73…       21      593
+#&gt;  8 McAfee        NSP            Success       227.1… 151.1…       80       90
+#&gt;  9 CISCO         ASA            Success       223.7… 56.13…       80      593
+#&gt; 10 McAfee        ePO            Success       28.9.… 151.1…       80      593
+#&gt; # … with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;, Country_Src &lt;chr&gt;,
+#&gt; #   Bytes_TRF &lt;int&gt;
 #&gt; 
 #&gt; [[5]]
 #&gt; # A tibble: 30 x 10
-#&gt;    Device_Vendor  Device_Product Device_Action Src_IP  Dst_IP Src_Port Dst_Port
-#&gt;    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
-#&gt;  1 Palo Alto Net… Firewall       Success       89.130… 32.73…      135       25
-#&gt;  2 McAfee         NSP            Failure       223.70… 32.73…       80    20000
-#&gt;  3 McAfee         NSP            Attempt       89.130… 56.13…      135    20000
-#&gt;  4 Palo Alto Net… Firewall       Success       89.130… 151.1…       25       25
-#&gt;  5 IBM            SNIPS          Attempt       174.11… 145.1…      135    20000
-#&gt;  6 IBM            SNIPS          Success       174.11… 32.73…       25       80
-#&gt;  7 McAfee         NSP            Failure       174.11… 151.1…       25       90
-#&gt;  8 McAfee         NSP            Success       227.12… 219.1…      113       80
-#&gt;  9 IBM            SNIPS          Success       227.12… 219.1…       21       80
-#&gt; 10 Palo Alto Net… Firewall       Attempt       174.11… 145.1…       80    20000
-#&gt; # ... with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;,
-#&gt; #   Country_Src &lt;chr&gt;, Bytes_TRF &lt;int&gt;
+#&gt;    Device_Vendor Device_Product Device_Action Src_IP Dst_IP Src_Port Dst_Port
+#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
+#&gt;  1 Palo Alto Ne… Firewall       Success       89.13… 32.73…      135       25
+#&gt;  2 McAfee        NSP            Failure       223.7… 32.73…       80    20000
+#&gt;  3 McAfee        NSP            Attempt       89.13… 56.13…      135    20000
+#&gt;  4 Palo Alto Ne… Firewall       Success       89.13… 151.1…       25       25
+#&gt;  5 IBM           SNIPS          Attempt       174.1… 145.1…      135    20000
+#&gt;  6 IBM           SNIPS          Success       174.1… 32.73…       25       80
+#&gt;  7 McAfee        NSP            Failure       174.1… 151.1…       25       90
+#&gt;  8 McAfee        NSP            Success       227.1… 219.1…      113       80
+#&gt;  9 IBM           SNIPS          Success       227.1… 219.1…       21       80
+#&gt; 10 Palo Alto Ne… Firewall       Attempt       174.1… 145.1…       80    20000
+#&gt; # … with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;, Country_Src &lt;chr&gt;,
+#&gt; #   Bytes_TRF &lt;int&gt;
 #&gt; 
 #&gt; [[6]]
 #&gt; # A tibble: 30 x 10
-#&gt;    Device_Vendor Device_Product Device_Action Src_IP  Dst_IP  Src_Port Dst_Port
-#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;      &lt;int&gt;    &lt;int&gt;
-#&gt;  1 CISCO         ASA            Success       223.70… 145.11…       80       25
-#&gt;  2 McAfee        ePO            Attempt       174.11… 219.14…       21    20000
-#&gt;  3 IBM           SNIPS          Attempt       223.70… 151.19…       25      593
-#&gt;  4 CISCO         ASA            Success       223.70… 151.19…      113       90
-#&gt;  5 IBM           SNIPS          Attempt       174.11… 151.19…       21       25
-#&gt;  6 IBM           SNIPS          Attempt       223.70… 145.11…      113       90
-#&gt;  7 McAfee        NSP            Attempt       223.70… 151.19…       21       90
-#&gt;  8 Juniper       SRX            Success       227.12… 219.14…       80       90
-#&gt;  9 CISCO         ASA            Attempt       28.9.2… 32.73.…      113       90
-#&gt; 10 CISCO         ASA            Success       28.9.2… 56.137…      113       80
-#&gt; # ... with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;,
-#&gt; #   Country_Src &lt;chr&gt;, Bytes_TRF &lt;int&gt;
+#&gt;    Device_Vendor Device_Product Device_Action Src_IP Dst_IP Src_Port Dst_Port
+#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
+#&gt;  1 CISCO         ASA            Success       223.7… 145.1…       80       25
+#&gt;  2 McAfee        ePO            Attempt       174.1… 219.1…       21    20000
+#&gt;  3 IBM           SNIPS          Attempt       223.7… 151.1…       25      593
+#&gt;  4 CISCO         ASA            Success       223.7… 151.1…      113       90
+#&gt;  5 IBM           SNIPS          Attempt       174.1… 151.1…       21       25
+#&gt;  6 IBM           SNIPS          Attempt       223.7… 145.1…      113       90
+#&gt;  7 McAfee        NSP            Attempt       223.7… 151.1…       21       90
+#&gt;  8 Juniper       SRX            Success       227.1… 219.1…       80       90
+#&gt;  9 CISCO         ASA            Attempt       28.9.… 32.73…      113       90
+#&gt; 10 CISCO         ASA            Success       28.9.… 56.13…      113       80
+#&gt; # … with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;, Country_Src &lt;chr&gt;,
+#&gt; #   Bytes_TRF &lt;int&gt;
 #&gt; 
 #&gt; [[7]]
 #&gt; # A tibble: 30 x 10
-#&gt;    Device_Vendor  Device_Product Device_Action Src_IP  Dst_IP Src_Port Dst_Port
-#&gt;    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
-#&gt;  1 Palo Alto Net… Firewall       Success       227.12… 32.73…      135       80
-#&gt;  2 CISCO          ASA            Success       227.12… 219.1…      135      593
-#&gt;  3 McAfee         ePO            Success       89.130… 145.1…       25    20000
-#&gt;  4 CISCO          ASA            Attempt       227.12… 145.1…       25       25
-#&gt;  5 Juniper        SRX            Failure       174.11… 151.1…       25       80
-#&gt;  6 Palo Alto Net… Firewall       Success       227.12… 56.13…       25       80
-#&gt;  7 Palo Alto Net… Firewall       Attempt       223.70… 56.13…       21       25
-#&gt;  8 IBM            SNIPS          Attempt       89.130… 219.1…       25       25
-#&gt;  9 McAfee         ePO            Attempt       89.130… 56.13…       25    20000
-#&gt; 10 McAfee         NSP            Success       28.9.2… 32.73…      135       90
-#&gt; # ... with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;,
-#&gt; #   Country_Src &lt;chr&gt;, Bytes_TRF &lt;int&gt;
+#&gt;    Device_Vendor Device_Product Device_Action Src_IP Dst_IP Src_Port Dst_Port
+#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
+#&gt;  1 Palo Alto Ne… Firewall       Success       227.1… 32.73…      135       80
+#&gt;  2 CISCO         ASA            Success       227.1… 219.1…      135      593
+#&gt;  3 McAfee        ePO            Success       89.13… 145.1…       25    20000
+#&gt;  4 CISCO         ASA            Attempt       227.1… 145.1…       25       25
+#&gt;  5 Juniper       SRX            Failure       174.1… 151.1…       25       80
+#&gt;  6 Palo Alto Ne… Firewall       Success       227.1… 56.13…       25       80
+#&gt;  7 Palo Alto Ne… Firewall       Attempt       223.7… 56.13…       21       25
+#&gt;  8 IBM           SNIPS          Attempt       89.13… 219.1…       25       25
+#&gt;  9 McAfee        ePO            Attempt       89.13… 56.13…       25    20000
+#&gt; 10 McAfee        NSP            Success       28.9.… 32.73…      135       90
+#&gt; # … with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;, Country_Src &lt;chr&gt;,
+#&gt; #   Bytes_TRF &lt;int&gt;
 #&gt; 
 #&gt; [[8]]
 #&gt; # A tibble: 30 x 10
-#&gt;    Device_Vendor Device_Product Device_Action Src_IP  Dst_IP  Src_Port Dst_Port
-#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;      &lt;int&gt;    &lt;int&gt;
-#&gt;  1 IBM           SNIPS          Attempt       227.12… 56.137…       25       80
-#&gt;  2 CISCO         ASA            Failure       227.12… 219.14…       21       80
-#&gt;  3 McAfee        NSP            Success       89.130… 56.137…       80       80
-#&gt;  4 CISCO         ASA            Attempt       174.11… 151.19…       21       90
-#&gt;  5 McAfee        ePO            Success       28.9.2… 219.14…      113    20000
-#&gt;  6 CISCO         ASA            Failure       28.9.2… 56.137…      135      593
-#&gt;  7 McAfee        NSP            Attempt       174.11… 145.11…      113       25
-#&gt;  8 Juniper       SRX            Failure       227.12… 151.19…       21       25
-#&gt;  9 McAfee        NSP            Failure       223.70… 32.73.…       21       25
-#&gt; 10 Juniper       SRX            Failure       227.12… 56.137…       80      593
-#&gt; # ... with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;,
-#&gt; #   Country_Src &lt;chr&gt;, Bytes_TRF &lt;int&gt;
+#&gt;    Device_Vendor Device_Product Device_Action Src_IP Dst_IP Src_Port Dst_Port
+#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
+#&gt;  1 IBM           SNIPS          Attempt       227.1… 56.13…       25       80
+#&gt;  2 CISCO         ASA            Failure       227.1… 219.1…       21       80
+#&gt;  3 McAfee        NSP            Success       89.13… 56.13…       80       80
+#&gt;  4 CISCO         ASA            Attempt       174.1… 151.1…       21       90
+#&gt;  5 McAfee        ePO            Success       28.9.… 219.1…      113    20000
+#&gt;  6 CISCO         ASA            Failure       28.9.… 56.13…      135      593
+#&gt;  7 McAfee        NSP            Attempt       174.1… 145.1…      113       25
+#&gt;  8 Juniper       SRX            Failure       227.1… 151.1…       21       25
+#&gt;  9 McAfee        NSP            Failure       223.7… 32.73…       21       25
+#&gt; 10 Juniper       SRX            Failure       227.1… 56.13…       80      593
+#&gt; # … with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;, Country_Src &lt;chr&gt;,
+#&gt; #   Bytes_TRF &lt;int&gt;
 #&gt; 
 #&gt; [[9]]
 #&gt; # A tibble: 30 x 10
-#&gt;    Device_Vendor  Device_Product Device_Action Src_IP  Dst_IP Src_Port Dst_Port
-#&gt;    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
-#&gt;  1 IBM            SNIPS          Attempt       227.12… 56.13…       21    20000
-#&gt;  2 Palo Alto Net… Firewall       Attempt       89.130… 56.13…       25    20000
-#&gt;  3 McAfee         ePO            Success       223.70… 219.1…       80       25
-#&gt;  4 Juniper        SRX            Failure       227.12… 56.13…       21       25
-#&gt;  5 Juniper        SRX            Success       174.11… 145.1…       21       80
-#&gt;  6 Palo Alto Net… Firewall       Failure       28.9.2… 145.1…       80       80
-#&gt;  7 McAfee         NSP            Success       28.9.2… 151.1…      113    20000
-#&gt;  8 McAfee         NSP            Failure       227.12… 32.73…       25       80
-#&gt;  9 Palo Alto Net… Firewall       Success       227.12… 151.1…       21       80
-#&gt; 10 CISCO          ASA            Success       28.9.2… 145.1…      113       90
-#&gt; # ... with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;,
-#&gt; #   Country_Src &lt;chr&gt;, Bytes_TRF &lt;int&gt;
+#&gt;    Device_Vendor Device_Product Device_Action Src_IP Dst_IP Src_Port Dst_Port
+#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
+#&gt;  1 IBM           SNIPS          Attempt       227.1… 56.13…       21    20000
+#&gt;  2 Palo Alto Ne… Firewall       Attempt       89.13… 56.13…       25    20000
+#&gt;  3 McAfee        ePO            Success       223.7… 219.1…       80       25
+#&gt;  4 Juniper       SRX            Failure       227.1… 56.13…       21       25
+#&gt;  5 Juniper       SRX            Success       174.1… 145.1…       21       80
+#&gt;  6 Palo Alto Ne… Firewall       Failure       28.9.… 145.1…       80       80
+#&gt;  7 McAfee        NSP            Success       28.9.… 151.1…      113    20000
+#&gt;  8 McAfee        NSP            Failure       227.1… 32.73…       25       80
+#&gt;  9 Palo Alto Ne… Firewall       Success       227.1… 151.1…       21       80
+#&gt; 10 CISCO         ASA            Success       28.9.… 145.1…      113       90
+#&gt; # … with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;, Country_Src &lt;chr&gt;,
+#&gt; #   Bytes_TRF &lt;int&gt;
 #&gt; 
 #&gt; [[10]]
 #&gt; # A tibble: 30 x 10
-#&gt;    Device_Vendor Device_Product Device_Action Src_IP  Dst_IP  Src_Port Dst_Port
-#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;      &lt;int&gt;    &lt;int&gt;
-#&gt;  1 McAfee        NSP            Failure       227.12… 145.11…       25       80
-#&gt;  2 Juniper       SRX            Attempt       174.11… 145.11…       21      593
-#&gt;  3 McAfee        ePO            Success       28.9.2… 56.137…      113      593
-#&gt;  4 IBM           SNIPS          Success       227.12… 32.73.…       25       90
-#&gt;  5 Juniper       SRX            Failure       223.70… 151.19…       80       80
-#&gt;  6 Juniper       SRX            Failure       174.11… 56.137…       21       90
-#&gt;  7 IBM           SNIPS          Success       223.70… 56.137…       80       90
-#&gt;  8 McAfee        NSP            Success       223.70… 219.14…       21       80
-#&gt;  9 McAfee        ePO            Failure       28.9.2… 219.14…       25       80
-#&gt; 10 McAfee        ePO            Attempt       174.11… 56.137…      135       25
-#&gt; # ... with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;,
-#&gt; #   Country_Src &lt;chr&gt;, Bytes_TRF &lt;int&gt;
+#&gt;    Device_Vendor Device_Product Device_Action Src_IP Dst_IP Src_Port Dst_Port
+#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;
+#&gt;  1 McAfee        NSP            Failure       227.1… 145.1…       25       80
+#&gt;  2 Juniper       SRX            Attempt       174.1… 145.1…       21      593
+#&gt;  3 McAfee        ePO            Success       28.9.… 56.13…      113      593
+#&gt;  4 IBM           SNIPS          Success       227.1… 32.73…       25       90
+#&gt;  5 Juniper       SRX            Failure       223.7… 151.1…       80       80
+#&gt;  6 Juniper       SRX            Failure       174.1… 56.13…       21       90
+#&gt;  7 IBM           SNIPS          Success       223.7… 56.13…       80       90
+#&gt;  8 McAfee        NSP            Success       223.7… 219.1…       21       80
+#&gt;  9 McAfee        ePO            Failure       28.9.… 219.1…       25       80
+#&gt; 10 McAfee        ePO            Attempt       174.1… 56.13…      135       25
+#&gt; # … with 20 more rows, and 3 more variables: Protocol &lt;chr&gt;, Country_Src &lt;chr&gt;,
+#&gt; #   Bytes_TRF &lt;int&gt;
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

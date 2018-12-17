@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">anomalyDetection</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@
     <div class="page-header toc-ignore">
       <h1>Introduction</h1>
             
-            <h4 class="date">2018-06-19</h4>
+            <h4 class="date">2018-12-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/koalaverse/anomalyDetection/blob/master/vignettes/Introduction.Rmd"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction.Rmd</code></div>
@@ -95,10 +95,10 @@
 <h2 class="hasAnchor">
 <a href="#functions" class="anchor"></a>Functions</h2>
 <p><code>anomalyDetection</code> provides 13 functions to aid in the detection of potential cyber anomalies:</p>
-<table style="width:99%;" class="table">
+<table class="table">
 <colgroup>
-<col width="18%">
-<col width="80%">
+<col width="17%">
+<col width="82%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">Function</th>
@@ -156,101 +156,101 @@
 </tbody>
 </table>
 <p><code>anomalyDetection</code> also incorporates the pipe operator (<code>%&gt;%</code>) from the <a href="https://CRAN.R-project.org/package=magrittr">magrittr package</a> for streamlining function composition. To illustrate the functionality of <code>anomalyDetection</code> we will use the <code>security_logs</code> data that mimics common information that appears in security logs and comes with <code>anomalyDetection</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)            <span class="co"># common data manipulations</span>
-<span class="kw">library</span>(tidyr)            <span class="co"># common data manipulations</span>
-<span class="kw">library</span>(tibble)           <span class="co"># turning output into convenient tibble</span>
-<span class="kw">library</span>(ggplot2)          <span class="co"># visualizations</span>
-<span class="kw">library</span>(anomalyDetection)
-
-security_logs
-## # A tibble: 300 x 10
-##    Device_Vendor Device_Product Device_Action Src_IP    Dst_IP    Src_Port
-##    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt;        &lt;int&gt;
-##  1 McAfee        NSP            Attempt       223.70.1… 32.73.26…      135
-##  2 CISCO         ASA            Failure       174.110.… 219.142.…       80
-##  3 IBM           SNIPS          Success       174.110.… 145.114.…       80
-##  4 McAfee        NSP            Success       227.12.1… 151.194.…       21
-##  5 Juniper       SRX            Success       28.9.24.… 145.114.…      135
-##  6 McAfee        NSP            Success       28.9.24.… 145.114.…       80
-##  7 McAfee        NSP            Attempt       28.9.24.… 56.137.1…       80
-##  8 McAfee        ePO            Attempt       223.70.1… 151.194.…       25
-##  9 McAfee        ePO            Attempt       174.110.… 151.194.…       25
-## 10 CISCO         ASA            Attempt       227.12.1… 56.137.1…       25
-## # ... with 290 more rows, and 4 more variables: Dst_Port &lt;int&gt;,
-## #   Protocol &lt;chr&gt;, Country_Src &lt;chr&gt;, Bytes_TRF &lt;int&gt;</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(dplyr)            <span class="co"># common data manipulations</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(tidyr)            <span class="co"># common data manipulations</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(tibble)           <span class="co"># turning output into convenient tibble</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(ggplot2)          <span class="co"># visualizations</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(anomalyDetection)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">security_logs</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">## # A tibble: 300 x 10</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">##    Device_Vendor Device_Product Device_Action Src_IP Dst_IP Src_Port</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">##    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">##  1 McAfee        NSP            Attempt       223.7… 32.73…      135</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">##  2 CISCO         ASA            Failure       174.1… 219.1…       80</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">##  3 IBM           SNIPS          Success       174.1… 145.1…       80</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">##  4 McAfee        NSP            Success       227.1… 151.1…       21</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">##  5 Juniper       SRX            Success       28.9.… 145.1…      135</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">##  6 McAfee        NSP            Success       28.9.… 145.1…       80</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">##  7 McAfee        NSP            Attempt       28.9.… 56.13…       80</span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">##  8 McAfee        ePO            Attempt       223.7… 151.1…       25</span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">##  9 McAfee        ePO            Attempt       174.1… 151.1…       25</span></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">## 10 CISCO         ASA            Attempt       227.1… 56.13…       25</span></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">## # … with 290 more rows, and 4 more variables: Dst_Port &lt;int&gt;,</span></a>
+<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">## #   Protocol &lt;chr&gt;, Country_Src &lt;chr&gt;, Bytes_TRF &lt;int&gt;</span></a></code></pre></div>
 </div>
 <div id="state-vector-creation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#state-vector-creation" class="anchor"></a>State Vector Creation</h2>
 <p>To apply the statistical methods that we’ll see in the sections that follow, we employ the tabulated vector approach. This approach transforms the security log data into unique counts of data attributes based on pre-defined time blocks. Therefore, as each time block is generated, the categorical fields are separated by their levels and a count of occurrences for each level are recorded into a vector. All numerical fields, such as bytes in and bytes out, are recorded as a summation within the time block. The result is what we call a “state vector matrix”.</p>
 <p>Thus, for our <code>security_logs</code> data we can create our state vector matrix based on our data being divided into 10 time blocks. What results is the summary of instances for each categorical level in our data for each time block. Consequently, row one represents the first time block and there were 2 instances of CISCO as the device vendor, 1 instances of IBM, etc.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tabulate_state_vector.html">tabulate_state_vector</a></span>(security_logs, <span class="dv">10</span>)
-## Some variables contain more than 50 levels. Only the 10 most popular levels of these variables will be tabulated.
-## # A tibble: 30 x 54
-##      ASA Attempt Bytes_TRF_102 Bytes_TRF_120 Bytes_TRF_160 Bytes_TRF_200
-##    &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1     2       5             0             1             1             0
-##  2     0       4             1             0             0             1
-##  3     2       3             0             0             1             0
-##  4     5       0             0             1             0             0
-##  5     3       3             0             0             0             0
-##  6     2       4             0             0             0             0
-##  7     2       3             1             0             0             0
-##  8     3       6             0             0             0             1
-##  9     0       4             0             1             0             0
-## 10     2       3             1             0             0             0
-## # ... with 20 more rows, and 48 more variables: Bytes_TRF_208 &lt;dbl&gt;,
-## #   Bytes_TRF_60 &lt;dbl&gt;, Bytes_TRF_64 &lt;dbl&gt;, Bytes_TRF_70 &lt;dbl&gt;,
-## #   Bytes_TRF_72 &lt;dbl&gt;, Bytes_TRF_80 &lt;dbl&gt;, Bytes_TRF_90 &lt;dbl&gt;,
-## #   China &lt;dbl&gt;, CISCO &lt;dbl&gt;, Dst_IP_145.114.4.203 &lt;dbl&gt;,
-## #   Dst_IP_151.194.233.198 &lt;dbl&gt;, Dst_IP_219.142.109.8 &lt;dbl&gt;,
-## #   Dst_IP_32.73.26.223 &lt;dbl&gt;, Dst_IP_56.137.121.203 &lt;dbl&gt;,
-## #   Dst_Port_20000 &lt;dbl&gt;, Dst_Port_25 &lt;dbl&gt;, Dst_Port_593 &lt;dbl&gt;,
-## #   Dst_Port_80 &lt;dbl&gt;, Dst_Port_90 &lt;dbl&gt;, ePO &lt;dbl&gt;, Failure &lt;dbl&gt;,
-## #   Firewall &lt;dbl&gt;, IBM &lt;dbl&gt;, India &lt;dbl&gt;, Juniper &lt;dbl&gt;, Korea &lt;dbl&gt;,
-## #   McAfee &lt;dbl&gt;, Netherlands &lt;dbl&gt;, NSP &lt;dbl&gt;, `Palo Alto
-## #   Networks` &lt;dbl&gt;, Russia &lt;dbl&gt;, SNIPS &lt;dbl&gt;,
-## #   Src_IP_174.110.206.174 &lt;dbl&gt;, Src_IP_223.70.128.61 &lt;dbl&gt;,
-## #   Src_IP_227.12.127.87 &lt;dbl&gt;, Src_IP_28.9.24.154 &lt;dbl&gt;,
-## #   Src_IP_89.130.69.91 &lt;dbl&gt;, Src_Port_113 &lt;dbl&gt;, Src_Port_135 &lt;dbl&gt;,
-## #   Src_Port_21 &lt;dbl&gt;, Src_Port_25 &lt;dbl&gt;, Src_Port_80 &lt;dbl&gt;, SRX &lt;dbl&gt;,
-## #   Success &lt;dbl&gt;, TCP &lt;dbl&gt;, UDP &lt;dbl&gt;, `United Kingdom` &lt;dbl&gt;, US &lt;dbl&gt;</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/tabulate_state_vector.html">tabulate_state_vector</a></span>(security_logs, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">## Some variables contain more than 50 levels. Only the 10 most popular levels of these variables will be tabulated.</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">## # A tibble: 30 x 54</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">##      ASA Attempt Bytes_TRF_102 Bytes_TRF_120 Bytes_TRF_160 Bytes_TRF_200</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">##    &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">##  1     2       5             0             1             1             0</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">##  2     0       4             1             0             0             1</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">##  3     2       3             0             0             1             0</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">##  4     5       0             0             1             0             0</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">##  5     3       3             0             0             0             0</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">##  6     2       4             0             0             0             0</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">##  7     2       3             1             0             0             0</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">##  8     3       6             0             0             0             1</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">##  9     0       4             0             1             0             0</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">## 10     2       3             1             0             0             0</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">## # … with 20 more rows, and 48 more variables: Bytes_TRF_208 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">## #   Bytes_TRF_60 &lt;dbl&gt;, Bytes_TRF_64 &lt;dbl&gt;, Bytes_TRF_70 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">## #   Bytes_TRF_72 &lt;dbl&gt;, Bytes_TRF_80 &lt;dbl&gt;, Bytes_TRF_90 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">## #   China &lt;dbl&gt;, CISCO &lt;dbl&gt;, Dst_IP_145.114.4.203 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">## #   Dst_IP_151.194.233.198 &lt;dbl&gt;, Dst_IP_219.142.109.8 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">## #   Dst_IP_32.73.26.223 &lt;dbl&gt;, Dst_IP_56.137.121.203 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">## #   Dst_Port_20000 &lt;dbl&gt;, Dst_Port_25 &lt;dbl&gt;, Dst_Port_593 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">## #   Dst_Port_80 &lt;dbl&gt;, Dst_Port_90 &lt;dbl&gt;, ePO &lt;dbl&gt;, Failure &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">## #   Firewall &lt;dbl&gt;, IBM &lt;dbl&gt;, India &lt;dbl&gt;, Juniper &lt;dbl&gt;, Korea &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">## #   McAfee &lt;dbl&gt;, Netherlands &lt;dbl&gt;, NSP &lt;dbl&gt;, `Palo Alto</span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">## #   Networks` &lt;dbl&gt;, Russia &lt;dbl&gt;, SNIPS &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">## #   Src_IP_174.110.206.174 &lt;dbl&gt;, Src_IP_223.70.128.61 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">## #   Src_IP_227.12.127.87 &lt;dbl&gt;, Src_IP_28.9.24.154 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">## #   Src_IP_89.130.69.91 &lt;dbl&gt;, Src_Port_113 &lt;dbl&gt;, Src_Port_135 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">## #   Src_Port_21 &lt;dbl&gt;, Src_Port_25 &lt;dbl&gt;, Src_Port_80 &lt;dbl&gt;, SRX &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-31" data-line-number="31"><span class="co">## #   Success &lt;dbl&gt;, TCP &lt;dbl&gt;, UDP &lt;dbl&gt;, `United Kingdom` &lt;dbl&gt;, US &lt;dbl&gt;</span></a></code></pre></div>
 </div>
 <div id="multicollinearity-adjustment" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multicollinearity-adjustment" class="anchor"></a>Multicollinearity Adjustment</h2>
 <p>Prior to proceeding with any multivariate statistical analyses we should inspect the state vector for multicollinearity, to avoid issues such as matrix singularity, rank deficiency, and strong correlation values, and remove any columns that pose an issue. We can use <code>mc_adjust</code> to handle issues with multi-collinearity by first removing any columns whose variance is close to or less than a minimum level of variance (<code>min_var</code>). Then, it removes linearly dependent columns. Finally, it removes any columns that have a high absolute correlation value equal to or greater than <code>max_cor</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(state_vec &lt;-<span class="st"> </span>security_logs <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/tabulate_state_vector.html">tabulate_state_vector</a></span>(<span class="dv">10</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/mc_adjust.html">mc_adjust</a></span>())
-## Some variables contain more than 50 levels. Only the 10 most popular levels of these variables will be tabulated.
-## # A tibble: 30 x 49
-##      ASA Attempt Bytes_TRF_102 Bytes_TRF_120 Bytes_TRF_160 Bytes_TRF_200
-##    &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1     2       5             0             1             1             0
-##  2     0       4             1             0             0             1
-##  3     2       3             0             0             1             0
-##  4     5       0             0             1             0             0
-##  5     3       3             0             0             0             0
-##  6     2       4             0             0             0             0
-##  7     2       3             1             0             0             0
-##  8     3       6             0             0             0             1
-##  9     0       4             0             1             0             0
-## 10     2       3             1             0             0             0
-## # ... with 20 more rows, and 43 more variables: Bytes_TRF_208 &lt;dbl&gt;,
-## #   Bytes_TRF_60 &lt;dbl&gt;, Bytes_TRF_64 &lt;dbl&gt;, Bytes_TRF_70 &lt;dbl&gt;,
-## #   Bytes_TRF_72 &lt;dbl&gt;, Bytes_TRF_80 &lt;dbl&gt;, Bytes_TRF_90 &lt;dbl&gt;,
-## #   China &lt;dbl&gt;, Dst_IP_145.114.4.203 &lt;dbl&gt;, Dst_IP_151.194.233.198 &lt;dbl&gt;,
-## #   Dst_IP_219.142.109.8 &lt;dbl&gt;, Dst_IP_32.73.26.223 &lt;dbl&gt;,
-## #   Dst_IP_56.137.121.203 &lt;dbl&gt;, Dst_Port_20000 &lt;dbl&gt;, Dst_Port_25 &lt;dbl&gt;,
-## #   Dst_Port_593 &lt;dbl&gt;, Dst_Port_80 &lt;dbl&gt;, Dst_Port_90 &lt;dbl&gt;, ePO &lt;dbl&gt;,
-## #   Failure &lt;dbl&gt;, Firewall &lt;dbl&gt;, IBM &lt;dbl&gt;, India &lt;dbl&gt;, Juniper &lt;dbl&gt;,
-## #   Korea &lt;dbl&gt;, McAfee &lt;dbl&gt;, Netherlands &lt;dbl&gt;, NSP &lt;dbl&gt;, Russia &lt;dbl&gt;,
-## #   Src_IP_174.110.206.174 &lt;dbl&gt;, Src_IP_223.70.128.61 &lt;dbl&gt;,
-## #   Src_IP_227.12.127.87 &lt;dbl&gt;, Src_IP_28.9.24.154 &lt;dbl&gt;,
-## #   Src_IP_89.130.69.91 &lt;dbl&gt;, Src_Port_113 &lt;dbl&gt;, Src_Port_135 &lt;dbl&gt;,
-## #   Src_Port_21 &lt;dbl&gt;, Src_Port_25 &lt;dbl&gt;, Src_Port_80 &lt;dbl&gt;,
-## #   Success &lt;dbl&gt;, TCP &lt;dbl&gt;, `United Kingdom` &lt;dbl&gt;, US &lt;dbl&gt;</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">(state_vec &lt;-<span class="st"> </span>security_logs <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/tabulate_state_vector.html">tabulate_state_vector</a></span>(<span class="dv">10</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/mc_adjust.html">mc_adjust</a></span>())</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">## Some variables contain more than 50 levels. Only the 10 most popular levels of these variables will be tabulated.</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">## # A tibble: 30 x 49</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">##      ASA Attempt Bytes_TRF_102 Bytes_TRF_120 Bytes_TRF_160 Bytes_TRF_200</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">##    &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">##  1     2       5             0             1             1             0</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">##  2     0       4             1             0             0             1</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">##  3     2       3             0             0             1             0</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">##  4     5       0             0             1             0             0</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">##  5     3       3             0             0             0             0</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">##  6     2       4             0             0             0             0</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">##  7     2       3             1             0             0             0</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">##  8     3       6             0             0             0             1</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">##  9     0       4             0             1             0             0</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">## 10     2       3             1             0             0             0</span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">## # … with 20 more rows, and 43 more variables: Bytes_TRF_208 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">## #   Bytes_TRF_60 &lt;dbl&gt;, Bytes_TRF_64 &lt;dbl&gt;, Bytes_TRF_70 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">## #   Bytes_TRF_72 &lt;dbl&gt;, Bytes_TRF_80 &lt;dbl&gt;, Bytes_TRF_90 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">## #   China &lt;dbl&gt;, Dst_IP_145.114.4.203 &lt;dbl&gt;, Dst_IP_151.194.233.198 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">## #   Dst_IP_219.142.109.8 &lt;dbl&gt;, Dst_IP_32.73.26.223 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">## #   Dst_IP_56.137.121.203 &lt;dbl&gt;, Dst_Port_20000 &lt;dbl&gt;, Dst_Port_25 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">## #   Dst_Port_593 &lt;dbl&gt;, Dst_Port_80 &lt;dbl&gt;, Dst_Port_90 &lt;dbl&gt;, ePO &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">## #   Failure &lt;dbl&gt;, Firewall &lt;dbl&gt;, IBM &lt;dbl&gt;, India &lt;dbl&gt;, Juniper &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">## #   Korea &lt;dbl&gt;, McAfee &lt;dbl&gt;, Netherlands &lt;dbl&gt;, NSP &lt;dbl&gt;, Russia &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">## #   Src_IP_174.110.206.174 &lt;dbl&gt;, Src_IP_223.70.128.61 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">## #   Src_IP_227.12.127.87 &lt;dbl&gt;, Src_IP_28.9.24.154 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">## #   Src_IP_89.130.69.91 &lt;dbl&gt;, Src_Port_113 &lt;dbl&gt;, Src_Port_135 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">## #   Src_Port_21 &lt;dbl&gt;, Src_Port_25 &lt;dbl&gt;, Src_Port_80 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">## #   Success &lt;dbl&gt;, TCP &lt;dbl&gt;, `United Kingdom` &lt;dbl&gt;, US &lt;dbl&gt;</span></a></code></pre></div>
 <p>By default, <code>mc_adjust</code> removes <em>all</em> columns that violate the variance, dependency, and correlation thresholds. Alternatively, we can use <code>action = "select"</code> as an argument, which provides interactivity where the user can select the variables that violate the correlation threshold that they would like to remove.</p>
 </div>
 <div id="multivariate-statistical-analyses" class="section level2">
@@ -260,62 +260,62 @@ security_logs
 <p><span class="math display">\[MD = \sqrt{(x - \bar{x})C^{-1}(x-\bar{x})} \tag{1}\]</span></p>
 <p>where <span class="math inline">\(x\)</span> is a vector of <span class="math inline">\(p\)</span> observations, <span class="math inline">\(x=(x_1, \dots, x_p)\)</span>, <span class="math inline">\(\bar{x}\)</span> is the mean vector of the data, <span class="math inline">\(\bar{x}=(\bar{x}_1, \dots, \bar{x}_p)\)</span>, and <span class="math inline">\(C^{-1}\)</span> is the inverse data covariance matrix.</p>
 <p>Here, we include <code>output = "both"</code> to return both the Mahalanobis distance and the absolute breakdown distances and <code>normalize = TRUE</code> so that we can compare relative magnitudes across our data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">state_vec <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/mahalanobis_distance.html">mahalanobis_distance</a></span>(<span class="st">"both"</span>, <span class="dt">normalize =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>as_tibble
-## # A tibble: 30 x 50
-##       MD  ASA_BD Attempt_BD Bytes_TRF_102_BD Bytes_TRF_120_BD
-##    &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-##  1  28.0 0.00554    0.0109            0.0964           0.440 
-##  2  28.0 0.0247     0.00378           0.627            0.0879
-##  3  28.0 0.00554    0.00330           0.0964           0.0879
-##  4  28.0 0.0508     0.0245            0.0964           0.440 
-##  5  28.0 0.0206     0.00330           0.0964           0.0879
-##  6  28.0 0.00554    0.00378           0.0964           0.0879
-##  7  28.0 0.00554    0.00330           0.627            0.0879
-##  8  28.0 0.0206     0.0179            0.0964           0.0879
-##  9  28.0 0.0247     0.00378           0.0964           0.440 
-## 10  28.0 0.00554    0.00330           0.627            0.0879
-## # ... with 20 more rows, and 45 more variables: Bytes_TRF_160_BD &lt;dbl&gt;,
-## #   Bytes_TRF_200_BD &lt;dbl&gt;, Bytes_TRF_208_BD &lt;dbl&gt;, Bytes_TRF_60_BD &lt;dbl&gt;,
-## #   Bytes_TRF_64_BD &lt;dbl&gt;, Bytes_TRF_70_BD &lt;dbl&gt;, Bytes_TRF_72_BD &lt;dbl&gt;,
-## #   Bytes_TRF_80_BD &lt;dbl&gt;, Bytes_TRF_90_BD &lt;dbl&gt;, China_BD &lt;dbl&gt;,
-## #   Dst_IP_145.114.4.203_BD &lt;dbl&gt;, Dst_IP_151.194.233.198_BD &lt;dbl&gt;,
-## #   Dst_IP_219.142.109.8_BD &lt;dbl&gt;, Dst_IP_32.73.26.223_BD &lt;dbl&gt;,
-## #   Dst_IP_56.137.121.203_BD &lt;dbl&gt;, Dst_Port_20000_BD &lt;dbl&gt;,
-## #   Dst_Port_25_BD &lt;dbl&gt;, Dst_Port_593_BD &lt;dbl&gt;, Dst_Port_80_BD &lt;dbl&gt;,
-## #   Dst_Port_90_BD &lt;dbl&gt;, ePO_BD &lt;dbl&gt;, Failure_BD &lt;dbl&gt;,
-## #   Firewall_BD &lt;dbl&gt;, IBM_BD &lt;dbl&gt;, India_BD &lt;dbl&gt;, Juniper_BD &lt;dbl&gt;,
-## #   Korea_BD &lt;dbl&gt;, McAfee_BD &lt;dbl&gt;, Netherlands_BD &lt;dbl&gt;, NSP_BD &lt;dbl&gt;,
-## #   Russia_BD &lt;dbl&gt;, Src_IP_174.110.206.174_BD &lt;dbl&gt;,
-## #   Src_IP_223.70.128.61_BD &lt;dbl&gt;, Src_IP_227.12.127.87_BD &lt;dbl&gt;,
-## #   Src_IP_28.9.24.154_BD &lt;dbl&gt;, Src_IP_89.130.69.91_BD &lt;dbl&gt;,
-## #   Src_Port_113_BD &lt;dbl&gt;, Src_Port_135_BD &lt;dbl&gt;, Src_Port_21_BD &lt;dbl&gt;,
-## #   Src_Port_25_BD &lt;dbl&gt;, Src_Port_80_BD &lt;dbl&gt;, Success_BD &lt;dbl&gt;,
-## #   TCP_BD &lt;dbl&gt;, `United Kingdom_BD` &lt;dbl&gt;, US_BD &lt;dbl&gt;</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">state_vec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/mahalanobis_distance.html">mahalanobis_distance</a></span>(<span class="st">"both"</span>, <span class="dt">normalize =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">as_tibble</a></span>()</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">## # A tibble: 30 x 50</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">##       MD  ASA_BD Attempt_BD Bytes_TRF_102_BD Bytes_TRF_120_BD</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">##    &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">##  1  28.0 0.00554    0.0109            0.0964           0.440 </span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">##  2  28.0 0.0247     0.00378           0.627            0.0879</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">##  3  28.0 0.00554    0.00330           0.0964           0.0879</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">##  4  28.0 0.0508     0.0245            0.0964           0.440 </span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">##  5  28.0 0.0206     0.00330           0.0964           0.0879</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">##  6  28.0 0.00554    0.00378           0.0964           0.0879</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">##  7  28.0 0.00554    0.00330           0.627            0.0879</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">##  8  28.0 0.0206     0.0179            0.0964           0.0879</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">##  9  28.0 0.0247     0.00378           0.0964           0.440 </span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">## 10  28.0 0.00554    0.00330           0.627            0.0879</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">## # … with 20 more rows, and 45 more variables: Bytes_TRF_160_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">## #   Bytes_TRF_200_BD &lt;dbl&gt;, Bytes_TRF_208_BD &lt;dbl&gt;, Bytes_TRF_60_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">## #   Bytes_TRF_64_BD &lt;dbl&gt;, Bytes_TRF_70_BD &lt;dbl&gt;, Bytes_TRF_72_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">## #   Bytes_TRF_80_BD &lt;dbl&gt;, Bytes_TRF_90_BD &lt;dbl&gt;, China_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">## #   Dst_IP_145.114.4.203_BD &lt;dbl&gt;, Dst_IP_151.194.233.198_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">## #   Dst_IP_219.142.109.8_BD &lt;dbl&gt;, Dst_IP_32.73.26.223_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">## #   Dst_IP_56.137.121.203_BD &lt;dbl&gt;, Dst_Port_20000_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">## #   Dst_Port_25_BD &lt;dbl&gt;, Dst_Port_593_BD &lt;dbl&gt;, Dst_Port_80_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">## #   Dst_Port_90_BD &lt;dbl&gt;, ePO_BD &lt;dbl&gt;, Failure_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">## #   Firewall_BD &lt;dbl&gt;, IBM_BD &lt;dbl&gt;, India_BD &lt;dbl&gt;, Juniper_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-27" data-line-number="27"><span class="co">## #   Korea_BD &lt;dbl&gt;, McAfee_BD &lt;dbl&gt;, Netherlands_BD &lt;dbl&gt;, NSP_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-28" data-line-number="28"><span class="co">## #   Russia_BD &lt;dbl&gt;, Src_IP_174.110.206.174_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-29" data-line-number="29"><span class="co">## #   Src_IP_223.70.128.61_BD &lt;dbl&gt;, Src_IP_227.12.127.87_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-30" data-line-number="30"><span class="co">## #   Src_IP_28.9.24.154_BD &lt;dbl&gt;, Src_IP_89.130.69.91_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-31" data-line-number="31"><span class="co">## #   Src_Port_113_BD &lt;dbl&gt;, Src_Port_135_BD &lt;dbl&gt;, Src_Port_21_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-32" data-line-number="32"><span class="co">## #   Src_Port_25_BD &lt;dbl&gt;, Src_Port_80_BD &lt;dbl&gt;, Success_BD &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-33" data-line-number="33"><span class="co">## #   TCP_BD &lt;dbl&gt;, `United Kingdom_BD` &lt;dbl&gt;, US_BD &lt;dbl&gt;</span></a></code></pre></div>
 <p>We can use this information in a modified heatmap visualization to identify outlier values across our security log attributes and time blocks. The larger and brighter the dot the more significant the outlier is and deserves attention.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">state_vec <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/mahalanobis_distance.html">mahalanobis_distance</a></span>(<span class="st">"both"</span>, <span class="dt">normalize =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>as_tibble <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Block =</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/n.html">n</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/gather">gather</a></span>(Variable, BD, <span class="op">-</span><span class="kw">c</span>(MD, Block)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="kw">factor</span>(Block), Variable, <span class="dt">color =</span> MD, <span class="dt">size =</span> BD)) <span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>()</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">state_vec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/mahalanobis_distance.html">mahalanobis_distance</a></span>(<span class="st">"both"</span>, <span class="dt">normalize =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">as_tibble</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Block =</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/n.html">n</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span>(Variable, BD, <span class="op">-</span><span class="kw">c</span>(MD, Block)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">factor</span>(Block), Variable, <span class="dt">color =</span> MD, <span class="dt">size =</span> BD)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>()</a></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-6-1.png" width="864" style="display: block; margin: auto;"></p>
 <p>We can build onto this with the <code>bd_row</code> to identify which security log attributes in the data are driving the Mahalanobis distance. <code>bd_row</code> measures the relative contribution of each variable, <span class="math inline">\(x_i\)</span>, to <span class="math inline">\(MD\)</span> by computing</p>
 <p><span class="math display">\[BD_i = \Bigg|\frac{x_i - \bar{x}_i}{\sqrt{C_{ii}}} \Bigg| \tag{2}\]</span></p>
 <p>where <span class="math inline">\(C_{ii}\)</span> is the variance of <span class="math inline">\(x_i\)</span>. Furthermore, <code>bd_row</code> will look at a specified row and rank-order the columns by those that are driving the Mahalanobis distance. For example, the plot above identified block 17 as having the largest Mahalanobis distance suggesting some abnormal activity may be occuring during that time block. We can drill down into that block and look at the top 10 security log attributes that are driving the Mahalanobis distance as these may be areas that require further investigation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">state_vec <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/mahalanobis_distance.html">mahalanobis_distance</a></span>(<span class="st">"bd"</span>, <span class="dt">normalize =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/bd_row.html">bd_row</a></span>(<span class="dv">17</span>, <span class="dv">10</span>)
-##         Bytes_TRF_60_BD          Src_Port_21_BD         Src_Port_135_BD 
-##                2.198484                2.171581                2.121436 
-##         Dst_Port_593_BD       Dst_Port_20000_BD  Dst_IP_32.73.26.223_BD 
-##                1.621824                1.414906                1.339865 
-##          Dst_Port_90_BD Src_IP_223.70.128.61_BD               McAfee_BD 
-##                1.292168                1.237615                1.082842 
-##                  IBM_BD 
-##                1.037221</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">state_vec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/mahalanobis_distance.html">mahalanobis_distance</a></span>(<span class="st">"bd"</span>, <span class="dt">normalize =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/bd_row.html">bd_row</a></span>(<span class="dv">17</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">##         Bytes_TRF_60_BD          Src_Port_21_BD         Src_Port_135_BD </span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">##                2.198484                2.171581                2.121436 </span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">##         Dst_Port_593_BD       Dst_Port_20000_BD  Dst_IP_32.73.26.223_BD </span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">##                1.621824                1.414906                1.339865 </span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">##          Dst_Port_90_BD Src_IP_223.70.128.61_BD               McAfee_BD </span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">##                1.292168                1.237615                1.082842 </span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">##                  IBM_BD </span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">##                1.037221</span></a></code></pre></div>
 <p>Next, we can use factor analysis by first exploring the factor loadings (correlations between the columns of the state vector matrix and the suggested factors) and then comparing the factor scores against one another for anomaly detection. Factor analysis is another dimensionality reduction technique designed to identify underlying structure of the data. Factor analysis relates the correlations between variables through a set of factors to link together seemingly unrelated variables. The basic factor analysis model is</p>
 <p><span class="math display">\[ X= Λf+e \tag{3}\]</span></p>
 <p>where <span class="math inline">\(X\)</span> is the vector of responses <span class="math inline">\(X = (x_1, \dots, x_p)\)</span>, <span class="math inline">\(f\)</span> are the common factors <span class="math inline">\(f = (f_1, \dots, f_q)\)</span>, <span class="math inline">\(e\)</span> is the unique factors <span class="math inline">\(e = (e_1, \dots, e_p)\)</span>, and <span class="math inline">\(Λ\)</span> is the factor loadings. For the desired results, <code>anomalyDetection</code> uses the correlation matrix. Factor loadings are correlations between the factors and the original data and can thus range from -1 to 1, which indicate how much that factor affects each variable. Values close to 0 imply a weak effect on the variable.</p>
@@ -324,17 +324,17 @@ security_logs
 <p><span class="math display">\[ \hat{f} ̂= X_s R^{-1} Λ \tag{5}\]</span></p>
 <p>where <span class="math inline">\(X_s\)</span> is the standardized observations, <span class="math inline">\(R^{-1}\)</span> is the inverse of the correlation matrix, and $ $ is the factor loadings matrix. To simplify the results for interpretation, the factor loadings can undergo an orthogonal or oblique rotation. Orthogonal rotations assume independence between the factors while oblique rotations allow the factors to correlate. <code>anomalyDetection</code> utilizes the most common rotation option known as varimax. Varimax rotates the factors orthogonally to maximize the variance of the squared factor loadings which forces large factors to increase and small ones to decrease, providing easier interpretation.</p>
 <p>To begin using factor analysis, the dimensions of the reduced state vector matrix are first passed to the <code>horns_curve</code> function to find the recommended set of eigenvalues.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>(state_vec)
-##  [1]  4.864425e+00  4.286930e+00  3.882178e+00  3.538029e+00  3.236028e+00
-##  [6]  2.972332e+00  2.736012e+00  2.510896e+00  2.308525e+00  2.121181e+00
-## [11]  1.945609e+00  1.780481e+00  1.622023e+00  1.478508e+00  1.339477e+00
-## [16]  1.213879e+00  1.093282e+00  9.826708e-01  8.752770e-01  7.752387e-01
-## [21]  6.833954e-01  5.952606e-01  5.127429e-01  4.348906e-01  3.658092e-01
-## [26]  2.997252e-01  2.379825e-01  1.789847e-01  1.210048e-01  1.101072e-15
-## [31]  8.555818e-16  6.945318e-16  5.697942e-16  4.613000e-16  3.666789e-16
-## [36]  2.761458e-16  1.944784e-16  1.153664e-16  3.846040e-17 -3.973425e-17
-## [41] -1.156400e-16 -1.944458e-16 -2.790074e-16 -3.649007e-16 -4.607593e-16
-## [46] -5.675847e-16 -6.937367e-16 -8.562724e-16 -1.110663e-15</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>(state_vec)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">##  [1]  4.893068e+00  4.306213e+00  3.879155e+00  3.547982e+00  3.240344e+00</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">##  [6]  2.978966e+00  2.740688e+00  2.518793e+00  2.310207e+00  2.121146e+00</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">## [11]  1.945329e+00  1.780660e+00  1.625636e+00  1.478705e+00  1.344178e+00</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">## [16]  1.216965e+00  1.092631e+00  9.811484e-01  8.745986e-01  7.757296e-01</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">## [21]  6.838955e-01  5.940244e-01  5.114068e-01  4.354039e-01  3.665468e-01</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">## [26]  3.005927e-01  2.376553e-01  1.800186e-01  1.218468e-01  1.107112e-15</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">## [31]  8.551828e-16  6.931273e-16  5.675733e-16  4.621587e-16  3.661996e-16</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">## [36]  2.768850e-16  1.937825e-16  1.138461e-16  3.621855e-17 -3.929594e-17</span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">## [41] -1.180393e-16 -1.978038e-16 -2.788783e-16 -3.664379e-16 -4.648615e-16</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">## [46] -5.749914e-16 -6.986576e-16 -8.637736e-16 -1.108638e-15</span></a></code></pre></div>
 <p>Next, the dimensionality is determined by finding the eigenvalues of the correlation matrix of the state vector matrix and retaining only those factors whose eigenvalues are greater than or equal to those produced by <code>horns_curve</code>. We use <code>factor_analysis</code> to reduce the state vector matrix into resultant factors. The <code>factor_analysis</code> function generates a list containing five outputs:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -348,37 +348,34 @@ security_logs
 <li>
 <code>num_factors</code>: numeric vector identifying the number of factors</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">state_vec <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/factor_analysis.html">factor_analysis</a></span>(state_vec, <span class="dt">hc_points =</span> .) <span class="op">%&gt;%</span>
-<span class="st">  </span>str
-## List of 5
-##  $ fa_loadings        : num [1:49, 1:15] -0.2823 0.1965 -0.0938 -0.108 0.0458 ...
-##  $ fa_scores          : num [1:30, 1:15] 1.257 -0.544 -0.442 -1.114 0.446 ...
-##  $ fa_loadings_rotated: num [1:49, 1:15] -0.0313 0.0835 -0.1139 0.2286 -0.0533 ...
-##  $ fa_scores_rotated  : num [1:30, 1:15] 0.2443 1.6757 0.0508 0.404 0.3386 ...
-##  $ num_factors        : int 15</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">state_vec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/factor_analysis.html">factor_analysis</a></span>(state_vec, <span class="dt">hc_points =</span> .) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw">str</span>()</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">## List of 5</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">##  $ fa_loadings        : num [1:49, 1:15] -0.2823 0.1965 -0.0938 -0.108 0.0458 ...</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">##  $ fa_scores          : num [1:30, 1:15] 1.257 -0.544 -0.442 -1.114 0.446 ...</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">##  $ fa_loadings_rotated: num [1:49, 1:15] -0.0313 0.0835 -0.1139 0.2286 -0.0533 ...</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">##  $ fa_scores_rotated  : num [1:30, 1:15] 0.2443 1.6757 0.0508 0.404 0.3386 ...</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">##  $ num_factors        : int 15</span></a></code></pre></div>
 <p>For easy access to these results we can use the <code>factor_analysis_results</code> parsing function. The <code>factor_analysis_results</code> will parse the results either by their list name or by location. For instance to extract the rotated factor scores you can use <code><a href="../reference/factor_analysis_results.html">factor_analysis_results(data, results = fa_scores_rotated)</a></code> or <code><a href="../reference/factor_analysis_results.html">factor_analysis_results(data, results = 4)</a></code> as demonstrated below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">state_vec <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/factor_analysis.html">factor_analysis</a></span>(state_vec, <span class="dt">hc_points =</span> .) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/factor_analysis_results.html">factor_analysis_results</a></span>(<span class="dv">4</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>as_tibble
-## # A tibble: 30 x 16
-##         V1     V2     V3      V4      V5      V6     V7      V8      V9
-##      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-##  1  1.61    0.240 -0.150 -0.0880 -0.326  -1.13    2.43  -0.808  -0.0687
-##  2 -1.08    0.169  2.18   1.40   -1.08    0.0738  0.385  1.44    1.54  
-##  3 -1.21    1.24   0.400  0.408   0.511   0.0768  1.51  -0.306  -0.529 
-##  4 -1.85   -1.31  -1.03   0.629  -0.347   2.06   -0.514 -1.58   -0.0344
-##  5  0.224  -1.22   0.231  0.157  -0.0906 -0.331  -0.384 -1.37   -1.23  
-##  6  1.00    0.451  0.622  0.547   0.625  -0.181   0.475 -0.396   0.546 
-##  7  0.159  -1.07   1.77  -2.65    2.07    0.314   0.332  0.0922  1.05  
-##  8  0.475   0.457 -0.835  0.0191 -0.495  -1.18   -0.656 -1.11   -0.879 
-##  9 -0.433  -1.34  -0.361  1.42    0.110  -0.132   0.953  1.27    0.397 
-## 10  0.0617  0.392  1.67  -0.315  -0.438   1.03   -0.762 -0.0156 -2.25  
-## # ... with 20 more rows, and 7 more variables: V10 &lt;dbl&gt;, V11 &lt;dbl&gt;,
-## #   V12 &lt;dbl&gt;, V13 &lt;dbl&gt;, V14 &lt;dbl&gt;, V15 &lt;dbl&gt;, V16 &lt;dbl&gt;</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">state_vec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/factor_analysis.html">factor_analysis</a></span>(state_vec, <span class="dt">hc_points =</span> .) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/factor_analysis_results.html">factor_analysis_results</a></span>(<span class="dv">4</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="st">  </span><span class="co"># show the first 10 rows and 5 columns for brevity</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="st">  </span>.[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">##              [,1]       [,2]         [,3]       [,4]        [,5]</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">##  [1,]  0.24425977  0.2549894 -0.678667371 -1.5662732 -0.16969654</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">##  [2,]  1.67567737 -0.1167887  1.911867699  0.8950001 -1.65227223</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">##  [3,]  0.05075313  1.2212212  0.961975723  1.4441720  0.50640644</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">##  [4,]  0.40401017 -1.4174345 -1.433789234  2.0496659 -0.01894502</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">##  [5,]  0.33858512 -0.9098945 -0.084985244 -0.1568267  0.04879542</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">##  [6,]  0.86912920  0.2253887  0.003824232 -0.9307246  0.20568779</span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">##  [7,] -2.35022769 -1.8089597  2.139095927 -0.4952877  1.20347260</span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">##  [8,] -0.07493396  0.9925060 -0.553138651 -0.5022611 -0.12575439</span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">##  [9,]  1.23176418 -1.1353257 -0.027211962  0.4897833  0.21027051</span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">## [10,] -0.55893586  0.7368740  1.881521217  0.2308980  0.19250006</span></a></code></pre></div>
 <p>To evaluate the quality for a factor analysis solution Kaiser proposed the <a href="https://link.springer.com/article/10.1007/BF02291575">Index of Factorial Simplicity</a> (IFS). The IFS is computed as</p>
 <p><span class="math display">\[ IFS = \frac{∑_i\big[q ∑_sv_js^4-(∑_sv_{js}^2)^2\big]}{∑_i\big[(q-1)(∑_sv_{js}^2)^2 \big]} \tag{6}\]</span></p>
 <p>where <span class="math inline">\(q\)</span> is the number of factors, <span class="math inline">\(j\)</span> the row index, <span class="math inline">\(s\)</span> the column index, and <span class="math inline">\(v_{js}\)</span> is the value in the loadings matrix. Furthermore, Kaiser created the following evaluations of the score produced by the IFS as shown below:</p>
@@ -391,36 +388,36 @@ security_logs
 <li>&lt; .50: Unacceptable</li>
 </ol>
 <p>Thus, to assess the quality of our factor analysis results we apply <code>kaisers_index</code> to the rotated factor loadings and as the results show below our output value of 0.702 suggests that our results are “middling”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">state_vec <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/factor_analysis.html">factor_analysis</a></span>(<span class="dt">data =</span> state_vec, <span class="dt">hc_points =</span> .) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/factor_analysis_results.html">factor_analysis_results</a></span>(fa_loadings_rotated) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/kaisers_index.html">kaisers_index</a></span>()
-## [1] 0.6326953</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">state_vec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/factor_analysis.html">factor_analysis</a></span>(<span class="dt">data =</span> state_vec, <span class="dt">hc_points =</span> .) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/factor_analysis_results.html">factor_analysis_results</a></span>(fa_loadings_rotated) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/kaisers_index.html">kaisers_index</a></span>()</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">## [1] 0.6326953</span></a></code></pre></div>
 <p>We can visualize the factor analysis results to show the correlation between the columns of the reduced state vector to the rotated factor loadings. Strong negative correlations are depicted as red while strong positive correlations are shown as blue. This helps to identify which factors are correlated with each security log data attribute. Furthermore, this helps to identify two or more security log data attributes that appear to have relationships with their occurrences. For example, this shows that Russia is highly correlated with IP address 223.70.128. If there is an abnormally large amount of instances with Russian occurrances this would be the logical IP address to start investigating.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fa_loadings &lt;-<span class="st"> </span>state_vec <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/factor_analysis.html">factor_analysis</a></span>(state_vec, <span class="dt">hc_points =</span> .) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/factor_analysis_results.html">factor_analysis_results</a></span>(fa_loadings_rotated)
-
-<span class="kw">row.names</span>(fa_loadings) &lt;-<span class="st"> </span><span class="kw">colnames</span>(state_vec)
-
-gplots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/gplots/topics/heatmap.2">heatmap.2</a></span>(fa_loadings, <span class="dt">dendrogram =</span> <span class="st">'both'</span>, <span class="dt">trace =</span> <span class="st">'none'</span>, 
-            <span class="dt">density.info =</span> <span class="st">'none'</span>, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dt">by =</span> .<span class="dv">25</span>), 
-            <span class="dt">col =</span> RColorBrewer<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RColorBrewer/topics/ColorBrewer">brewer.pal</a></span>(<span class="dv">8</span>, <span class="st">'RdBu'</span>))</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">fa_loadings &lt;-<span class="st"> </span>state_vec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/factor_analysis.html">factor_analysis</a></span>(state_vec, <span class="dt">hc_points =</span> .) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/factor_analysis_results.html">factor_analysis_results</a></span>(fa_loadings_rotated)</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="kw">row.names</span>(fa_loadings) &lt;-<span class="st"> </span><span class="kw">colnames</span>(state_vec)</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">gplots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/gplots/topics/heatmap.2">heatmap.2</a></span>(fa_loadings, <span class="dt">dendrogram =</span> <span class="st">'both'</span>, <span class="dt">trace =</span> <span class="st">'none'</span>, </a>
+<a class="sourceLine" id="cb11-9" data-line-number="9">            <span class="dt">density.info =</span> <span class="st">'none'</span>, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">.25</span>), </a>
+<a class="sourceLine" id="cb11-10" data-line-number="10">            <span class="dt">col =</span> RColorBrewer<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RColorBrewer/topics/ColorBrewer">brewer.pal</a></span>(<span class="dv">8</span>, <span class="st">'RdBu'</span>))</a></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>We can also visualize the rotated factor score plots to see which time blocks appear to be outliers and deserve closer attention.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">state_vec <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/factor_analysis.html">factor_analysis</a></span>(state_vec, <span class="dt">hc_points =</span> .) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/factor_analysis_results.html">factor_analysis_results</a></span>(fa_scores_rotated) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">as_tibble</a></span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Block =</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/n.html">n</a></span>()) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/gather">gather</a></span>(Factor, Score, <span class="op">-</span>Block) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Absolute_Score =</span> <span class="kw">abs</span>(Score)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(Factor, Absolute_Score, <span class="dt">label =</span> Block)) <span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_text">geom_text</a></span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_boxplot">geom_boxplot</a></span>(<span class="dt">outlier.shape =</span> <span class="ot">NA</span>)</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">state_vec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/horns_curve.html">horns_curve</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/factor_analysis.html">factor_analysis</a></span>(state_vec, <span class="dt">hc_points =</span> .) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/factor_analysis_results.html">factor_analysis_results</a></span>(fa_scores_rotated) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">as_tibble</a></span>(<span class="dt">.name_repair =</span> <span class="st">"unique"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Block =</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/n.html">n</a></span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span>(Factor, Score, <span class="op">-</span>Block) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">Absolute_Score =</span> <span class="kw">abs</span>(Score)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(Factor, Absolute_Score, <span class="dt">label =</span> Block)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span>(<span class="dt">outlier.shape =</span> <span class="ot">NA</span>)</a></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>This allows us to look across the factors and identify outlier blocks that may require further intra-block analysis. If we assume that an absolute rotated factor score <span class="math inline">\(\geq\)</span> 2 represents our outlier cut-off then we see that time blocks 4, 13, 15, 17, 24, 26, and 27 require further investigation. We saw block 17 being highlighted with the <code>mahalanobis_distance</code> earlier but these other time blocks were not as obvious so by performing and comparing these multiple anomaly detection approaches we can gain greater insights and confirmation.</p>
 <p>An alternative, yet similar approach to factor analysis is principal component analysis. The goal in factor analysis is to explain the covariances or correlations between the variables. By contrast, the goal of principal component analysis is to explain as much of the total variance in the variables as possible. Thus, The first principal component of a set of features <span class="math inline">\(X_1, X_2,\dots,X_p\)</span> is the normalized linear combination of the features</p>
@@ -440,43 +437,43 @@ gplots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentat
 <li>
 <code>pca_scale</code>: a logical response indicating whether scaling was used.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/principal_components.html">principal_components</a></span>(state_vec) <span class="op">%&gt;%</span><span class="st"> </span>str
-## List of 5
-##  $ pca_sdev    : num [1:30] 2.86 2.7 2.42 2.17 2.1 ...
-##  $ pca_loadings: num [1:49, 1:30] -0.127826 0.22575 0.005505 -0.000462 0.008383 ...
-##   ..- attr(*, "dimnames")=List of 2
-##   .. ..$ : chr [1:49] "ASA" "Attempt" "Bytes_TRF_102" "Bytes_TRF_120" ...
-##   .. ..$ : chr [1:30] "PC1" "PC2" "PC3" "PC4" ...
-##  $ pca_rotated : num [1:30, 1:30] 4.708 1.094 0.724 -4.889 1.351 ...
-##   ..- attr(*, "dimnames")=List of 2
-##   .. ..$ : NULL
-##   .. ..$ : chr [1:30] "PC1" "PC2" "PC3" "PC4" ...
-##  $ pca_center  : Named num [1:49] 1.633 3.467 0.133 0.167 0.133 ...
-##   ..- attr(*, "names")= chr [1:49] "ASA" "Attempt" "Bytes_TRF_102" "Bytes_TRF_120" ...
-##  $ pca_scale   : logi FALSE</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../reference/principal_components.html">principal_components</a></span>(state_vec) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str</span>()</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">## List of 5</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">##  $ pca_sdev    : num [1:30] 2.86 2.7 2.42 2.17 2.1 ...</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">##  $ pca_loadings: num [1:49, 1:30] -0.127826 0.22575 0.005505 -0.000462 0.008383 ...</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">##   ..- attr(*, "dimnames")=List of 2</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">##   .. ..$ : chr [1:49] "ASA" "Attempt" "Bytes_TRF_102" "Bytes_TRF_120" ...</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">##   .. ..$ : chr [1:30] "PC1" "PC2" "PC3" "PC4" ...</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">##  $ pca_rotated : num [1:30, 1:30] 4.708 1.094 0.724 -4.889 1.351 ...</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">##   ..- attr(*, "dimnames")=List of 2</span></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">##   .. ..$ : NULL</span></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="co">##   .. ..$ : chr [1:30] "PC1" "PC2" "PC3" "PC4" ...</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="co">##  $ pca_center  : Named num [1:49] 1.633 3.467 0.133 0.167 0.133 ...</span></a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">##   ..- attr(*, "names")= chr [1:49] "ASA" "Attempt" "Bytes_TRF_102" "Bytes_TRF_120" ...</span></a>
+<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="co">##  $ pca_scale   : logi FALSE</span></a></code></pre></div>
 <p>For easy access to these results we can use the <code>principal_components_result</code> parsing function. The <code>principal_components_result</code> will parse the results either by their list name or by location. For instance to extract the computed component scores as outlined in Eq. 8 you can use <code><a href="../reference/principal_components_result.html">principal_components_result(data, results = pca_rotated)</a></code> or <code><a href="../reference/principal_components_result.html">principal_components_result(data, results = 3)</a></code> as demonstrated below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">state_vec <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/principal_components.html">principal_components</a></span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/principal_components_result.html">principal_components_result</a></span>(pca_rotated) <span class="op">%&gt;%</span>
-<span class="st">  </span>as_tibble
-## # A tibble: 30 x 30
-##       PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8     PC9    PC10
-##     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-##  1  4.71  -2.07   0.733 -2.41   2.30  -1.05   2.32  -0.785 -1.07    1.87  
-##  2  1.09  -3.01  -2.10  -0.496 -0.318  4.56  -1.75   1.97  -2.68   -2.34  
-##  3  0.724 -3.42  -0.519  2.67  -0.156 -1.30   0.786 -0.641 -1.24   -0.0424
-##  4 -4.89   3.74  -3.25   2.02  -1.47   0.738 -1.25  -0.772  2.32    2.95  
-##  5  1.35   2.90  -2.05   0.582  1.32   1.03   0.598 -3.01   0.485  -0.942 
-##  6  2.85   0.678 -0.751 -0.977  0.949 -0.258  3.04  -0.177  1.34   -0.570 
-##  7 -1.59   2.65   0.328  3.16   4.04  -2.35  -2.54   0.235 -0.787  -1.79  
-##  8 -1.73  -3.82   0.784 -0.271  1.90  -1.59   0.487  1.16  -0.0659  3.19  
-##  9  1.42   1.34   0.217  3.43  -2.83   2.58  -1.78   1.33  -2.29   -0.688 
-## 10  2.95  -3.00  -5.72  -0.248  0.478 -1.65  -1.06  -3.37   0.664  -0.492 
-## # ... with 20 more rows, and 20 more variables: PC11 &lt;dbl&gt;, PC12 &lt;dbl&gt;,
-## #   PC13 &lt;dbl&gt;, PC14 &lt;dbl&gt;, PC15 &lt;dbl&gt;, PC16 &lt;dbl&gt;, PC17 &lt;dbl&gt;,
-## #   PC18 &lt;dbl&gt;, PC19 &lt;dbl&gt;, PC20 &lt;dbl&gt;, PC21 &lt;dbl&gt;, PC22 &lt;dbl&gt;,
-## #   PC23 &lt;dbl&gt;, PC24 &lt;dbl&gt;, PC25 &lt;dbl&gt;, PC26 &lt;dbl&gt;, PC27 &lt;dbl&gt;,
-## #   PC28 &lt;dbl&gt;, PC29 &lt;dbl&gt;, PC30 &lt;dbl&gt;</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">state_vec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/principal_components.html">principal_components</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/principal_components_result.html">principal_components_result</a></span>(pca_rotated) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">as_tibble</a></span>()</a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">## # A tibble: 30 x 30</span></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">##       PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8     PC9    PC10</span></a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">##     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">##  1  4.71  -2.07   0.733 -2.41   2.30  -1.05   2.32  -0.785 -1.07    1.87  </span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">##  2  1.09  -3.01  -2.10  -0.496 -0.318  4.56  -1.75   1.97  -2.68   -2.34  </span></a>
+<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="co">##  3  0.724 -3.42  -0.519  2.67  -0.156 -1.30   0.786 -0.641 -1.24   -0.0424</span></a>
+<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="co">##  4 -4.89   3.74  -3.25   2.02  -1.47   0.738 -1.25  -0.772  2.32    2.95  </span></a>
+<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="co">##  5  1.35   2.90  -2.05   0.582  1.32   1.03   0.598 -3.01   0.485  -0.942 </span></a>
+<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="co">##  6  2.85   0.678 -0.751 -0.977  0.949 -0.258  3.04  -0.177  1.34   -0.570 </span></a>
+<a class="sourceLine" id="cb14-14" data-line-number="14"><span class="co">##  7 -1.59   2.65   0.328  3.16   4.04  -2.35  -2.54   0.235 -0.787  -1.79  </span></a>
+<a class="sourceLine" id="cb14-15" data-line-number="15"><span class="co">##  8 -1.73  -3.82   0.784 -0.271  1.90  -1.59   0.487  1.16  -0.0659  3.19  </span></a>
+<a class="sourceLine" id="cb14-16" data-line-number="16"><span class="co">##  9  1.42   1.34   0.217  3.43  -2.83   2.58  -1.78   1.33  -2.29   -0.688 </span></a>
+<a class="sourceLine" id="cb14-17" data-line-number="17"><span class="co">## 10  2.95  -3.00  -5.72  -0.248  0.478 -1.65  -1.06  -3.37   0.664  -0.492 </span></a>
+<a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">## # … with 20 more rows, and 20 more variables: PC11 &lt;dbl&gt;, PC12 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">## #   PC13 &lt;dbl&gt;, PC14 &lt;dbl&gt;, PC15 &lt;dbl&gt;, PC16 &lt;dbl&gt;, PC17 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">## #   PC18 &lt;dbl&gt;, PC19 &lt;dbl&gt;, PC20 &lt;dbl&gt;, PC21 &lt;dbl&gt;, PC22 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">## #   PC23 &lt;dbl&gt;, PC24 &lt;dbl&gt;, PC25 &lt;dbl&gt;, PC26 &lt;dbl&gt;, PC27 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="co">## #   PC28 &lt;dbl&gt;, PC29 &lt;dbl&gt;, PC30 &lt;dbl&gt;</span></a></code></pre></div>
 <p>We could then follow up the principal component analysis with similar visualization activities as performed post factor analysis to identify potential anomalies.</p>
 </div>
   </div>

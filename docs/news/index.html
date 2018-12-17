@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">anomalyDetection</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
       </span>
     </div>
 
@@ -113,12 +113,50 @@
       <small>Source: <a href='https://github.com/koalaverse/anomalyDetection/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="anomalydetection-0-2-6" class="section level1">
+<h1 class="page-header">
+<a href="#anomalydetection-0-2-6" class="anchor"></a>anomalyDetection 0.2.6<small> Unreleased </small>
+</h1>
+<ul>
+<li>Tested and fixed any issues with new tibble version dependency</li>
+</ul>
+</div>
+    <div id="anomalydetection-0-2-5" class="section level1">
+<h1 class="page-header">
+<a href="#anomalydetection-0-2-5" class="anchor"></a>anomalyDetection 0.2.5<small> 2018-03-07 </small>
+</h1>
+<ul>
+<li>Tested and fixed any issues with new tidyr version dependency</li>
+<li>Updated maintainership and active authors</li>
+<li>Updated URL for new Github organization holding this package</li>
+<li>Updated vignette package loading in vignette to resolve 1 note</li>
+<li>Added reference in the Description field</li>
+</ul>
+</div>
+    <div id="anomalydetection-0-2-4" class="section level1">
+<h1 class="page-header">
+<a href="#anomalydetection-0-2-4" class="anchor"></a>anomalyDetection 0.2.4<small> 2017-09-22 </small>
+</h1>
+<ul>
+<li>Added <code>NEWS</code> file.</li>
+<li>Better tolerance in <code>mahalanobis_distance</code> when inverting covariance matrices.</li>
+<li>
+<code>mahalanobis_distance</code> and <code>horns_curve</code> have been rewritten in C++ using the <code>RcppArmadillo</code> package. This greatly improved the speed (and accuracy) of these functions.</li>
+<li>
+<code>tabulate_state_vector</code> has been rewritten using the <code>dplyr</code> package, greatly improving the speed of this function. Greater traceability is now also present for missing values and numeric variables.</li>
+<li>Producing histogram matrix to visually display anomalous blocks made easier with addition of <code>hmat</code> function</li>
+<li>Properly registered native routines and disabled symbol search.</li>
+</ul>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#anomalydetection-0-2-6">0.2.6</a></li>
+        <li><a href="#anomalydetection-0-2-5">0.2.5</a></li>
+        <li><a href="#anomalydetection-0-2-4">0.2.4</a></li>
       </ul>
     </div>
   </div>

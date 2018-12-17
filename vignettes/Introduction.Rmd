@@ -86,7 +86,7 @@ Here, we include `output = "both"` to return both the Mahalanobis distance and t
 ```{r, collapse=TRUE}
 state_vec %>%
   mahalanobis_distance("both", normalize = TRUE) %>%
-  as_tibble
+  as_tibble()
 ```
 
 We can use this information in a modified heatmap visualization to identify outlier values across our security log attributes and time blocks.  The larger and brighter the dot the more significant the outlier is and deserves attention.
@@ -94,7 +94,7 @@ We can use this information in a modified heatmap visualization to identify outl
 ```{r, fig.align='center', fig.width=9, fig.height=6}
 state_vec %>%
   mahalanobis_distance("both", normalize = TRUE) %>%
-  as_tibble %>%
+  as_tibble() %>%
   mutate(Block = 1:n()) %>% 
   gather(Variable, BD, -c(MD, Block)) %>%
   ggplot(aes(factor(Block), Variable, color = MD, size = BD)) +
@@ -149,7 +149,7 @@ Next, the dimensionality is determined by finding the eigenvalues of the correla
 state_vec %>%
   horns_curve() %>%
   factor_analysis(state_vec, hc_points = .) %>%
-  str
+  str()
 ```
 
 
@@ -160,7 +160,8 @@ state_vec %>%
   horns_curve() %>%
   factor_analysis(state_vec, hc_points = .) %>%
   factor_analysis_results(4) %>%
-  as_tibble
+  # show the first 10 rows and 5 columns for brevity
+  .[1:10, 1:5]
 ```
 
 
@@ -206,12 +207,12 @@ gplots::heatmap.2(fa_loadings, dendrogram = 'both', trace = 'none',
 
 We can also visualize the rotated factor score plots to see which time blocks appear to be outliers and deserve closer attention.
 
-```{r, fig.align='center', fig.height=7, fig.width=7}
+```{r, fig.align='center', fig.height=7, fig.width=7, message=FALSE, warning=FALSE}
 state_vec %>%
   horns_curve() %>%
   factor_analysis(state_vec, hc_points = .) %>%
   factor_analysis_results(fa_scores_rotated) %>%
-  as_tibble() %>%
+  as_tibble(.name_repair = "unique") %>%
   mutate(Block = 1:n()) %>%
   gather(Factor, Score, -Block) %>%
   mutate(Absolute_Score = abs(Score)) %>%
@@ -240,7 +241,7 @@ where $\phi_2$ is the second principal loading vector, with elements $\phi_{12},
 5. `pca_scale`: a logical response indicating whether scaling was used.
 
 ```{r, collapse=TRUE}
-principal_components(state_vec) %>% str
+principal_components(state_vec) %>% str()
 ```
 
 For easy access to these results we can use the `principal_components_result` parsing function.  The `principal_components_result` will parse the results either by their list name or by location.  For instance to extract the computed component scores as outlined in Eq. 8 you can use `principal_components_result(data, results = pca_rotated)` or `principal_components_result(data, results = 3)` as demonstrated below.
@@ -249,7 +250,7 @@ For easy access to these results we can use the `principal_components_result` pa
 state_vec %>%
   principal_components() %>%
   principal_components_result(pca_rotated) %>%
-  as_tibble
+  as_tibble()
 ```
 
 We could then follow up the principal component analysis with similar visualization activities as performed post factor analysis to identify potential anomalies.
