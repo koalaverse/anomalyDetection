@@ -19,7 +19,7 @@ Authors@R: c(
          role = c("aut"))
   )
 Maintainer: Bradley Boehmke <bradleyboehmke@gmail.com>
-Date: 2018-02-24
+Date: 2018-12-17
 Description: Implements procedures developed by Gutierrez et al. (2017, <https://journal.r-project.org/archive/2017/RJ-2017-039/index.html>) 
   to aid in detecting network log anomalies. By combining various multivariate 
   analytic approaches relevant to network anomaly detection, it provides cyber 
