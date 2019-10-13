@@ -1,9 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<img src="https://img.shields.io/badge/lifecycle-archived-brightgreen.svg" style="border: 0; display:inline; margin: 0 2px; box-shadow: none"> 
-[![Travis-CI Build Status](https://travis-ci.org/koalaverse/anomalyDetection.svg?branch=master)](https://travis-ci.org/koalaverse/anomalyDetection) 
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/bradleyboehmke/anomalyDetection?branch=master&svg=true)](https://ci.appveyor.com/project/bradleyboehmke/anomalyDetection) 
-[![codecov](https://codecov.io/gh/koalaverse/anomalyDetection/branch/master/graph/badge.svg)](https://codecov.io/gh/koalaverse/anomalyDetection) 
+[![Lifecycle Status](https://img.shields.io/badge/lifecycle-archived-brightgreen.svg)](https://img.shields.io/badge/lifecycle-archived-brightgreen.svg)
+[![Travis-CI Build Status](https://travis-ci.org/koalaverse/anomalyDetection.svg?branch=master)](https://travis-ci.org/koalaverse/anomalyDetection)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/bradleyboehmke/anomalyDetection?branch=master&svg=true)](https://ci.appveyor.com/project/bradleyboehmke/anomalyDetection)
+[![codecov](https://codecov.io/gh/koalaverse/anomalyDetection/branch/master/graph/badge.svg)](https://codecov.io/gh/koalaverse/anomalyDetection)
 [![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/anomalyDetection)](http://cranlogs.r-pkg.org/badges/grand-total/anomalyDetection)
 
 anomalyDetection <img src="tools/anomalyDetection-logo.png" align="right" width="120" height="139" />
